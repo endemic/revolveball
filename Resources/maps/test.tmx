@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Sky" tilewidth="32" tileheight="32">
+  <image source="texture.png"/>
+ </tileset>
+ <layer name="Border" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3ZXY+DIBCFYdv9+v//eOMFiWFhOEyBxen7JF5oWwROi6N9HMfxyLbd5P3btZ8j5OPabZxnf74Kxz+P/fo6QhrTT7a/g1oWScRMen4ftXVj1mZlkUTLpDcPZY5G+zj+ZvW8vB4pk948VktZ5KJmsnMetSySiJm8kkdr/X9m7y+tO61tZP/v4NU8etvuuf4o3/d3zSOfy9Za0tO2xcqklG+EPFprsCeL9DlrX5X6pNTDd8/jVMukNG41i9SutX9tz7ruqHr6tjtlHnrHq+ShHmuJlEViZeIZ74o8rr+viKw61dOWtW8dG1kT35065tb7lDxK1+rRNfGdleZDrW9K78vbnuF63kh6v5ue9r21kyLSb2X2ODzPSlpbKdtIeXieN/V+5nq+GX2OksfJs957651RtdKqa9R/WDk2tdZq5UQeY86j1g1WRqV23jUP7z3aihouCjWP1pzW6s7ZWaRzRKHkoc7pq/fdHtGeKeZjUebUUx/13It4avAoavdYlmtmyvd/xjP7yDyZqGY9s4+ulonyX556f97TF2v/XajzOXv9Jo+9kMdeyGMfpZot0n8cd2LVz2Sy1jnX38JGJmuQx17IYy/qsy3yAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgjV8bdiRWQJwAAA==
+  </data>
+ </layer>
+ <layer name="Extras" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3ZQQ6CMBBAUdyp9z+wCxYIidpOGaj0vcQlksxvqJZpAgAo92y49rb5cJ5tixGa3Dv97k8tRmgSccSsSu6RuZ7+yV49HoH7sOZZ0o9fLfQ4TkmLmh46xpW20CNfTQs9cpXO21zH0nLmAlxP5tnD+95S+/vAvh+bScssNfmudQ3vNUc9Zj20YBGdqRY5evnf7f3GzPqGHM42AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCt6AWBqKEdAnAAA
+  </data>
+ </layer>
+</map>
