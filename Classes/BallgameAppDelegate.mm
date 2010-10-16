@@ -46,6 +46,11 @@
 	[[CCDirector sharedDirector] setAnimationInterval:1.0/60];
 	[[CCDirector sharedDirector] setDisplayFPS:YES];
 	
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+		NSLog(@"Phone device");
+	else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+		NSLog(@"Tablet device");
+	
 	// create an openGL view inside a window
 	[[CCDirector sharedDirector] attachInView:window];	
 	[window makeKeyAndVisible];
