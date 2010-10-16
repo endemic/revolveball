@@ -9,8 +9,6 @@
 #import "GameScene.h"
 #import "math.h"
 
-#define PTM_RATIO 32	// Ratio used by Box2D as a base unit size
-
 @implementation GameScene
 - (id)init
 {
@@ -28,6 +26,18 @@
 {
 	if ((self = [super init]))
 	{
+		// Check if running on iPad
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+		{
+			ptmRatio = 64;
+			spriteScale = 2.0;
+		}
+		else
+		{
+		 	ptmRatio = 32;
+			spriteScale = 1.0;
+		}
+		
 		previousAngle = currentAngle = 0;
 		
 		// Set accelerometer enabled
@@ -39,20 +49,30 @@
 		// Get window size
 		CGSize winSize = [CCDirector sharedDirector].winSize;
 		
+		// Set up timer
+		secondsLeft = 3 * 60;	// Three minutes?!
+		timerLabel = [CCLabel labelWithString:@"00:00" fontName:@"yoster.ttf" fontSize:16.0 * spriteScale];
+		[timerLabel setScale:spriteScale];
+		[timerLabel setPosition:ccp(winSize.width - 30, winSize.height - 20)];
+		[self schedule:@selector(timer:) interval:1];
+		
 		// Add static background
 		CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
-		[background setPosition:ccp(160, 240)];
+		[background setPosition:ccp(160 * spriteScale, 240 * spriteScale)];
+		[background setScale:spriteScale];
 		[self addChild:background z:0];
 		
 		// Create/add ball
 		ball = [CCSprite spriteWithFile:@"ball.png" rect:CGRectMake(0,0,32,32)];
-		ball.position = ccp(winSize.width / 2, winSize.height / 2);
+		[ball setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+		[ball setScale:spriteScale];
 		[self addChild:ball z:2];
 		
 		// Add TMX map
 		//map = [CCTMXTiledMap tiledMapWithTMXFile:@"Default.tmx"];
 		map = [CCTMXTiledMap tiledMapWithTMXFile:@"test.tmx"];
 		[map setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+		[map setScale:spriteScale];
 		[self addChild:map z:1];
 		
 		border = [map layerNamed:@"Border"];
@@ -135,9 +155,10 @@
 							sensorFlag = YES;
 							break;
 						case 7:
-							// Player starting location - move player here then delete tile
+							// Player starting location
 							startPosition = ccp(x, y);
 							
+							// Delete tile that showed start position
 							[border removeTileAt:ccp(x, y)];
 							break;
 						default:
@@ -156,13 +177,18 @@
 		// Create ball body & shape
 		b2BodyDef ballBodyDef;
 		ballBodyDef.type = b2_dynamicBody;
-		ballBodyDef.position.Set(3, map.mapSize.height - 3);		// Y values are inverted between TMX and Box2D
-		//ballBodyDef.position.Set(startPosition.x, map.mapSize.height - startPosition.y);
+		//ballBodyDef.position.Set(startPosition.x + 0.5, map.mapSize.height - startPosition.y - 0.5);		// Y values are inverted between TMX and Box2D
+		
+		// For some reason, this always fucks up
+		ballBodyDef.position.Set(3, map.mapSize.height - 3);
+		
 		ballBodyDef.userData = ball;		// Set to CCSprite
 		body = world->CreateBody(&ballBodyDef);
 		
 		b2CircleShape circle;
-		circle.m_radius = (((float)PTM_RATIO / 2) - 1) / PTM_RATIO;		// A 32px / 2 = 16px - 1px = 15px radius - a perfect 1m circle would get stuck in 1m gaps
+		//circle.m_radius = (((float)ptmRatio / 2) - 1) / ptmRatio;		// A 32px / 2 = 16px - 1px = 15px radius - a perfect 1m circle would get stuck in 1m gaps
+		circle.m_radius = ((float)ptmRatio / 2) / ptmRatio;
+		NSLog(@"Ball radius: %f", ((float)ptmRatio / 2) / ptmRatio);
 		
 		b2FixtureDef ballShapeDef;
 		ballShapeDef.shape = &circle;
@@ -187,7 +213,8 @@
 		if (b->GetUserData() != NULL)
 		{
 			// Get the CCSprite attached to Box2D obj
-			//CCSprite *ballSprite = (CCSprite *)b->GetUserData();
+			CCSprite *ballSprite = (CCSprite *)b->GetUserData();
+			ballSprite.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
 			
 			// Update map's anchor point based on ball position; position within width/height of map?
 			float anchorX = b->GetPosition().x / map.mapSize.width;
@@ -198,6 +225,18 @@
 			[map setAnchorPoint:ccp(anchorX, anchorY)];
 		}
 	}
+}
+
+/**
+ Update the game timer
+ */
+- (void)timer:(ccTime)dt
+{
+	secondsLeft--;
+	
+	int minutes = floor(secondsLeft / 60);
+	int seconds = secondsLeft % 60;
+	//[timerLabel setString:[NSString stringWithFormat:@"%i:%i", minutes, seconds]];
 }
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration

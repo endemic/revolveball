@@ -20,10 +20,15 @@
 	b2Body *body;
 	CCSprite *ball;
 	
+	int ptmRatio, spriteScale;
+	
 	CCTMXTiledMap *map;
 	CCTMXLayer *border;
 	
 	float previousAngle, currentAngle;
+	
+	int secondsLeft;
+	CCLabel *timerLabel;
 }
 
 @end

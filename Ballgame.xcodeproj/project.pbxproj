@@ -286,6 +286,7 @@
 		7D346118123F2256002F0B20 /* coordinates.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D346116123F2256002F0B20 /* coordinates.plist */; };
 		7D346119123F2256002F0B20 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D346117123F2256002F0B20 /* texture.png */; };
 		7DAEE26F123D0ECA000358C5 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DAEE26E123D0ECA000358C5 /* ball.png */; };
+		7DBF494D1269C84200F3C83F /* yoster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF494C1269C84200F3C83F /* yoster.ttf */; };
 		7DD28C7412671154008C2BB2 /* TitleScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7DD28C7312671154008C2BB2 /* TitleScene.mm */; };
 		7DD28C7C1267128A008C2BB2 /* checkered-block.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD28C761267128A008C2BB2 /* checkered-block.png */; };
 		7DD28C7D1267128A008C2BB2 /* cloud-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD28C771267128A008C2BB2 /* cloud-background.png */; };
@@ -607,6 +608,7 @@
 		7D346116123F2256002F0B20 /* coordinates.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = coordinates.plist; path = maps/coordinates.plist; sourceTree = "<group>"; };
 		7D346117123F2256002F0B20 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = texture.png; path = maps/texture.png; sourceTree = "<group>"; };
 		7DAEE26E123D0ECA000358C5 /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ball.png; path = images/ball.png; sourceTree = "<group>"; };
+		7DBF494C1269C84200F3C83F /* yoster.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yoster.ttf; sourceTree = "<group>"; };
 		7DD28C7212671154008C2BB2 /* TitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScene.h; sourceTree = "<group>"; };
 		7DD28C7312671154008C2BB2 /* TitleScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TitleScene.mm; sourceTree = "<group>"; };
 		7DD28C761267128A008C2BB2 /* checkered-block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkered-block.png"; path = "images/checkered-block.png"; sourceTree = "<group>"; };
@@ -1127,6 +1129,7 @@
 		50F4144210692EE7002A0D5E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7DBF494C1269C84200F3C83F /* yoster.ttf */,
 				7D3460EF123F1F8F002F0B20 /* maps */,
 				7DAEE268123D0E92000358C5 /* images */,
 				50F4144410692EE7002A0D5E /* Default.png */,
@@ -1417,6 +1420,7 @@
 				7DD28C9A126712AC008C2BB2 /* up-arrow.png in Resources */,
 				7D0C5F691268A8AD00B79206 /* blue-block.png in Resources */,
 				7D0C5F6B1268A8DB00B79206 /* test.tmx in Resources */,
+				7DBF494D1269C84200F3C83F /* yoster.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -44,6 +44,19 @@
 		[titleMenu setPosition:ccp(160, 50)];
 		[self addChild:titleMenu z:1];
 		
+		// Check if running on iPad
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+		{
+			[background setScale:2.0];
+			[background setPosition:ccp(640, 480)];
+			
+			[logo setScale:2.0];
+			[logo setPosition:ccp(320, 740)];
+			
+			[startButton setScale:2.0];
+			[startButton setPosition:ccp(320, 100)];
+		}
+		
 		// Run animation which moves background
 		[background runAction:[CCRepeatForever actionWithAction:[CCSequence actions:
 																 [CCDelayTime actionWithDuration:1.0],
