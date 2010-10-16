@@ -7,7 +7,8 @@
 //
 
 #import "TitleScene.h"
-#import "HelloWorldScene.h"
+//#import "HelloWorldScene.h"
+#import "GameScene.h"
 
 @implementation TitleScene
 - (id)init
@@ -56,6 +57,6 @@
 
 - (void)startGame:(id)sender
 {
-	[[CCDirector sharedDirector] replaceScene:[CCFlipXTransition transitionWithDuration:0.75 scene:[HelloWorld scene]]];
+	[[CCDirector sharedDirector] replaceScene:[CCFlipXTransition transitionWithDuration:0.75 scene:[GameScene node]]];
 }
 @end

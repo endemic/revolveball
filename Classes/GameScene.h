@@ -14,6 +14,16 @@
 
 @end
 
-@interface GameLayer : CCLayer {}
+@interface GameLayer : CCLayer 
+{
+	b2World *world;
+	b2Body *body;
+	CCSprite *ball;
+	
+	CCTMXTiledMap *map;
+	CCTMXLayer *border;
+	
+	float previousAngle, currentAngle;
+}
 
 @end
