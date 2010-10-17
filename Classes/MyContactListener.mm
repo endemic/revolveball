@@ -22,22 +22,25 @@ const int32 k_maxContactPoints = 2048;
 int32 m_pointCount;
 ContactPoint m_points[k_maxContactPoints];
 
+
 void MyContactListener::BeginContact(b2Contact *contact)
 {
-	b2Fixture *fixtureA = contact->GetFixtureA();
-	b2Fixture *fixtureB = contact->GetFixtureB();
-	if (contact->IsEnabled()) 
+	//b2Body *bodyA = contact->GetFixtureA()->GetBody();
+	
+	// bodyB will be the only object we're interested in
+	b2Body *bodyB = contact->GetFixtureB()->GetBody();
+	
+	//if (contact->IsTouching()) 
 	{
-		CCSprite *spriteA = (CCSprite *)fixtureA->GetUserData();
-		CCSprite *spriteB = (CCSprite *)fixtureB->GetUserData();
-
-		//NSLog(@"Fixture A (%@) is colliding against fixture B (%@)", spriteA, spriteB);
+		//CCSprite *spriteA = (CCSprite *)bodyA->GetUserData();
+		//CCSprite *spriteB = (CCSprite *)bodyB->GetUserData();
+		contactSprite = (CCSprite *)bodyB->GetUserData();
 	}
 }
 
 void MyContactListener::EndContact(b2Contact *contact)
 {
-	//NSLog(@"End contact");
+	contactSprite = nil;
 }
 
 void MyContactListener::PreSolve(b2Contact *contact, const b2Manifold *oldManifold)

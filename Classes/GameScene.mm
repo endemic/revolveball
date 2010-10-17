@@ -22,6 +22,7 @@
 @end
 
 @implementation GameLayer
+
 - (id)init
 {
 	if ((self = [super init]))
@@ -30,12 +31,12 @@
 		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 		{
 			ptmRatio = 64;
-			spriteScale = 2.0;
+			//spriteScale = 2.0;
 		}
 		else
 		{
 		 	ptmRatio = 32;
-			spriteScale = 1.0;
+			//spriteScale = 1.0;
 		}
 		
 		previousAngle = currentAngle = 0;
@@ -51,28 +52,37 @@
 		
 		// Set up timer
 		secondsLeft = 3 * 60;	// Three minutes?!
-		timerLabel = [CCLabel labelWithString:@"00:00" fontName:@"yoster.ttf" fontSize:16.0 * spriteScale];
-		[timerLabel setScale:spriteScale];
+		
+		timerLabel = [CCLabel labelWithString:@"00:00" fontName:@"yoster.ttf" fontSize:16.0];
 		[timerLabel setPosition:ccp(winSize.width - 30, winSize.height - 20)];
+		[timerLabel setColor:ccc3(255, 255, 255)];	// White
+		[timerLabel.texture setAliasTexParameters];
+		[self addChild:timerLabel z:3];
+		
+		timerLabelShadow = [CCLabel labelWithString:@"00:00" fontName:@"yoster.ttf" fontSize:16.0];
+		[timerLabelShadow setPosition:ccp(winSize.width - 29, winSize.height - 21)];
+		[timerLabelShadow setColor:ccc3(0, 0, 0)];	// White
+		[timerLabelShadow.texture setAliasTexParameters];
+		[self addChild:timerLabelShadow z:2];
+		
+		// Schedule timer function for 1 second intervals
 		[self schedule:@selector(timer:) interval:1];
 		
 		// Add static background
 		CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
-		[background setPosition:ccp(160 * spriteScale, 240 * spriteScale)];
-		[background setScale:spriteScale];
+		[background setPosition:ccp(160, 240)];
 		[self addChild:background z:0];
 		
 		// Create/add ball
 		ball = [CCSprite spriteWithFile:@"ball.png" rect:CGRectMake(0,0,32,32)];
 		[ball setPosition:ccp(winSize.width / 2, winSize.height / 2)];
-		[ball setScale:spriteScale];
+		[ball.texture setAliasTexParameters];
 		[self addChild:ball z:2];
 		
 		// Add TMX map
 		//map = [CCTMXTiledMap tiledMapWithTMXFile:@"Default.tmx"];
 		map = [CCTMXTiledMap tiledMapWithTMXFile:@"test.tmx"];
 		[map setPosition:ccp(winSize.width / 2, winSize.height / 2)];
-		[map setScale:spriteScale];
 		[self addChild:map z:1];
 		
 		border = [map layerNamed:@"Border"];
@@ -83,7 +93,8 @@
 		world = new b2World(gravity, doSleep);
 		
 		// Initialize contact listener
-		world->SetContactListener(new MyContactListener);
+		contactListener = new MyContactListener();
+		world->SetContactListener(contactListener);
 		
 		b2Vec2 vertices[3];
 		int32 count = 3;
@@ -100,7 +111,7 @@
 					// Body
 					b2BodyDef groundBodyDef;
 					groundBodyDef.position.Set(x + 0.5, map.mapSize.height - y - 0.5);		// Box2D uses inverse Y of TMX maps
-					//groundBodyDef.userData = [border tileAt:ccp(x, y)];		// Assign sprite to userData property
+					groundBodyDef.userData = [border tileAt:ccp(x, y)];		// Assign sprite to userData property
 					
 					b2Body *groundBody = world->CreateBody(&groundBodyDef);
 					
@@ -188,7 +199,6 @@
 		b2CircleShape circle;
 		//circle.m_radius = (((float)ptmRatio / 2) - 1) / ptmRatio;		// A 32px / 2 = 16px - 1px = 15px radius - a perfect 1m circle would get stuck in 1m gaps
 		circle.m_radius = ((float)ptmRatio / 2) / ptmRatio;
-		NSLog(@"Ball radius: %f", ((float)ptmRatio / 2) / ptmRatio);
 		
 		b2FixtureDef ballShapeDef;
 		ballShapeDef.shape = &circle;
@@ -210,7 +220,8 @@
 	
 	for (b2Body *b = world->GetBodyList(); b; b = b->GetNext()) 
 	{
-		if (b->GetUserData() != NULL)
+		//if (b->GetUserData() != NULL)
+		if ((CCSprite *)b->GetUserData() == ball)
 		{
 			// Get the CCSprite attached to Box2D obj
 			CCSprite *ballSprite = (CCSprite *)b->GetUserData();
@@ -225,6 +236,14 @@
 			[map setAnchorPoint:ccp(anchorX, anchorY)];
 		}
 	}
+	
+	if (contactListener->contactSprite != nil)
+	{
+		CCSprite *contactSprite = (CCSprite *)contactListener->contactSprite;
+		// Do stuff here
+		//NSLog(@"Sprite position: %f, %f", contactSprite.position.x, contactSprite.position.y);
+		//NSLog(@"Contacted tile has GID %i", [border tileGIDAt:ccp(contactSprite.position.x, contactSprite.position.y)]);
+	}
 }
 
 /**
@@ -236,7 +255,10 @@
 	
 	int minutes = floor(secondsLeft / 60);
 	int seconds = secondsLeft % 60;
-	//[timerLabel setString:[NSString stringWithFormat:@"%i:%i", minutes, seconds]];
+	NSString *time = [NSString stringWithFormat:@"%i:%i", minutes, seconds];
+	
+	[timerLabel setString:time];
+	[timerLabelShadow setString:time];
 }
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
@@ -349,4 +371,5 @@
 	world = NULL;
 	[super dealloc];
 }
+
 @end

@@ -18,9 +18,11 @@
 {
 	b2World *world;
 	b2Body *body;
+	MyContactListener *contactListener;
+	
 	CCSprite *ball;
 	
-	int ptmRatio, spriteScale;
+	int ptmRatio;
 	
 	CCTMXTiledMap *map;
 	CCTMXLayer *border;
@@ -28,7 +30,7 @@
 	float previousAngle, currentAngle;
 	
 	int secondsLeft;
-	CCLabel *timerLabel;
+	CCLabel *timerLabel, *timerLabelShadow;
 }
 
 @end

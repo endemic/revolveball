@@ -7,12 +7,12 @@
 //
 
 #import "Box2D.h"
+#import "cocos2d.h"
 
 class MyContactListener : public b2ContactListener 
 {
-	
 public:
-
+	CCSprite *contactSprite;
 	virtual void BeginContact(b2Contact *contact);
 	virtual void EndContact(b2Contact *contact);
 	virtual void PreSolve(b2Contact *contact, const b2Manifold *oldManifold);
