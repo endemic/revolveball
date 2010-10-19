@@ -12,7 +12,7 @@
 class MyContactListener : public b2ContactListener 
 {
 public:
-	NSMutableArray *contactSprites;
+	NSMutableArray *contactQueue;
 	MyContactListener();
 	~MyContactListener();
 	virtual void BeginContact(b2Contact *contact);

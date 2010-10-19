@@ -24,45 +24,44 @@ ContactPoint m_points[k_maxContactPoints];
 
 MyContactListener::MyContactListener()
 {
-	contactSprites = [[[NSMutableArray alloc] init] retain];
+	contactQueue = [[[NSMutableArray alloc] init] retain];
 }
 
 MyContactListener::~MyContactListener()
 {
-	[contactSprites release];
+	[contactQueue release];
 }
 
 void MyContactListener::BeginContact(b2Contact *contact)
 {
 	// bodyB will be the only object we're interested in
-	b2Body *bodyB = contact->GetFixtureA()->GetBody();
+	b2Body *body = contact->GetFixtureA()->GetBody();
 	
 	//if (contact->IsTouching()) 
 	{
 		//CCSprite *spriteA = (CCSprite *)bodyA->GetUserData();
-		//CCSprite *spriteB = (CCSprite *)bodyB->GetUserData();
-		CCSprite *item = (CCSprite *)bodyB->GetUserData();
+		CCSprite *sprite = (CCSprite *)body->GetUserData();
 		//NSLog(@"Added sprite at (%f, %f) from the contact queue", item.position.x, item.position.y);
-		[contactSprites addObject:item];
+		[contactQueue addObject:sprite];
 	}
 }
 
 void MyContactListener::EndContact(b2Contact *contact)
 {
-	b2Body *bodyB = contact->GetFixtureA()->GetBody();
+	b2Body *body = contact->GetFixtureA()->GetBody();
 	NSMutableArray *discardedItems = [NSMutableArray array];
 	CCSprite *item;
 	
-	for (item in contactSprites)
+	for (item in contactQueue)
 	{
-		if ((CCSprite *)bodyB->GetUserData() == item)
+		if ((CCSprite *)body->GetUserData() == item)
 		{
 			[discardedItems addObject:item];
 			//NSLog(@"Removed sprite at (%f, %f) from the contact queue", item.position.x, item.position.y);
 		}
 	}
 	
-	[contactSprites removeObjectsInArray:discardedItems];
+	[contactQueue removeObjectsInArray:discardedItems];
 }
 
 void MyContactListener::PreSolve(b2Contact *contact, const b2Manifold *oldManifold)

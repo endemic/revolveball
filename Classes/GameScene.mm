@@ -85,7 +85,7 @@
 		[map setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 		[self addChild:map z:1];
 		
-		border = [map layerNamed:@"Border"];
+		border = [[map layerNamed:@"Border"] retain];
 		
 		// Create Box2D world
 		b2Vec2 gravity = b2Vec2(0.0f, -10.0f);
@@ -166,6 +166,9 @@
 							sensorFlag = YES;
 							break;
 						case 7:
+							groundBox.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
+							sensorFlag = YES;
+							
 							// Player starting location
 							startPosition = ccp(x, y);
 							
@@ -235,21 +238,28 @@
 			
 			[map setAnchorPoint:ccp(anchorX, anchorY)];
 		}
-	}
-	
-	// Loop thru sprite contact queue
-	for (CCSprite *s in contactListener->contactSprites)
-	{
-		NSLog(@"Tile at %f, %f is in contact queue", s.position.x, s.position.y);
-		//NSLog(@"Touching tile with GID %i", [border tileGIDAt:ccp(s.position.x / 32, s.position.y / 32)]);
-	}
-	
-	//if (contactListener->contactSprite != nil)
-	{
-		//CCSprite *contactSprite = (CCSprite *)contactListener->contactSprite;
-		// Do stuff here
-		//NSLog(@"Sprite position: %f, %f", contactSprite.position.x, contactSprite.position.y);
-		//NSLog(@"Contacted tile has GID %i", [border tileGIDAt:ccp(contactSprite.position.x, contactSprite.position.y)]);
+		
+		// Loop thru sprite contact queue
+		for (CCSprite *s in contactListener->contactQueue)
+		{
+			if ((CCSprite *)b->GetUserData() == s)
+			{
+				int tileGID = [border tileGIDAt:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio))];	// Box2D and TMX y-coords are inverted
+				switch (tileGID) 
+				{
+					case 1: 
+						// Regular square block
+						world->DestroyBody(b);
+						[border removeTileAt:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio))]
+						break;
+					case 6:
+						// Goal tile
+						break;
+					default:
+						break;
+				}
+			}
+		}
 	}
 }
 
@@ -374,8 +384,10 @@
 - (void)dealloc
 {
 	delete world;
+	delete contactListener;
 	body = NULL;
 	world = NULL;
+	contactListener = NULL;
 	[super dealloc];
 }
 
