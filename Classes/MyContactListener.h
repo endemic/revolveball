@@ -12,7 +12,9 @@
 class MyContactListener : public b2ContactListener 
 {
 public:
-	CCSprite *contactSprite;
+	NSMutableArray *contactSprites;
+	MyContactListener();
+	~MyContactListener();
 	virtual void BeginContact(b2Contact *contact);
 	virtual void EndContact(b2Contact *contact);
 	virtual void PreSolve(b2Contact *contact, const b2Manifold *oldManifold);

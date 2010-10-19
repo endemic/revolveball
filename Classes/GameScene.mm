@@ -237,9 +237,16 @@
 		}
 	}
 	
-	if (contactListener->contactSprite != nil)
+	// Loop thru sprite contact queue
+	for (CCSprite *s in contactListener->contactSprites)
 	{
-		CCSprite *contactSprite = (CCSprite *)contactListener->contactSprite;
+		NSLog(@"Tile at %f, %f is in contact queue", s.position.x, s.position.y);
+		//NSLog(@"Touching tile with GID %i", [border tileGIDAt:ccp(s.position.x / 32, s.position.y / 32)]);
+	}
+	
+	//if (contactListener->contactSprite != nil)
+	{
+		//CCSprite *contactSprite = (CCSprite *)contactListener->contactSprite;
 		// Do stuff here
 		//NSLog(@"Sprite position: %f, %f", contactSprite.position.x, contactSprite.position.y);
 		//NSLog(@"Contacted tile has GID %i", [border tileGIDAt:ccp(contactSprite.position.x, contactSprite.position.y)]);
