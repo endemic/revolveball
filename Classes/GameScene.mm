@@ -8,6 +8,7 @@
 
 #import "GameScene.h"
 #import "math.h"
+#import <vector>	// Easy data structure to store Box2D bodies
 
 @implementation GameScene
 - (id)init
@@ -20,6 +21,43 @@
 	return self;
 }
 @end
+
+@implementation GameOverLayer
+
+- (id)init
+{
+	if ((self = [super init]))
+	{
+		// Get window size
+		CGSize winSize = [CCDirector sharedDirector].winSize;
+		
+		// Do stuff
+		CCLabel *finishLabel = [CCLabel labelWithString:@"FINISH!" fontName:@"yoster.ttf" fontSize:48.0];
+		[finishLabel setColor:ccc3(255, 255, 255)];
+		[finishLabel setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+		[self addChild:finishLabel z:1];
+		
+		CCLabel *finishLabelShadow = [CCLabel labelWithString:@"FINISH!" fontName:@"yoster.ttf" fontSize:48.0];
+		[finishLabelShadow setColor:ccc3(0, 0, 0)];
+		[finishLabelShadow setPosition:ccp((winSize.width / 2) - 2, (winSize.height / 2) - 2)];
+		[self addChild:finishLabelShadow z:0];
+		
+		// Add button which takes us to game scene
+		CCMenuItem *startButton = [CCMenuItemImage itemFromNormalImage:@"start-button.png" selectedImage:@"start-button.png" target:self selector:@selector(restartGame:)];
+		CCMenu *titleMenu = [CCMenu menuWithItems:startButton, nil];
+		[titleMenu setPosition:ccp(160, 50)];
+		[self addChild:titleMenu z:1];
+	}
+	return self;
+}
+
+- (void)restartGame:(id)sender
+{
+	[[CCDirector sharedDirector] replaceScene:[CCFlipXTransition transitionWithDuration:0.75 scene:[GameScene node]]];
+}
+
+@end
+
 
 @implementation GameLayer
 
@@ -174,6 +212,7 @@
 							
 							// Delete tile that showed start position
 							[border removeTileAt:ccp(x, y)];
+							groundBodyDef.userData = NULL;
 							break;
 						default:
 							break;
@@ -197,7 +236,7 @@
 		ballBodyDef.position.Set(3, map.mapSize.height - 3);
 		
 		ballBodyDef.userData = ball;		// Set to CCSprite
-		body = world->CreateBody(&ballBodyDef);
+		b2Body *ballBody = world->CreateBody(&ballBodyDef);
 		
 		b2CircleShape circle;
 		//circle.m_radius = (((float)ptmRatio / 2) - 1) / ptmRatio;		// A 32px / 2 = 16px - 1px = 15px radius - a perfect 1m circle would get stuck in 1m gaps
@@ -208,7 +247,7 @@
 		ballShapeDef.density = 1.0f;
 		ballShapeDef.friction = 0.2f;
 		ballShapeDef.restitution = 0.6f;
-		body->CreateFixture(&ballShapeDef);
+		ballBody->CreateFixture(&ballShapeDef);
 		
 		// Schedule updater
 		[self schedule:@selector(tick:)];
@@ -218,8 +257,11 @@
 
 - (void)tick:(ccTime)dt
 {
-	// Step through world collisions? (timeStep, velocityIterations, positionIterations)
+	// Step through world collisions - (timeStep, velocityIterations, positionIterations)
 	world->Step(dt, 10, 10);
+	
+	// Vector containing Box2D bodies to be destroyed
+	std::vector<b2Body *> discardedItems;
 	
 	for (b2Body *b = world->GetBodyList(); b; b = b->GetNext()) 
 	{
@@ -245,21 +287,41 @@
 			if ((CCSprite *)b->GetUserData() == s)
 			{
 				int tileGID = [border tileGIDAt:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio))];	// Box2D and TMX y-coords are inverted
+				//NSLog(@"GID of touched tile %i at map location %f, %f", tileGID, s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1);
+				// Somehow these GIDs don't match up with the game - I think because the ball sprite is being returned in many cases
 				switch (tileGID) 
 				{
 					case 1: 
 						// Regular square block
-						world->DestroyBody(b);
-						[border removeTileAt:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio))]
+						//discardedItems.push_back(b);
 						break;
 					case 6:
 						// Goal tile
+						//GameOverLayer *overlay = [GameOverLayer node];
+						//overlay.time = secondsLeft;
+						
+						[self addChild:[GameOverLayer node] z:4];
+						[self unschedule:@selector(tick:)];		// Need a better way of determining the end of a level
+						[self unschedule:@selector(timer:)];
 						break;
 					default:
 						break;
 				}
 			}
 		}
+	}
+	
+	// Remove any Box2D bodies in "discardedItems" vector
+	std::vector<b2Body *>::iterator position;
+	for (position = discardedItems.begin(); position != discardedItems.end(); ++position) 
+	{
+		b2Body *body = *position;     
+		if (body->GetUserData() != NULL) 
+		{
+			CCSprite *sprite = (CCSprite *)body->GetUserData();
+			[border removeChild:sprite cleanup:YES];
+		}
+		world->DestroyBody(body);
 	}
 }
 
@@ -385,7 +447,6 @@
 {
 	delete world;
 	delete contactListener;
-	body = NULL;
 	world = NULL;
 	contactListener = NULL;
 	[super dealloc];

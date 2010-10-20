@@ -14,10 +14,16 @@
 
 @end
 
+@interface GameOverLayer : CCScene 
+{
+	int time;
+}
+@end
+
+
 @interface GameLayer : CCLayer 
 {
 	b2World *world;
-	b2Body *body;
 	MyContactListener *contactListener;
 	
 	CCSprite *ball;

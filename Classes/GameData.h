@@ -20,13 +20,15 @@
 	bool restoreLevel;
 	
 	// Time remaining
-	int minutesLeft, secondsLeft;
+	int secondsLeft;
 
+	int bestTime;
+	
 	bool paused;
 }
 
 @property (nonatomic) bool restoreLevel;
-@property (readwrite, nonatomic) int minutesLeft;
+@property (readwrite, nonatomic) int bestTime;
 @property (readwrite, nonatomic) int secondsLeft;
 @property (nonatomic) bool paused;
 

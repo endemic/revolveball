@@ -328,7 +328,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7DD22799126DB1E000959EE6</string>
+										<string>7DCBB73B126F05D60072457D</string>
 										<key>history</key>
 										<array>
 											<string>7D34610B123F2136002F0B20</string>
@@ -356,19 +356,20 @@
 											<string>7D0C5FD21268D6F800B79206</string>
 											<string>7D1D31BE12693BCC0002BA85</string>
 											<string>7DBF495B1269CB1900F3C83F</string>
-											<string>7DBF495D1269CB1900F3C83F</string>
-											<string>7DBF495E1269CB1900F3C83F</string>
 											<string>7DBF495F1269CB1900F3C83F</string>
 											<string>7DCE585E126A6E3E001A9478</string>
 											<string>7DD00F11126B0E21001FFD9A</string>
 											<string>7DD00F12126B0E21001FFD9A</string>
 											<string>7DD00F13126B0E21001FFD9A</string>
-											<string>7DD00F2F126B1286001FFD9A</string>
 											<string>7DD00F56126B1D8A001FFD9A</string>
-											<string>7DD2278C126DB04500959EE6</string>
 											<string>7DD2278D126DB04500959EE6</string>
-											<string>7DD2278E126DB04500959EE6</string>
-											<string>7DD2278F126DB04500959EE6</string>
+											<string>7DCBB705126EFB6C0072457D</string>
+											<string>7DCBB707126EFB6C0072457D</string>
+											<string>7DCBB70C126EFBDD0072457D</string>
+											<string>7DCBB731126F04D80072457D</string>
+											<string>7DCBB736126F058C0072457D</string>
+											<string>7DCBB739126F05D60072457D</string>
+											<string>7DCBB73A126F05D60072457D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -426,9 +427,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7DD22762126DA71D00959EE6</string>
+				<string>7DCBB6F5126EFA130072457D</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7DD22763126DA71D00959EE6</string>
+				<string>7DCBB6F6126EFA130072457D</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -588,12 +589,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>GameScene.h</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -649,7 +652,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7DAEE245123D0ABA000358C5</string>
-				<string>7DD22764126DA71D00959EE6</string>
+				<string>7DCBB6E7126EFA110072457D</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -662,7 +665,7 @@
 			<key>WindowToolGUID</key>
 			<string>7DAEE245123D0ABA000358C5</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
@@ -771,13 +774,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>7DD22765126DA71D00959EE6</string>
+				<string>7DCBB6E8126EFA110072457D</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>7DD22766126DA71D00959EE6</string>
-				<string>7DD22767126DA71D00959EE6</string>
-				<string>7DD22768126DA71D00959EE6</string>
-				<string>7DD22769126DA71D00959EE6</string>
-				<string>7DD2276A126DA71D00959EE6</string>
+				<string>7DCBB6E9126EFA110072457D</string>
+				<string>7DCBB6EA126EFA110072457D</string>
+				<string>7DCBB6EB126EFA110072457D</string>
+				<string>7DCBB6EC126EFA110072457D</string>
+				<string>7DCBB6ED126EFA110072457D</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -941,7 +944,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>7DD2276B126DA71D00959EE6</string>
+				<string>7DCBB6EE126EFA110072457D</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
