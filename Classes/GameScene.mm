@@ -67,15 +67,9 @@
 	{
 		// Check if running on iPad
 		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		{
 			ptmRatio = 64;
-			//spriteScale = 2.0;
-		}
 		else
-		{
 		 	ptmRatio = 32;
-			//spriteScale = 1.0;
-		}
 		
 		previousAngle = currentAngle = 0;
 		
@@ -108,7 +102,7 @@
 		
 		// Add static background
 		CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
-		[background setPosition:ccp(160, 240)];
+		[background setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 		[self addChild:background z:0];
 		
 		// Create/add ball
@@ -119,7 +113,10 @@
 		
 		// Add TMX map
 		//map = [CCTMXTiledMap tiledMapWithTMXFile:@"Default.tmx"];
-		map = [CCTMXTiledMap tiledMapWithTMXFile:@"test.tmx"];
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+			map = [CCTMXTiledMap tiledMapWithTMXFile:@"test-hd.tmx"];
+		else
+			map = [CCTMXTiledMap tiledMapWithTMXFile:@"test.tmx"];
 		[map setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 		[self addChild:map z:1];
 		

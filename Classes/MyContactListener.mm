@@ -34,15 +34,15 @@ MyContactListener::~MyContactListener()
 
 void MyContactListener::BeginContact(b2Contact *contact)
 {
-	// bodyB will be the only object we're interested in
-	b2Body *body = contact->GetFixtureA()->GetBody();
+	b2Body *bodyA = contact->GetFixtureA()->GetBody();
+	b2Body *bodyB = contact->GetFixtureB()->GetBody();
 	
 	//if (contact->IsTouching()) 
 	{
-		//CCSprite *spriteA = (CCSprite *)bodyA->GetUserData();
-		CCSprite *sprite = (CCSprite *)body->GetUserData();
-		//NSLog(@"Added sprite at (%f, %f) from the contact queue", item.position.x, item.position.y);
-		[contactQueue addObject:sprite];
+		CCSprite *spriteA = (CCSprite *)bodyA->GetUserData();
+		CCSprite *spriteB = (CCSprite *)bodyB->GetUserData();
+		NSLog(@"Sprite B: %@; Sprite A: %@", spriteA, spriteB);
+		[contactQueue addObject:spriteB];
 	}
 }
 
