@@ -41,20 +41,24 @@ void MyContactListener::BeginContact(b2Contact *contact)
 	{
 		CCSprite *spriteA = (CCSprite *)bodyA->GetUserData();
 		CCSprite *spriteB = (CCSprite *)bodyB->GetUserData();
-		NSLog(@"Sprite B: %@; Sprite A: %@", spriteA, spriteB);
+		//NSLog(@"Sprite B: %@; Sprite A: %@", spriteA, spriteB);
+		
+		// Add both sprites to contact queue - will filter out the ball later
+		[contactQueue addObject:spriteA];
 		[contactQueue addObject:spriteB];
 	}
 }
 
 void MyContactListener::EndContact(b2Contact *contact)
 {
-	b2Body *body = contact->GetFixtureA()->GetBody();
+	b2Body *bodyA = contact->GetFixtureA()->GetBody();
+	b2Body *bodyB = contact->GetFixtureB()->GetBody();
 	NSMutableArray *discardedItems = [NSMutableArray array];
-	CCSprite *item;
+	//CCSprite *item;
 	
-	for (item in contactQueue)
+	for (CCSprite *item in contactQueue)
 	{
-		if ((CCSprite *)body->GetUserData() == item)
+		if (item == (CCSprite *)bodyA->GetUserData() || item == (CCSprite *)bodyB->GetUserData())
 		{
 			[discardedItems addObject:item];
 			//NSLog(@"Removed sprite at (%f, %f) from the contact queue", item.position.x, item.position.y);

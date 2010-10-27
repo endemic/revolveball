@@ -37,6 +37,9 @@
 	
 	int secondsLeft;
 	CCLabel *timerLabel, *timerLabelShadow;
+	
+	// Boolean for quick check whether running on iPad
+	bool iPad;
 }
 
 @end

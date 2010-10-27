@@ -67,9 +67,15 @@
 	{
 		// Check if running on iPad
 		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+		{
+			iPad = YES;
 			ptmRatio = 64;
+		}
 		else
-		 	ptmRatio = 32;
+		{
+			iPad = NO;
+			ptmRatio = 32;
+		}
 		
 		previousAngle = currentAngle = 0;
 		
@@ -106,14 +112,17 @@
 		[self addChild:background z:0];
 		
 		// Create/add ball
-		ball = [CCSprite spriteWithFile:@"ball.png" rect:CGRectMake(0,0,32,32)];
+		if (iPad)
+			ball = [CCSprite spriteWithFile:@"ball-hd.png"];
+		else
+			ball = [CCSprite spriteWithFile:@"ball.png"];
 		[ball setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 		[ball.texture setAliasTexParameters];
 		[self addChild:ball z:2];
 		
 		// Add TMX map
 		//map = [CCTMXTiledMap tiledMapWithTMXFile:@"Default.tmx"];
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+		if (iPad)
 			map = [CCTMXTiledMap tiledMapWithTMXFile:@"test-hd.tmx"];
 		else
 			map = [CCTMXTiledMap tiledMapWithTMXFile:@"test.tmx"];
@@ -281,10 +290,14 @@
 		// Loop thru sprite contact queue
 		for (CCSprite *s in contactListener->contactQueue)
 		{
+			// Ignore when ball is in contact queue
+			if ((CCSprite *)b->GetUserData() == ball)
+				continue;
+			
 			if ((CCSprite *)b->GetUserData() == s)
 			{
-				int tileGID = [border tileGIDAt:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio))];	// Box2D and TMX y-coords are inverted
-				//NSLog(@"GID of touched tile %i at map location %f, %f", tileGID, s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1);
+				int tileGID = [border tileGIDAt:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];	// Box2D and TMX y-coords are inverted
+				NSLog(@"GID of touched tile %i at map location %f, %f", tileGID, s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1);
 				// Somehow these GIDs don't match up with the game - I think because the ball sprite is being returned in many cases
 				switch (tileGID) 
 				{
