@@ -220,6 +220,13 @@
 							[border removeTileAt:ccp(x, y)];
 							groundBodyDef.userData = NULL;
 							break;
+						case 8:		// Down boost
+						case 9:		// Left boost
+						case 10:	// Right boost
+						case 11:	// Up boost
+							groundBox.SetAsBox(0.4f, 0.4f);		// Create smaller than 1x1 box shape, so player has to overlap the tile slightly
+							sensorFlag = YES;
+							break;
 						default:
 							break;
 					}
@@ -269,6 +276,9 @@
 	// Vector containing Box2D bodies to be destroyed
 	std::vector<b2Body *> discardedItems;
 	
+	// Local convenience variable
+	b2Body *ballBody;
+	
 	for (b2Body *b = world->GetBodyList(); b; b = b->GetNext()) 
 	{
 		//if (b->GetUserData() != NULL)
@@ -285,6 +295,8 @@
 			//NSLog(@"Anchor point is %f, %f", anchorX, anchorY);
 			
 			[map setAnchorPoint:ccp(anchorX, anchorY)];
+			
+			ballBody = b;
 		}
 		
 		// Loop thru sprite contact queue
@@ -297,8 +309,7 @@
 			if ((CCSprite *)b->GetUserData() == s)
 			{
 				int tileGID = [border tileGIDAt:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];	// Box2D and TMX y-coords are inverted
-				NSLog(@"GID of touched tile %i at map location %f, %f", tileGID, s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1);
-				// Somehow these GIDs don't match up with the game - I think because the ball sprite is being returned in many cases
+				//NSLog(@"GID of touched tile %i at map location %f, %f", tileGID, s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1);
 				switch (tileGID) 
 				{
 					case 1: 
@@ -314,6 +325,22 @@
 						[self unschedule:@selector(tick:)];		// Need a better way of determining the end of a level
 						[self unschedule:@selector(timer:)];
 						break;
+					case 8:
+						// Down boost
+						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, -1.0f), ballBody->GetPosition());
+						break;
+					case 9:
+						// Left boost
+						ballBody->ApplyLinearImpulse(b2Vec2(-1.0f, 0.0f), ballBody->GetPosition());
+						break;
+					case 10:
+						// Right boost
+						ballBody->ApplyLinearImpulse(b2Vec2(1.0f, 0.0f), ballBody->GetPosition());
+						break;
+					case 11:
+						// Up boost
+						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, 1.0f), ballBody->GetPosition());
+						break;	
 					default:
 						break;
 				}
@@ -435,6 +462,13 @@
 	
 	int inertialDeccelleration = 0.1;
 	
+	previousAngle = currentAngle;
+	
+	if (currentAngle > previousAngle)
+		currentAngle -= inertialDeccelleration;
+	else
+		currentAngle += inertialDeccelleration;
+	
 	float difference = currentAngle - previousAngle;
 	//NSLog(@"Difference: %f, %f", currentAngle, previousAngle);
 	
@@ -443,11 +477,6 @@
 	
 	b2Vec2 gravity(sin(CC_DEGREES_TO_RADIANS(map.rotation)) * 15, -cos(CC_DEGREES_TO_RADIANS(map.rotation)) * 15);
 	world->SetGravity(gravity);
-	
-	if (currentAngle > previousAngle)
-		currentAngle -= inertialDeccelleration;
-	else
-		currentAngle += inertialDeccelleration;
 	
 	if (abs(difference) <= inertialDeccelleration)
 		[self unschedule:@selector(inertialRotation:)];
