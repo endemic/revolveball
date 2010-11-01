@@ -10,6 +10,23 @@
 #import "math.h"
 #import <vector>	// Easy data structure to store Box2D bodies
 
+// Constants for tile GIDs
+#define kSquare 1
+#define kLowerLeftTriangle 2
+#define kLowerRightTriangle 3
+#define kUpperLeftTriangle 4
+#define kUpperRightTriangle 5
+#define kGoal 6
+#define kPlayerStart 7
+#define kDownBoost 8
+#define kLeftBoost 9
+#define kRightBoost 10
+#define kUpBoost 11
+#define kDownSpikes 12
+#define kLeftSpikes 13
+#define kRightSpikes 14
+#define kupSpikes 15
+
 @implementation GameScene
 - (id)init
 {
@@ -130,7 +147,7 @@
 		[self addChild:map z:1];
 		
 		border = [[map layerNamed:@"Border"] retain];
-		
+				
 		// Create Box2D world
 		b2Vec2 gravity = b2Vec2(0.0f, -10.0f);
 		bool doSleep = false;
@@ -167,10 +184,10 @@
 					
 					switch ([border tileGIDAt:ccp(x, y)]) 
 					{
-						case 1:
+						case kSquare:
 							groundBox.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
 							break;
-						case 2:
+						case kLowerLeftTriangle:
 							// Lower left triangle
 							vertices[0].Set(-0.5f, -0.5f);
 							vertices[1].Set(0.5f, -0.5f);
@@ -183,33 +200,33 @@
 							//groundBox.SetAsEdge(b2Vec2(1,0), b2Vec2(0,1));
 							//groundBox.SetAsEdge(b2Vec2(0,1), b2Vec2(0,0));
 							break;
-						case 3:
+						case kLowerRightTriangle:
 							// Lower right triangle
 							vertices[0].Set(-0.5f, -0.5f);
 							vertices[1].Set(0.5f, -0.5f);
 							vertices[2].Set(0.5f, 0.5f);
 							groundBox.Set(vertices, count);
 							break;
-						case 4:
+						case kUpperLeftTriangle:
 							// Upper left triangle
 							vertices[0].Set(-0.5f, 0.5f);
 							vertices[1].Set(0.5f, -0.5f);
 							vertices[2].Set(0.5f, 0.5f);
 							groundBox.Set(vertices, count);
 							break;
-						case 5:
+						case kUpperRightTriangle:
 							// Upper right triangle
 							vertices[0].Set(-0.5f, -0.5f);
 							vertices[1].Set(0.5f, 0.5f);
 							vertices[2].Set(-0.5f, 0.5f);
 							groundBox.Set(vertices, count);
 							break;
-						case 6:
+						case kGoal:
 							// Goal block
 							groundBox.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
 							sensorFlag = YES;
 							break;
-						case 7:
+						case kPlayerStart:
 							groundBox.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
 							sensorFlag = YES;
 							
@@ -220,10 +237,10 @@
 							[border removeTileAt:ccp(x, y)];
 							groundBodyDef.userData = NULL;
 							break;
-						case 8:		// Down boost
-						case 9:		// Left boost
-						case 10:	// Right boost
-						case 11:	// Up boost
+						case kDownBoost:
+						case kLeftBoost:
+						case kRightBoost:
+						case kUpBoost:
 							groundBox.SetAsBox(0.4f, 0.4f);		// Create smaller than 1x1 box shape, so player has to overlap the tile slightly
 							sensorFlag = YES;
 							break;
@@ -312,12 +329,11 @@
 				//NSLog(@"GID of touched tile %i at map location %f, %f", tileGID, s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1);
 				switch (tileGID) 
 				{
-					case 1: 
+					case kSquare: 
 						// Regular square block
 						//discardedItems.push_back(b);
 						break;
-					case 6:
-						// Goal tile
+					case kGoal:
 						//GameOverLayer *overlay = [GameOverLayer node];
 						//overlay.time = secondsLeft;
 						
@@ -325,19 +341,19 @@
 						[self unschedule:@selector(tick:)];		// Need a better way of determining the end of a level
 						[self unschedule:@selector(timer:)];
 						break;
-					case 8:
+					case kDownBoost:
 						// Down boost
 						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, -1.0f), ballBody->GetPosition());
 						break;
-					case 9:
+					case kLeftBoost:
 						// Left boost
 						ballBody->ApplyLinearImpulse(b2Vec2(-1.0f, 0.0f), ballBody->GetPosition());
 						break;
-					case 10:
+					case kRightBoost:
 						// Right boost
 						ballBody->ApplyLinearImpulse(b2Vec2(1.0f, 0.0f), ballBody->GetPosition());
 						break;
-					case 11:
+					case kUpBoost:
 						// Up boost
 						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, 1.0f), ballBody->GetPosition());
 						break;	
