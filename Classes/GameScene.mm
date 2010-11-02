@@ -18,14 +18,17 @@
 #define kUpperRightTriangle 5
 #define kGoal 6
 #define kPlayerStart 7
-#define kDownBoost 8
-#define kLeftBoost 9
-#define kRightBoost 10
-#define kUpBoost 11
-#define kDownSpikes 12
-#define kLeftSpikes 13
-#define kRightSpikes 14
-#define kupSpikes 15
+
+#define kDownSpikes 17
+#define kLeftSpikes 18
+#define kRightSpikes 19
+#define kUpSpikes 25
+
+#define kDownBoost 21
+#define kLeftBoost 22
+#define kRightBoost 40
+#define kUpBoost 24
+
 
 @implementation GameScene
 - (id)init
@@ -244,7 +247,16 @@
 							groundBox.SetAsBox(0.4f, 0.4f);		// Create smaller than 1x1 box shape, so player has to overlap the tile slightly
 							sensorFlag = YES;
 							break;
+						case kDownSpikes:
+						case kLeftSpikes:
+						case kRightSpikes:
+						case kUpSpikes:
+							groundBox.SetAsBox(0.5f, 0.5f);
+							break;
 						default:
+							// Default is to create sensor that then triggers an NSLog that tells us we're missing something
+							groundBox.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
+							sensorFlag = YES;
 							break;
 					}
 					
@@ -453,22 +465,22 @@
 	{
 		// Determine whether to do intertial rotation here
 		/*
-		 // Get window size
-		 CGSize winSize = [CCDirector sharedDirector].winSize;
-		 
-		 // Convert location
-		 CGPoint touchPoint = [touch locationInView:[touch view]];
-		 
-		 previousAngle = currentAngle;
-		 
-		 currentAngle = CC_RADIANS_TO_DEGREES(atan2(winSize.width / 2 - touchPoint.x, winSize.height / 2 - touchPoint.y));
-		 
-		 if (currentAngle < 0) currentAngle += 360;
-		 
-		 float difference = currentAngle - previousAngle;
-		 */
+		// Get window size
+		CGSize winSize = [CCDirector sharedDirector].winSize;
+
+		// Convert location
+		CGPoint touchPoint = [touch locationInView:[touch view]];
+
+		previousAngle = currentAngle;
+
+		currentAngle = CC_RADIANS_TO_DEGREES(atan2(winSize.width / 2 - touchPoint.x, winSize.height / 2 - touchPoint.y));
+
+		if (currentAngle < 0) currentAngle += 360;
+
+		float difference = currentAngle - previousAngle;
+		*/
 		// If map was rotating fast enough when the player lifted their finger, schedule a function that continues to rotate but slows down over time
-		//[self schedule:@selector(inertialRotation:)];
+		[self schedule:@selector(inertialRotation:)];
 	}
 }
 
@@ -476,9 +488,9 @@
 {
 	//NSLog(@"Trying to do inertial rotation!");
 	
-	int inertialDeccelleration = 0.1;
+	float inertialDeccelleration = 0.1;
 	
-	previousAngle = currentAngle;
+	//previousAngle = currentAngle;
 	
 	if (currentAngle > previousAngle)
 		currentAngle -= inertialDeccelleration;
@@ -486,7 +498,7 @@
 		currentAngle += inertialDeccelleration;
 	
 	float difference = currentAngle - previousAngle;
-	//NSLog(@"Difference: %f, %f", currentAngle, previousAngle);
+	NSLog(@"Difference: %f, %f", currentAngle, previousAngle);
 	
 	// Change rotation of map
 	map.rotation -= difference;

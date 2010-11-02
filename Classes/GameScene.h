@@ -23,22 +23,27 @@
 
 @interface GameLayer : CCLayer 
 {
+	// Box2D
 	b2World *world;
 	MyContactListener *contactListener;
 	
 	CCSprite *ball;
 	
-	int ptmRatio;
-	
+	// Map
 	CCTMXTiledMap *map;
 	CCTMXLayer *border;
 	
-	float previousAngle, currentAngle;
+	// Vars for rotational touch controls
+	float previousAngle, currentAngle, touchEndedAngle;
 	
+	// For timer
 	int secondsLeft;
 	CCLabel *timerLabel, *timerLabelShadow;
 	
 	// Boolean for quick check whether running on iPad
 	bool iPad;
+	
+	// Base size of Box2D objects; doubles on iPad/iPhone 4 Retina Display
+	int ptmRatio;
 }
 @end

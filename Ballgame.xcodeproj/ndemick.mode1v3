@@ -327,7 +327,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7DE24290127ED5CD00FEAD96</string>
+										<string>7D3B5072128027AE00C81A3A</string>
 										<key>history</key>
 										<array>
 											<string>7D34610B123F2136002F0B20</string>
@@ -367,8 +367,8 @@
 											<string>7DD1311E12719B4D00035698</string>
 											<string>7DD1313A1271A5E400035698</string>
 											<string>7DE12295127831520032B397</string>
-											<string>7DE24271127ED41400FEAD96</string>
-											<string>7DE24272127ED41400FEAD96</string>
+											<string>7D3B5070128027AE00C81A3A</string>
+											<string>7D3B5071128027AE00C81A3A</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -426,9 +426,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7DE2425C127EC6A700FEAD96</string>
+				<string>7D3B5073128027AE00C81A3A</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7DE2425D127EC6A700FEAD96</string>
+				<string>7D3B5074128027AE00C81A3A</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -566,9 +566,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>7D3B507D128027AE00C81A3A</string>
+		<string>7D3B507E128027AE00C81A3A</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>7DAEE245123D0ABA000358C5</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/ndemick/iPhone/RevolveBall/Ballgame.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -649,7 +651,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7DAEE245123D0ABA000358C5</string>
-				<string>7DE2425E127EC6A700FEAD96</string>
+				<string>7D3B5075128027AE00C81A3A</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -771,13 +773,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>7DE24274127ED41400FEAD96</string>
+				<string>7D3B5076128027AE00C81A3A</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>7DE24275127ED41400FEAD96</string>
-				<string>7DE24276127ED41400FEAD96</string>
-				<string>7DE24277127ED41400FEAD96</string>
-				<string>7DE24278127ED41400FEAD96</string>
-				<string>7DE24279127ED41400FEAD96</string>
+				<string>7D3B5077128027AE00C81A3A</string>
+				<string>7D3B5078128027AE00C81A3A</string>
+				<string>7D3B5079128027AE00C81A3A</string>
+				<string>7D3B507A128027AE00C81A3A</string>
+				<string>7D3B507B128027AE00C81A3A</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -941,7 +943,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>7DE2427A127ED41400FEAD96</string>
+				<string>7D3B507C128027AE00C81A3A</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
@@ -951,7 +953,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
