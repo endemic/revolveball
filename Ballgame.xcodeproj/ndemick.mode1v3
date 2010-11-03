@@ -266,6 +266,7 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>2D500B1D0D5A766B00DBA0E3</string>
+								<string>50F4144210692EE7002A0D5E</string>
 								<string>1C37FAAC04509CD000000102</string>
 								<string>1C37FABC05509CD000000102</string>
 							</array>
@@ -327,7 +328,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7D3B5072128027AE00C81A3A</string>
+										<string>7DCDC49D128177A400B22767</string>
 										<key>history</key>
 										<array>
 											<string>7D34610B123F2136002F0B20</string>
@@ -367,8 +368,8 @@
 											<string>7DD1311E12719B4D00035698</string>
 											<string>7DD1313A1271A5E400035698</string>
 											<string>7DE12295127831520032B397</string>
-											<string>7D3B5070128027AE00C81A3A</string>
-											<string>7D3B5071128027AE00C81A3A</string>
+											<string>7DCDC4991281746300B22767</string>
+											<string>7DCDC49A1281746300B22767</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -426,9 +427,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7D3B5073128027AE00C81A3A</string>
+				<string>7DCDC471128167A700B22767</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7D3B5074128027AE00C81A3A</string>
+				<string>7DCDC472128167A700B22767</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -566,8 +567,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>7D3B507D128027AE00C81A3A</string>
-		<string>7D3B507E128027AE00C81A3A</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>7DAEE245123D0ABA000358C5</string>
 		<string>1C78EAAD065D492600B07095</string>
@@ -595,7 +594,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>GameScene.mm</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -612,6 +611,8 @@
 							<string>235pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -651,7 +652,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7DAEE245123D0ABA000358C5</string>
-				<string>7D3B5075128027AE00C81A3A</string>
+				<string>7DCDC473128167A700B22767</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -773,13 +774,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>7D3B5076128027AE00C81A3A</string>
+				<string>7DCDC47D12816F7000B22767</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>7D3B5077128027AE00C81A3A</string>
-				<string>7D3B5078128027AE00C81A3A</string>
-				<string>7D3B5079128027AE00C81A3A</string>
-				<string>7D3B507A128027AE00C81A3A</string>
-				<string>7D3B507B128027AE00C81A3A</string>
+				<string>7DCDC47E12816F7000B22767</string>
+				<string>7DCDC47F12816F7000B22767</string>
+				<string>7DCDC48012816F7000B22767</string>
+				<string>7DCDC48112816F7000B22767</string>
+				<string>7DCDC48212816F7000B22767</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -943,7 +944,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>7D3B507C128027AE00C81A3A</string>
+				<string>7DCDC48312816F7000B22767</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>

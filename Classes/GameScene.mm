@@ -19,16 +19,17 @@
 #define kGoal 6
 #define kPlayerStart 7
 
-#define kDownSpikes 17
-#define kLeftSpikes 18
-#define kRightSpikes 19
+#define kDownSpikes 22
+#define kLeftSpikes 23
+#define kRightSpikes 24
 #define kUpSpikes 25
 
-#define kDownBoost 21
-#define kLeftBoost 22
+#define kDownBoost 38
+#define kLeftBoost 39
 #define kRightBoost 40
-#define kUpBoost 24
+#define kUpBoost 41
 
+#define kBreakable 100
 
 @implementation GameScene
 - (id)init
@@ -335,41 +336,68 @@
 			if ((CCSprite *)b->GetUserData() == ball)
 				continue;
 			
+			// Process all other objects
 			if ((CCSprite *)b->GetUserData() == s)
 			{
 				int tileGID = [border tileGIDAt:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];	// Box2D and TMX y-coords are inverted
 				//NSLog(@"GID of touched tile %i at map location %f, %f", tileGID, s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1);
+				
 				switch (tileGID) 
 				{
-					case kSquare: 
-						// Regular square block
-						//discardedItems.push_back(b);
+					case kSquare:
+					case kUpperLeftTriangle:
+					case kUpperRightTriangle:
+					case kLowerLeftTriangle:
+					case kLowerRightTriangle:
+						// Regular blocks - do nothing
+						break;
+					case kBreakable:
+						discardedItems.push_back(b);
 						break;
 					case kGoal:
-						//GameOverLayer *overlay = [GameOverLayer node];
-						//overlay.time = secondsLeft;
-						
 						[self addChild:[GameOverLayer node] z:4];
 						[self unschedule:@selector(tick:)];		// Need a better way of determining the end of a level
 						[self unschedule:@selector(timer:)];
 						break;
 					case kDownBoost:
-						// Down boost
 						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, -1.0f), ballBody->GetPosition());
 						break;
 					case kLeftBoost:
-						// Left boost
 						ballBody->ApplyLinearImpulse(b2Vec2(-1.0f, 0.0f), ballBody->GetPosition());
 						break;
 					case kRightBoost:
-						// Right boost
 						ballBody->ApplyLinearImpulse(b2Vec2(1.0f, 0.0f), ballBody->GetPosition());
 						break;
 					case kUpBoost:
-						// Up boost
 						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, 1.0f), ballBody->GetPosition());
-						break;	
+						break;
+					case kDownSpikes:
+					case kLeftSpikes:
+					case kRightSpikes:
+					case kUpSpikes:
+						{
+						// Lose time
+						secondsLeft -= 5;
+						
+						// Create a label that shows how much time you lost
+						CCLabel *deductedTimeLabel = [CCLabel labelWithString:@"-5 seconds" fontName:@"yoster.ttf" fontSize:16];
+						[deductedTimeLabel setPosition:ccp(ball.position.x, ball.position.y + 16)];
+						[deductedTimeLabel setColor:ccc3(0,0,0)];
+						[deductedTimeLabel.texture setAliasTexParameters];
+						[self addChild:deductedTimeLabel z:5];
+						
+						// Move and fade actions
+						id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(ball.position.x, ball.position.y + 64)];
+						id fadeAction = [CCFadeOut actionWithDuration:1];
+						id removeAction = [CCCallFuncN actionWithTarget:self selector:@selector(removeSpriteFromParent:)];
+						
+						[deductedTimeLabel runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
+						
+						// Make invincible so touching spikes again doesn't immediately drain the timer
+						}
+						break;
 					default:
+						NSLog(@"Touching unrecognized tile GID: %i", tileGID);
 						break;
 				}
 			}
@@ -480,13 +508,15 @@
 		float difference = currentAngle - previousAngle;
 		*/
 		// If map was rotating fast enough when the player lifted their finger, schedule a function that continues to rotate but slows down over time
-		[self schedule:@selector(inertialRotation:)];
+		//[self schedule:@selector(inertialRotation:)];
 	}
 }
 
 - (void)inertialRotation:(ccTime)dt
 {
-	//NSLog(@"Trying to do inertial rotation!");
+	// Current idea w/ inertial rotation is to modify the decelleration so that it takes place over a constant time; i.e. 1s
+	// That way the effect doesn't become too disorienting
+	// Plus the effect will only fire if the previousAngle vs. currentAngle value is above a certain amount
 	
 	float inertialDeccelleration = 0.1;
 	
@@ -508,6 +538,18 @@
 	
 	if (abs(difference) <= inertialDeccelleration)
 		[self unschedule:@selector(inertialRotation:)];
+}
+
+- (void)removeSpriteFromParent:(CCNode *)sprite
+{
+	//[sprite.parent removeChild:sprite cleanup:YES];
+	
+	// Trying this from forum post http://www.cocos2d-iphone.org/forum/topic/981#post-5895
+	// Apparently fixes a memory error?
+	CCNode *parent = sprite.parent;
+	[sprite retain];
+	[parent removeChild:sprite cleanup:YES];
+	[sprite autorelease];
 }
 
 - (void)dealloc
