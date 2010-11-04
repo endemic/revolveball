@@ -123,10 +123,7 @@
 		[timerLabelShadow setColor:ccc3(0, 0, 0)];	// White
 		[timerLabelShadow.texture setAliasTexParameters];
 		[self addChild:timerLabelShadow z:2];
-		
-		// Schedule timer function for 1 second intervals
-		[self schedule:@selector(timer:) interval:1];
-		
+				
 		// Add static background
 		CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
 		[background setPosition:ccp(winSize.width / 2, winSize.height / 2)];
@@ -292,10 +289,53 @@
 		ballShapeDef.restitution = 0.6f;
 		ballBody->CreateFixture(&ballShapeDef);
 		
-		// Schedule updater
-		[self schedule:@selector(tick:)];
+		// Set default map anchor point
+		[map setAnchorPoint:ccp(ball.position.x / map.mapSize.width * ptmRatio, ball.position.y / map.mapSize.height * ptmRatio)];
+		
+		// Schedule countdown timer
+		countdownTime = 3;
+		[self schedule:@selector(countdown:) interval:1.0];
 	}
 	return self;
+}
+
+- (void)countdown:(ccTime)dt
+{
+	// Get window size
+	CGSize winSize = [CCDirector sharedDirector].winSize;
+	
+	NSString *text;
+	if (countdownTime == 0)
+		text = @"GO";
+	else
+		text = [NSString stringWithFormat:@"%i", countdownTime];
+	
+	CCLabel *countdownLabel = [CCLabel labelWithString:text fontName:@"yoster.ttf" fontSize:48.0];
+	[countdownLabel setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+	[countdownLabel setColor:ccc3(255, 255, 255)];	// White
+	[countdownLabel.texture setAliasTexParameters];
+	[self addChild:countdownLabel z:3];
+	
+	// Move and fade actions
+	id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(ball.position.x, ball.position.y + 64)];
+	id fadeAction = [CCFadeOut actionWithDuration:1];
+	id removeAction = [CCCallFuncN actionWithTarget:self selector:@selector(removeSpriteFromParent:)];
+	
+	[countdownLabel runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
+	
+	countdownTime--;
+	
+	if (countdownTime == -1)
+	{
+		// Unschedule self
+		[self unschedule:@selector(countdown:)];
+		
+		// Schedule regular game loop
+		[self schedule:@selector(tick:)];
+		
+		// Schedule timer function for 1 second intervals
+		[self schedule:@selector(timer:) interval:1];
+	}
 }
 
 - (void)tick:(ccTime)dt

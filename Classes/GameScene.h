@@ -36,9 +36,12 @@
 	// Vars for rotational touch controls
 	float previousAngle, currentAngle, touchEndedAngle;
 	
-	// For timer
+	// For time limit
 	int secondsLeft;
 	CCLabel *timerLabel, *timerLabelShadow;
+	
+	// For countdown at start of level
+	int countdownTime;
 	
 	// Boolean for quick check whether running on iPad
 	bool iPad;
