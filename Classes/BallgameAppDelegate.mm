@@ -9,6 +9,7 @@
 #import "BallgameAppDelegate.h"
 #import "cocos2d.h"
 #import "TitleScene.h"
+#import "GameData.h"
 
 @implementation BallgameAppDelegate
 
@@ -54,7 +55,10 @@
 	// create an openGL view inside a window
 	[[CCDirector sharedDirector] attachInView:window];	
 	[window makeKeyAndVisible];
-		
+	
+	// Load game data singleton
+	[GameData loadState];
+
 	[[CCDirector sharedDirector] runWithScene: [TitleScene node]];
 }
 
@@ -71,7 +75,14 @@
 	[[CCTextureCache sharedTextureCache] removeUnusedTextures];
 }
 
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+	[GameData saveState];
+}
+
 - (void)applicationWillTerminate:(UIApplication *)application {
+	// Serialize/save game data singleton
+	[GameData saveState];
 	[[CCDirector sharedDirector] end];
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "GameScene.h"
+#import "GameData.h"
 #import "math.h"
 #import <vector>	// Easy data structure to store Box2D bodies
 
@@ -53,15 +54,35 @@
 		CGSize winSize = [CCDirector sharedDirector].winSize;
 		
 		// Do stuff
-		CCLabel *finishLabel = [CCLabel labelWithString:@"FINISH!" fontName:@"yoster.ttf" fontSize:48.0];
-		[finishLabel setColor:ccc3(255, 255, 255)];
+		CCBitmapFontAtlas *finishLabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"FINISH!" fntFile:@"yoster-48.fnt"];
 		[finishLabel setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 		[self addChild:finishLabel z:1];
 		
-		CCLabel *finishLabelShadow = [CCLabel labelWithString:@"FINISH!" fontName:@"yoster.ttf" fontSize:48.0];
-		[finishLabelShadow setColor:ccc3(0, 0, 0)];
-		[finishLabelShadow setPosition:ccp((winSize.width / 2) - 2, (winSize.height / 2) - 2)];
-		[self addChild:finishLabelShadow z:0];
+//		CCLabel *finishLabel = [CCLabel labelWithString:@"FINISH!" fontName:@"yoster.ttf" fontSize:48.0];
+//		[finishLabel setColor:ccc3(255, 255, 255)];
+//		[finishLabel setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+//		[self addChild:finishLabel z:1];
+//		
+//		CCLabel *finishLabelShadow = [CCLabel labelWithString:@"FINISH!" fontName:@"yoster.ttf" fontSize:48.0];
+//		[finishLabelShadow setColor:ccc3(0, 0, 0)];
+//		[finishLabelShadow setPosition:ccp((winSize.width / 2) - 2, (winSize.height / 2) - 2)];
+//		[self addChild:finishLabelShadow z:0];
+		
+		// Display your time/best time
+		int bestTime = [GameData sharedGameData].bestTime;
+		int minutes = floor(bestTime / 60);
+		int seconds = bestTime % 60;
+		
+		CCBitmapFontAtlas *bestTimeLabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:[NSString stringWithFormat:@"Best time: %i:%02d", minutes, seconds] fntFile:@"yoster-32.fnt"];
+		[bestTimeLabel setPosition:ccp(winSize.width / 2, winSize.height / 2 - 50)];
+		[self addChild:bestTimeLabel z:1];
+		
+//		CCLabel *bestTimeLabel = [CCLabel labelWithString:[NSString stringWithFormat:@"Best time: %i:%02d", minutes, seconds] fontName:@"yoster.ttf" fontSize:32.0];
+//		[bestTimeLabel setColor:ccc3(255, 255, 255)];
+//		[bestTimeLabel setPosition:ccp(winSize.width / 2, winSize.height / 2 - 50)];
+//		[bestTimeLabel.texture setAliasTexParameters];
+//		[self addChild:bestTimeLabel z:1];
+		
 		
 		// Add button which takes us to game scene
 		CCMenuItem *startButton = [CCMenuItemImage itemFromNormalImage:@"start-button.png" selectedImage:@"start-button.png" target:self selector:@selector(restartGame:)];
@@ -112,13 +133,16 @@
 		// Set up timer
 		secondsLeft = 3 * 60;	// Three minutes?!
 		
-		timerLabel = [CCLabel labelWithString:@"00:00" fontName:@"yoster.ttf" fontSize:16.0];
+		if (![GameData sharedGameData].bestTime)
+			[GameData sharedGameData].bestTime = 0;
+		
+		timerLabel = [CCLabel labelWithString:@"3:00" fontName:@"yoster.ttf" fontSize:16.0];
 		[timerLabel setPosition:ccp(winSize.width - 30, winSize.height - 20)];
 		[timerLabel setColor:ccc3(255, 255, 255)];	// White
 		[timerLabel.texture setAliasTexParameters];
 		[self addChild:timerLabel z:3];
 		
-		timerLabelShadow = [CCLabel labelWithString:@"00:00" fontName:@"yoster.ttf" fontSize:16.0];
+		timerLabelShadow = [CCLabel labelWithString:@"3:00" fontName:@"yoster.ttf" fontSize:16.0];
 		[timerLabelShadow setPosition:ccp(winSize.width - 29, winSize.height - 21)];
 		[timerLabelShadow setColor:ccc3(0, 0, 0)];	// White
 		[timerLabelShadow.texture setAliasTexParameters];
@@ -289,8 +313,10 @@
 		ballShapeDef.restitution = 0.6f;
 		ballBody->CreateFixture(&ballShapeDef);
 		
-		// Set default map anchor point
-		[map setAnchorPoint:ccp(ball.position.x / map.mapSize.width * ptmRatio, ball.position.y / map.mapSize.height * ptmRatio)];
+		// Set default map anchor point - Need to do this here once so the map actually appears around the ball
+		float anchorX = ballBody->GetPosition().x / map.mapSize.width;
+		float anchorY = ballBody->GetPosition().y / map.mapSize.height;
+		[map setAnchorPoint:ccp(anchorX, anchorY)];
 		
 		// Schedule countdown timer
 		countdownTime = 3;
@@ -393,11 +419,28 @@
 						break;
 					case kBreakable:
 						discardedItems.push_back(b);
+						
+						// Plan for breakable blocks:
+						// 1. Create 4 quarter-sized blocks in the same space as the broken block
+						// 2. Set them to animate/disappear based on current Box2D world gravity
+						// 3. Breakable block is then automatically removed
 						break;
 					case kGoal:
-						[self addChild:[GameOverLayer node] z:4];
+						{
 						[self unschedule:@selector(tick:)];		// Need a better way of determining the end of a level
 						[self unschedule:@selector(timer:)];
+						
+						// Figure out best time (for prototype only)
+						int bestTime = [GameData sharedGameData].bestTime;
+						NSLog(@"Best time is %i", bestTime);
+						
+						// Overwrite the best time value
+						if (secondsLeft > bestTime)
+							[GameData sharedGameData].bestTime = secondsLeft;
+						
+						// Add "Game Over" layer
+						[self addChild:[GameOverLayer node] z:4];
+						}
 						break;
 					case kDownBoost:
 						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, -1.0f), ballBody->GetPosition());
@@ -422,7 +465,7 @@
 						// Create a label that shows how much time you lost
 						CCLabel *deductedTimeLabel = [CCLabel labelWithString:@"-5 seconds" fontName:@"yoster.ttf" fontSize:16];
 						[deductedTimeLabel setPosition:ccp(ball.position.x, ball.position.y + 16)];
-						[deductedTimeLabel setColor:ccc3(0,0,0)];
+						[deductedTimeLabel setColor:ccc3(255,255,255)];		// White
 						[deductedTimeLabel.texture setAliasTexParameters];
 						[self addChild:deductedTimeLabel z:5];
 						
@@ -467,7 +510,7 @@
 	
 	int minutes = floor(secondsLeft / 60);
 	int seconds = secondsLeft % 60;
-	NSString *time = [NSString stringWithFormat:@"%i:%i", minutes, seconds];
+	NSString *time = [NSString stringWithFormat:@"%i:%02d", minutes, seconds];
 	
 	[timerLabel setString:time];
 	[timerLabelShadow setString:time];
