@@ -285,10 +285,12 @@
 		7D3460F5123F1FA9002F0B20 /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3460F2123F1FA9002F0B20 /* block.png */; };
 		7D346118123F2256002F0B20 /* coordinates.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D346116123F2256002F0B20 /* coordinates.plist */; };
 		7D346119123F2256002F0B20 /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D346117123F2256002F0B20 /* texture.png */; };
+		7D5FB2C312A85B1500CE4AA4 /* WorldSelectScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D5FB2C212A85B1500CE4AA4 /* WorldSelectScene.mm */; };
 		7DAEE26F123D0ECA000358C5 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DAEE26E123D0ECA000358C5 /* ball.png */; };
 		7DBF494D1269C84200F3C83F /* yoster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DBF494C1269C84200F3C83F /* yoster.ttf */; };
 		7DD131341271A4DF00035698 /* test-hd.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 7DD131331271A4DF00035698 /* test-hd.tmx */; };
 		7DD131361271A4FF00035698 /* texture-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD131351271A4FF00035698 /* texture-hd.png */; };
+		7DD239AC12AEA9A800CB4F96 /* task-list.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7DD239AB12AEA9A800CB4F96 /* task-list.rtf */; };
 		7DD28C7412671154008C2BB2 /* TitleScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7DD28C7312671154008C2BB2 /* TitleScene.mm */; };
 		7DD28C7C1267128A008C2BB2 /* checkered-block.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD28C761267128A008C2BB2 /* checkered-block.png */; };
 		7DD28C7D1267128A008C2BB2 /* cloud-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DD28C771267128A008C2BB2 /* cloud-background.png */; };
@@ -682,10 +684,13 @@
 		7D3460F2123F1FA9002F0B20 /* block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block.png; path = images/block.png; sourceTree = "<group>"; };
 		7D346116123F2256002F0B20 /* coordinates.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = coordinates.plist; path = maps/coordinates.plist; sourceTree = "<group>"; };
 		7D346117123F2256002F0B20 /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = texture.png; path = maps/texture.png; sourceTree = "<group>"; };
+		7D5FB2C112A85B1500CE4AA4 /* WorldSelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldSelectScene.h; sourceTree = "<group>"; };
+		7D5FB2C212A85B1500CE4AA4 /* WorldSelectScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WorldSelectScene.mm; sourceTree = "<group>"; };
 		7DAEE26E123D0ECA000358C5 /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ball.png; path = images/ball.png; sourceTree = "<group>"; };
 		7DBF494C1269C84200F3C83F /* yoster.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = yoster.ttf; sourceTree = "<group>"; };
 		7DD131331271A4DF00035698 /* test-hd.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "test-hd.tmx"; path = "maps/test-hd.tmx"; sourceTree = "<group>"; };
 		7DD131351271A4FF00035698 /* texture-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "texture-hd.png"; path = "maps/texture-hd.png"; sourceTree = "<group>"; };
+		7DD239AB12AEA9A800CB4F96 /* task-list.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "task-list.rtf"; sourceTree = "<group>"; };
 		7DD28C7212671154008C2BB2 /* TitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScene.h; sourceTree = "<group>"; };
 		7DD28C7312671154008C2BB2 /* TitleScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TitleScene.mm; sourceTree = "<group>"; };
 		7DD28C761267128A008C2BB2 /* checkered-block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkered-block.png"; path = "images/checkered-block.png"; sourceTree = "<group>"; };
@@ -886,6 +891,8 @@
 				7D0C5FF91268DB6400B79206 /* GameData.mm */,
 				7D0C5FFE1268DF7700B79206 /* GameScene.h */,
 				7D0C5FFF1268DF7700B79206 /* GameScene.mm */,
+				7D5FB2C112A85B1500CE4AA4 /* WorldSelectScene.h */,
+				7D5FB2C212A85B1500CE4AA4 /* WorldSelectScene.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1287,6 +1294,7 @@
 				50F4144510692EE7002A0D5E /* fps_images.png */,
 				50F4144610692EE7002A0D5E /* Icon.png */,
 				50F4144710692EE7002A0D5E /* Info.plist */,
+				7DD239AB12AEA9A800CB4F96 /* task-list.rtf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1729,6 +1737,7 @@
 				7DFCE2D312883C5A002998AA /* yoster-4849.png in Resources */,
 				7DFCE2D412883C5A002998AA /* yoster-4850.png in Resources */,
 				7DFCE2D512883C5A002998AA /* yoster-4851.png in Resources */,
+				7DD239AC12AEA9A800CB4F96 /* task-list.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1745,6 +1754,7 @@
 				7DD28C7412671154008C2BB2 /* TitleScene.mm in Sources */,
 				7D0C5FFA1268DB6400B79206 /* GameData.mm in Sources */,
 				7D0C60001268DF7700B79206 /* GameScene.mm in Sources */,
+				7D5FB2C312A85B1500CE4AA4 /* WorldSelectScene.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2039,11 +2049,12 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.2;
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;

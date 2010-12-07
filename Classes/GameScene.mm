@@ -294,9 +294,10 @@
 		// Create ball body & shape
 		b2BodyDef ballBodyDef;
 		ballBodyDef.type = b2_dynamicBody;
-		//ballBodyDef.position.Set(startPosition.x + 0.5, map.mapSize.height - startPosition.y - 0.5);		// Y values are inverted between TMX and Box2D
+		//ballBodyDef.fixedRotation = true;	// Prevent rotation!
 		
 		// For some reason, this always fucks up
+		//ballBodyDef.position.Set(startPosition.x + 0.5, map.mapSize.height - startPosition.y - 0.5);		// Y values are inverted between TMX and Box2D
 		ballBodyDef.position.Set(3, map.mapSize.height - 3);
 		
 		ballBodyDef.userData = ball;		// Set to CCSprite
@@ -367,7 +368,7 @@
 - (void)tick:(ccTime)dt
 {
 	// Step through world collisions - (timeStep, velocityIterations, positionIterations)
-	world->Step(dt, 10, 10);
+	world->Step(dt, 15, 15);
 	
 	// Vector containing Box2D bodies to be destroyed
 	std::vector<b2Body *> discardedItems;
@@ -377,7 +378,7 @@
 	
 	for (b2Body *b = world->GetBodyList(); b; b = b->GetNext()) 
 	{
-		//if (b->GetUserData() != NULL)
+		// Find the ball in the list of Box2D objects, and move the map's anchor position based on the ball's position within the map
 		if ((CCSprite *)b->GetUserData() == ball)
 		{
 			// Get the CCSprite attached to Box2D obj
@@ -387,8 +388,6 @@
 			// Update map's anchor point based on ball position; position within width/height of map?
 			float anchorX = b->GetPosition().x / map.mapSize.width;
 			float anchorY = b->GetPosition().y / map.mapSize.height;
-			
-			//NSLog(@"Anchor point is %f, %f", anchorX, anchorY);
 			
 			[map setAnchorPoint:ccp(anchorX, anchorY)];
 			
@@ -459,6 +458,7 @@
 					case kRightSpikes:
 					case kUpSpikes:
 						{
+							// Probably should create a loseTime:(int)seconds method so that this code doesn't have to be written 4 times
 						// Lose time
 						secondsLeft -= 5;
 						
@@ -477,6 +477,7 @@
 						[deductedTimeLabel runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
 						
 						// Make invincible so touching spikes again doesn't immediately drain the timer
+						// Push ball away from obj
 						}
 						break;
 					default:

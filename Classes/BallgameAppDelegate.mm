@@ -9,6 +9,7 @@
 #import "BallgameAppDelegate.h"
 #import "cocos2d.h"
 #import "TitleScene.h"
+#import "WorldSelectScene.h"
 #import "GameData.h"
 
 @implementation BallgameAppDelegate
@@ -60,6 +61,7 @@
 	[GameData loadState];
 
 	[[CCDirector sharedDirector] runWithScene: [TitleScene node]];
+	//[[CCDirector sharedDirector] runWithScene:[WorldSelectScene node]];
 }
 
 

@@ -7,7 +7,6 @@
 //
 
 #import "TitleScene.h"
-//#import "HelloWorldScene.h"
 #import "GameScene.h"
 
 @implementation TitleScene
@@ -28,9 +27,11 @@
 	{
 		[self setIsTouchEnabled:YES];
 		
+		CGSize winSize = [CCDirector sharedDirector].winSize;
+		
 		// Add moving background
 		CCSprite *background = [CCSprite spriteWithFile:@"title-screen-background.png"];
-		[background setPosition:ccp(320, 240)];
+		[background setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 		[self addChild:background z:0];
 		
 		// Add game logo
@@ -48,7 +49,7 @@
 		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 		{
 			[background setScale:2.0];
-			[background setPosition:ccp(640, 480)];
+			[background setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 			
 			[logo setScale:2.0];
 			[logo setPosition:ccp(320, 740)];
