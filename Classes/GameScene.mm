@@ -31,6 +31,7 @@
 #define kUpBoost 41
 
 #define kBreakable 100
+#define kBumper 101
 
 @implementation GameScene
 - (id)init
@@ -136,18 +137,10 @@
 		if (![GameData sharedGameData].bestTime)
 			[GameData sharedGameData].bestTime = 0;
 		
-		timerLabel = [CCLabel labelWithString:@"3:00" fontName:@"yoster.ttf" fontSize:16.0];
+		timerLabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"3:00" fntFile:@"yoster-16.fnt"];
 		[timerLabel setPosition:ccp(winSize.width - 30, winSize.height - 20)];
-		[timerLabel setColor:ccc3(255, 255, 255)];	// White
-		[timerLabel.texture setAliasTexParameters];
-		[self addChild:timerLabel z:3];
+		[self addChild:timerLabel z:2];
 		
-		timerLabelShadow = [CCLabel labelWithString:@"3:00" fontName:@"yoster.ttf" fontSize:16.0];
-		[timerLabelShadow setPosition:ccp(winSize.width - 29, winSize.height - 21)];
-		[timerLabelShadow setColor:ccc3(0, 0, 0)];	// White
-		[timerLabelShadow.texture setAliasTexParameters];
-		[self addChild:timerLabelShadow z:2];
-				
 		// Add static background
 		CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
 		[background setPosition:ccp(winSize.width / 2, winSize.height / 2)];
@@ -162,8 +155,7 @@
 		[ball.texture setAliasTexParameters];
 		[self addChild:ball z:2];
 		
-		// Add TMX map
-		//map = [CCTMXTiledMap tiledMapWithTMXFile:@"Default.tmx"];
+		// Get TMX map from singleton
 		if (iPad)
 			map = [CCTMXTiledMap tiledMapWithTMXFile:@"test-hd.tmx"];
 		else
@@ -194,15 +186,15 @@
 				{
 					//NSLog(@"Trying to interpret an object with GID %i at (%i, %i)", [border tileGIDAt:ccp(x, y)], x, y);
 					
-					// Body
-					b2BodyDef groundBodyDef;
-					groundBodyDef.position.Set(x + 0.5, map.mapSize.height - y - 0.5);		// Box2D uses inverse Y of TMX maps
-					groundBodyDef.userData = [border tileAt:ccp(x, y)];		// Assign sprite to userData property
+					// Body definition
+					b2BodyDef bodyDefinition;
+					bodyDefinition.position.Set(x + 0.5, map.mapSize.height - y - 0.5);		// Box2D uses inverse Y of TMX maps
+					bodyDefinition.userData = [border tileAt:ccp(x, y)];		// Assign sprite to userData property
 					
-					b2Body *groundBody = world->CreateBody(&groundBodyDef);
+					b2Body *body = world->CreateBody(&bodyDefinition);
 					
 					// Shape
-					b2PolygonShape groundBox;
+					b2PolygonShape polygonShape;
 					
 					// Default sensor flag to false
 					sensorFlag = NO;
@@ -210,7 +202,7 @@
 					switch ([border tileGIDAt:ccp(x, y)]) 
 					{
 						case kSquare:
-							groundBox.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
+							polygonShape.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
 							break;
 						case kLowerLeftTriangle:
 							// Lower left triangle
@@ -218,41 +210,39 @@
 							vertices[1].Set(0.5f, -0.5f);
 							vertices[2].Set(-0.5f, 0.5f);
 							
-							groundBox.Set(vertices, count);
-							//NSLog(@"Trying to create a triangle at %i, %i", x, y);
-							
-							//groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(1,0));
-							//groundBox.SetAsEdge(b2Vec2(1,0), b2Vec2(0,1));
-							//groundBox.SetAsEdge(b2Vec2(0,1), b2Vec2(0,0));
+							polygonShape.Set(vertices, count);
 							break;
 						case kLowerRightTriangle:
 							// Lower right triangle
 							vertices[0].Set(-0.5f, -0.5f);
 							vertices[1].Set(0.5f, -0.5f);
 							vertices[2].Set(0.5f, 0.5f);
-							groundBox.Set(vertices, count);
+							
+							polygonShape.Set(vertices, count);
 							break;
 						case kUpperLeftTriangle:
 							// Upper left triangle
 							vertices[0].Set(-0.5f, 0.5f);
 							vertices[1].Set(0.5f, -0.5f);
 							vertices[2].Set(0.5f, 0.5f);
-							groundBox.Set(vertices, count);
+							
+							polygonShape.Set(vertices, count);
 							break;
 						case kUpperRightTriangle:
 							// Upper right triangle
 							vertices[0].Set(-0.5f, -0.5f);
 							vertices[1].Set(0.5f, 0.5f);
 							vertices[2].Set(-0.5f, 0.5f);
-							groundBox.Set(vertices, count);
+							
+							polygonShape.Set(vertices, count);
 							break;
 						case kGoal:
 							// Goal block
-							groundBox.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
+							polygonShape.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
 							sensorFlag = YES;
 							break;
 						case kPlayerStart:
-							groundBox.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
+							polygonShape.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
 							sensorFlag = YES;
 							
 							// Player starting location
@@ -260,34 +250,41 @@
 							
 							// Delete tile that showed start position
 							[border removeTileAt:ccp(x, y)];
-							groundBodyDef.userData = NULL;
+							bodyDefinition.userData = NULL;
 							break;
 						case kDownBoost:
 						case kLeftBoost:
 						case kRightBoost:
 						case kUpBoost:
-							groundBox.SetAsBox(0.4f, 0.4f);		// Create smaller than 1x1 box shape, so player has to overlap the tile slightly
+							polygonShape.SetAsBox(0.4f, 0.4f);		// Create smaller than 1x1 box shape, so player has to overlap the tile slightly
 							sensorFlag = YES;
 							break;
 						case kDownSpikes:
 						case kLeftSpikes:
 						case kRightSpikes:
 						case kUpSpikes:
-							groundBox.SetAsBox(0.5f, 0.5f);
+							polygonShape.SetAsBox(0.5f, 0.5f);
+							break;
+						case kBreakable:
+							polygonShape.SetAsBox(0.5f, 0.5f);
+							break;
+						case kBumper:
+							polygonShape.SetAsBox(0.33f, 0.33f);
+							//boxShapeDef.restitution = 1; // Make more bouncy?
 							break;
 						default:
 							// Default is to create sensor that then triggers an NSLog that tells us we're missing something
-							groundBox.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
+							polygonShape.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
 							sensorFlag = YES;
 							break;
 					}
 					
-					// Fixture
-					b2FixtureDef boxShapeDef;
-					boxShapeDef.shape = &groundBox;
-					boxShapeDef.isSensor = sensorFlag;
+					// Fixture definition
+					b2FixtureDef fixtureDefinition;
+					fixtureDefinition.shape = &polygonShape;
+					fixtureDefinition.isSensor = sensorFlag;
 					
-					groundBody->CreateFixture(&boxShapeDef);
+					body->CreateFixture(&fixtureDefinition);
 				}
 			}
 		
@@ -307,12 +304,12 @@
 		//circle.m_radius = (((float)ptmRatio / 2) - 1) / ptmRatio;		// A 32px / 2 = 16px - 1px = 15px radius - a perfect 1m circle would get stuck in 1m gaps
 		circle.m_radius = ((float)ptmRatio / 2) / ptmRatio;
 		
-		b2FixtureDef ballShapeDef;
-		ballShapeDef.shape = &circle;
-		ballShapeDef.density = 1.0f;
-		ballShapeDef.friction = 0.2f;
-		ballShapeDef.restitution = 0.6f;
-		ballBody->CreateFixture(&ballShapeDef);
+		b2FixtureDef ballFixtureDefinition;
+		ballFixtureDefinition.shape = &circle;
+		ballFixtureDefinition.density = 1.0f;
+		ballFixtureDefinition.friction = 0.2f;
+		ballFixtureDefinition.restitution = 0.6f;
+		ballBody->CreateFixture(&ballFixtureDefinition);
 		
 		// Set default map anchor point - Need to do this here once so the map actually appears around the ball
 		float anchorX = ballBody->GetPosition().x / map.mapSize.width;
@@ -320,7 +317,7 @@
 		[map setAnchorPoint:ccp(anchorX, anchorY)];
 		
 		// Schedule countdown timer
-		countdownTime = 3;
+		countdownTime = 1;
 		[self schedule:@selector(countdown:) interval:1.0];
 	}
 	return self;
@@ -335,20 +332,25 @@
 	if (countdownTime == 0)
 		text = @"GO";
 	else
-		text = [NSString stringWithFormat:@"%i", countdownTime];
+		text = @"READY";
+		//text = [NSString stringWithFormat:@"%i", countdownTime];
 	
-	CCLabel *countdownLabel = [CCLabel labelWithString:text fontName:@"yoster.ttf" fontSize:48.0];
-	[countdownLabel setPosition:ccp(winSize.width / 2, winSize.height / 2)];
-	[countdownLabel setColor:ccc3(255, 255, 255)];	// White
-	[countdownLabel.texture setAliasTexParameters];
-	[self addChild:countdownLabel z:3];
+	CCBitmapFontAtlas *label = [CCBitmapFontAtlas bitmapFontAtlasWithString:text fntFile:@"yoster-48.fnt"];
+	[self addChild:label];
+	
+//	CCLabel *countdownLabel = [CCLabel labelWithString:text fontName:@"yoster.ttf" fontSize:48.0];
+//	[countdownLabel setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+//	[countdownLabel setColor:ccc3(255, 255, 255)];	// White
+//	[countdownLabel.texture setAliasTexParameters];
+//	[self addChild:countdownLabel z:3];
 	
 	// Move and fade actions
 	id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(ball.position.x, ball.position.y + 64)];
 	id fadeAction = [CCFadeOut actionWithDuration:1];
 	id removeAction = [CCCallFuncN actionWithTarget:self selector:@selector(removeSpriteFromParent:)];
 	
-	[countdownLabel runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
+	//[countdownLabel runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
+	[label runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
 	
 	countdownTime--;
 	
@@ -417,28 +419,53 @@
 						// Regular blocks - do nothing
 						break;
 					case kBreakable:
-						discardedItems.push_back(b);
-						
-						// Plan for breakable blocks:
-						// 1. Create 4 quarter-sized blocks in the same space as the broken block
-						// 2. Set them to animate/disappear based on current Box2D world gravity
-						// 3. Breakable block is then automatically removed
+						{
+							// Push block onto the "destroy" stack
+							discardedItems.push_back(b);
+							
+							// Plan for breakable blocks:
+							// 1. Create 4 quarter-sized blocks in the same space as the broken block
+							// 2. Set them to animate/disappear based on current Box2D world gravity
+							// 3. Breakable block is then automatically removed
+							
+							for (int i = 0; i < 4; i++)
+							{
+								CCSprite *shard = [CCSprite spriteWithFile:@"blue-block.png"];
+								[shard setScale:0.25];
+								[shard setPosition:ccp(s.position.x, s.position.y)];
+								[self addChild:shard z:5];
+								
+								// Create destination points for block shards
+								int randomNegative = rand() < 0.5 ? -1 : 1;
+								int destinationX = s.position.x + rand() * 50 * randomNegative;
+								
+								randomNegative = rand() < 0.5 ? -1 : 1;
+								int destinationY = s.position.y + rand() * 50 * randomNegative;
+								
+								// Create movement animations
+								id action = [CCMoveTo actionWithDuration:1 position:ccp(destinationX, destinationY)];
+								id removeAction = [CCCallFuncN actionWithTarget:self selector:@selector(removeSpriteFromParent:)];
+								
+								// Run movement animations
+								[shard runAction:[CCSequence actions: action, removeAction, nil]];
+							}
+						}
 						break;
 					case kGoal:
 						{
-						[self unschedule:@selector(tick:)];		// Need a better way of determining the end of a level
-						[self unschedule:@selector(timer:)];
-						
-						// Figure out best time (for prototype only)
-						int bestTime = [GameData sharedGameData].bestTime;
-						NSLog(@"Best time is %i", bestTime);
-						
-						// Overwrite the best time value
-						if (secondsLeft > bestTime)
-							[GameData sharedGameData].bestTime = secondsLeft;
-						
-						// Add "Game Over" layer
-						[self addChild:[GameOverLayer node] z:4];
+							[self unschedule:@selector(tick:)];		// Need a better way of determining the end of a level
+							[self unschedule:@selector(timer:)];
+							
+							// Figure out best time (for prototype only)
+							int bestTime = [GameData sharedGameData].bestTime;
+							NSLog(@"Best time is %i", bestTime);
+							
+							// Overwrite the best time value
+							if (secondsLeft > bestTime)
+								[GameData sharedGameData].bestTime = secondsLeft;
+							
+							// Add "Game Over" layer
+							[self addChild:[GameOverLayer node] z:4];
 						}
 						break;
 					case kDownBoost:
@@ -454,31 +481,36 @@
 						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, 1.0f), ballBody->GetPosition());
 						break;
 					case kDownSpikes:
+						// Subtract time from time limit
+						[self loseTime:5];
+						
+						// Push ball in opposite direction
+						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, 1.0f), ballBody->GetPosition());
+						break;
 					case kLeftSpikes:
+						// Subtract time from time limit
+						[self loseTime:5];
+						
+						// Push ball in opposite direction
+						ballBody->ApplyLinearImpulse(b2Vec2(1.0f, 0.0f), ballBody->GetPosition());
+						break;
 					case kRightSpikes:
+						// Subtract time from time limit
+						[self loseTime:5];
+						
+						// Push ball in opposite direction
+						ballBody->ApplyLinearImpulse(b2Vec2(-1.0f, 0.0f), ballBody->GetPosition());
+						break;
 					case kUpSpikes:
-						{
-							// Probably should create a loseTime:(int)seconds method so that this code doesn't have to be written 4 times
-						// Lose time
-						secondsLeft -= 5;
+						// Subtract time from time limit
+						[self loseTime:5];
 						
-						// Create a label that shows how much time you lost
-						CCLabel *deductedTimeLabel = [CCLabel labelWithString:@"-5 seconds" fontName:@"yoster.ttf" fontSize:16];
-						[deductedTimeLabel setPosition:ccp(ball.position.x, ball.position.y + 16)];
-						[deductedTimeLabel setColor:ccc3(255,255,255)];		// White
-						[deductedTimeLabel.texture setAliasTexParameters];
-						[self addChild:deductedTimeLabel z:5];
-						
-						// Move and fade actions
-						id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(ball.position.x, ball.position.y + 64)];
-						id fadeAction = [CCFadeOut actionWithDuration:1];
-						id removeAction = [CCCallFuncN actionWithTarget:self selector:@selector(removeSpriteFromParent:)];
-						
-						[deductedTimeLabel runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
-						
-						// Make invincible so touching spikes again doesn't immediately drain the timer
-						// Push ball away from obj
-						}
+						// Push ball in opposite direction
+						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, -1.0f), ballBody->GetPosition());
+						break;
+					case kBumper:
+						// Find the contact point and apply a linear inpulse at that point
+						// contact object is 'b'
 						break;
 					default:
 						NSLog(@"Touching unrecognized tile GID: %i", tileGID);
@@ -503,6 +535,35 @@
 }
 
 /**
+ Remove time from countdown timer and display label
+ */
+- (void)loseTime:(int)seconds
+{
+	// Subtract time from "secondsLeft" time limit variable
+	secondsLeft -= seconds;
+	
+	// Create a label that shows how much time you lost
+	NSString *s = [NSString stringWithFormat:@"-%i seconds", seconds];
+	CCBitmapFontAtlas *label = [CCBitmapFontAtlas bitmapFontAtlasWithString:s fntFile:@"yoster-16.fnt"];
+	[label setPosition:ccp(ball.position.x, ball.position.y + 16)];
+	[self addChild:label z:5];
+	
+//	CCLabel *deductedTimeLabel = [CCLabel labelWithString:s fontName:@"yoster.ttf" fontSize:16];
+//	[deductedTimeLabel setPosition:ccp(ball.position.x, ball.position.y + 16)];
+//	[deductedTimeLabel setColor:ccc3(255,255,255)];		// White
+//	[deductedTimeLabel.texture setAliasTexParameters];
+//	[self addChild:deductedTimeLabel z:5];
+
+	// Move and fade actions
+	id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(ball.position.x, ball.position.y + 64)];
+	id fadeAction = [CCFadeOut actionWithDuration:1];
+	id removeAction = [CCCallFuncN actionWithTarget:self selector:@selector(removeSpriteFromParent:)];
+	
+	//[deductedTimeLabel runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
+	[label runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
+}
+
+/**
  Update the game timer
  */
 - (void)timer:(ccTime)dt
@@ -514,7 +575,6 @@
 	NSString *time = [NSString stringWithFormat:@"%i:%02d", minutes, seconds];
 	
 	[timerLabel setString:time];
-	[timerLabelShadow setString:time];
 }
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
@@ -535,6 +595,7 @@
 		// Convert location
 		CGPoint touchPoint = [touch locationInView:[touch view]];
 		
+		// Should one of these be 'previousAngle'?
 		currentAngle = currentAngle = CC_RADIANS_TO_DEGREES(atan2(winSize.width / 2 - touchPoint.x, winSize.height / 2 - touchPoint.y));
 		
 		if (currentAngle < 0) currentAngle += 360;

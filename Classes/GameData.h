@@ -25,12 +25,16 @@
 	int bestTime;
 	
 	bool paused;
+	
+	// Boolean that's set to "true" if game is running on iPad!
+	bool isTablet;
 }
 
 @property (nonatomic) bool restoreLevel;
 @property (readwrite, nonatomic) int bestTime;
 @property (readwrite, nonatomic) int secondsLeft;
 @property (nonatomic) bool paused;
+@property (nonatomic) bool isTablet;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(GameData);
 

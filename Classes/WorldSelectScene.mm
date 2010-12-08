@@ -61,8 +61,8 @@
 		{
 			int angle = start + i * step;
 			
-			int x = radius * cos(angle);
-			int y = tilt + sin(angle);
+			int x = (winSize.width / 2) + (radius * cos(angle));
+			int y = (winSize.height / 2) + tilt + sin(angle);
 			
 			[[carouselItems objectAtIndex:i] setScale:0.25];
 			[[carouselItems objectAtIndex:i] setPosition:ccp(x, y)];

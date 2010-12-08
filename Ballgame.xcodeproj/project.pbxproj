@@ -281,6 +281,10 @@
 		7D0C5F6B1268A8DB00B79206 /* test.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C5F6A1268A8DB00B79206 /* test.tmx */; };
 		7D0C5FFA1268DB6400B79206 /* GameData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C5FF91268DB6400B79206 /* GameData.mm */; };
 		7D0C60001268DF7700B79206 /* GameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C5FFF1268DF7700B79206 /* GameScene.mm */; };
+		7D2DAED512B008B800EEBDFA /* yoster-16.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DAED112B008B800EEBDFA /* yoster-16.fnt */; };
+		7D2DAED612B008B800EEBDFA /* yoster-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DAED212B008B800EEBDFA /* yoster-16.png */; };
+		7D2DAED712B008B800EEBDFA /* yoster-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DAED312B008B800EEBDFA /* yoster-32.png */; };
+		7D2DAED812B008B800EEBDFA /* yoster-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DAED412B008B800EEBDFA /* yoster-48.png */; };
 		7D3460F1123F1F9B002F0B20 /* Default.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 7D3460F0123F1F9B002F0B20 /* Default.tmx */; };
 		7D3460F5123F1FA9002F0B20 /* block.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D3460F2123F1FA9002F0B20 /* block.png */; };
 		7D346118123F2256002F0B20 /* coordinates.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D346116123F2256002F0B20 /* coordinates.plist */; };
@@ -313,76 +317,6 @@
 		7DE122A21278317A0032B397 /* ball-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DE122A11278317A0032B397 /* ball-hd.png */; };
 		7DFCE28E12883C5A002998AA /* yoster-32.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE24612883C5A002998AA /* yoster-32.fnt */; };
 		7DFCE28F12883C5A002998AA /* yoster-48.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE24712883C5A002998AA /* yoster-48.fnt */; };
-		7DFCE29012883C5A002998AA /* yoster-321.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE24812883C5A002998AA /* yoster-321.png */; };
-		7DFCE29112883C5A002998AA /* yoster-322.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE24912883C5A002998AA /* yoster-322.png */; };
-		7DFCE29212883C5A002998AA /* yoster-323.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE24A12883C5A002998AA /* yoster-323.png */; };
-		7DFCE29312883C5A002998AA /* yoster-324.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE24B12883C5A002998AA /* yoster-324.png */; };
-		7DFCE29412883C5A002998AA /* yoster-325.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE24C12883C5A002998AA /* yoster-325.png */; };
-		7DFCE29512883C5A002998AA /* yoster-326.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE24D12883C5A002998AA /* yoster-326.png */; };
-		7DFCE29612883C5A002998AA /* yoster-327.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE24E12883C5A002998AA /* yoster-327.png */; };
-		7DFCE29712883C5A002998AA /* yoster-328.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE24F12883C5A002998AA /* yoster-328.png */; };
-		7DFCE29812883C5A002998AA /* yoster-329.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25012883C5A002998AA /* yoster-329.png */; };
-		7DFCE29912883C5A002998AA /* yoster-481.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25112883C5A002998AA /* yoster-481.png */; };
-		7DFCE29A12883C5A002998AA /* yoster-482.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25212883C5A002998AA /* yoster-482.png */; };
-		7DFCE29B12883C5A002998AA /* yoster-483.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25312883C5A002998AA /* yoster-483.png */; };
-		7DFCE29C12883C5A002998AA /* yoster-484.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25412883C5A002998AA /* yoster-484.png */; };
-		7DFCE29D12883C5A002998AA /* yoster-485.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25512883C5A002998AA /* yoster-485.png */; };
-		7DFCE29E12883C5A002998AA /* yoster-486.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25612883C5A002998AA /* yoster-486.png */; };
-		7DFCE29F12883C5A002998AA /* yoster-487.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25712883C5A002998AA /* yoster-487.png */; };
-		7DFCE2A012883C5A002998AA /* yoster-488.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25812883C5A002998AA /* yoster-488.png */; };
-		7DFCE2A112883C5A002998AA /* yoster-489.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25912883C5A002998AA /* yoster-489.png */; };
-		7DFCE2A212883C5A002998AA /* yoster-3210.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25A12883C5A002998AA /* yoster-3210.png */; };
-		7DFCE2A312883C5A002998AA /* yoster-3211.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25B12883C5A002998AA /* yoster-3211.png */; };
-		7DFCE2A412883C5A002998AA /* yoster-3212.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25C12883C5A002998AA /* yoster-3212.png */; };
-		7DFCE2A512883C5A002998AA /* yoster-3213.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25D12883C5A002998AA /* yoster-3213.png */; };
-		7DFCE2A612883C5A002998AA /* yoster-3214.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25E12883C5A002998AA /* yoster-3214.png */; };
-		7DFCE2A712883C5A002998AA /* yoster-3215.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE25F12883C5A002998AA /* yoster-3215.png */; };
-		7DFCE2A812883C5A002998AA /* yoster-3216.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26012883C5A002998AA /* yoster-3216.png */; };
-		7DFCE2A912883C5A002998AA /* yoster-3217.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26112883C5A002998AA /* yoster-3217.png */; };
-		7DFCE2AA12883C5A002998AA /* yoster-3218.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26212883C5A002998AA /* yoster-3218.png */; };
-		7DFCE2AB12883C5A002998AA /* yoster-3219.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26312883C5A002998AA /* yoster-3219.png */; };
-		7DFCE2AC12883C5A002998AA /* yoster-4810.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26412883C5A002998AA /* yoster-4810.png */; };
-		7DFCE2AD12883C5A002998AA /* yoster-4811.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26512883C5A002998AA /* yoster-4811.png */; };
-		7DFCE2AE12883C5A002998AA /* yoster-4812.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26612883C5A002998AA /* yoster-4812.png */; };
-		7DFCE2AF12883C5A002998AA /* yoster-4813.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26712883C5A002998AA /* yoster-4813.png */; };
-		7DFCE2B012883C5A002998AA /* yoster-4814.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26812883C5A002998AA /* yoster-4814.png */; };
-		7DFCE2B112883C5A002998AA /* yoster-4815.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26912883C5A002998AA /* yoster-4815.png */; };
-		7DFCE2B212883C5A002998AA /* yoster-4816.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26A12883C5A002998AA /* yoster-4816.png */; };
-		7DFCE2B312883C5A002998AA /* yoster-4817.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26B12883C5A002998AA /* yoster-4817.png */; };
-		7DFCE2B412883C5A002998AA /* yoster-4818.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26C12883C5A002998AA /* yoster-4818.png */; };
-		7DFCE2B512883C5A002998AA /* yoster-4819.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26D12883C5A002998AA /* yoster-4819.png */; };
-		7DFCE2B612883C5A002998AA /* yoster-4820.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26E12883C5A002998AA /* yoster-4820.png */; };
-		7DFCE2B712883C5A002998AA /* yoster-4821.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE26F12883C5A002998AA /* yoster-4821.png */; };
-		7DFCE2B812883C5A002998AA /* yoster-4822.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27012883C5A002998AA /* yoster-4822.png */; };
-		7DFCE2B912883C5A002998AA /* yoster-4823.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27112883C5A002998AA /* yoster-4823.png */; };
-		7DFCE2BA12883C5A002998AA /* yoster-4824.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27212883C5A002998AA /* yoster-4824.png */; };
-		7DFCE2BB12883C5A002998AA /* yoster-4825.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27312883C5A002998AA /* yoster-4825.png */; };
-		7DFCE2BC12883C5A002998AA /* yoster-4826.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27412883C5A002998AA /* yoster-4826.png */; };
-		7DFCE2BD12883C5A002998AA /* yoster-4827.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27512883C5A002998AA /* yoster-4827.png */; };
-		7DFCE2BE12883C5A002998AA /* yoster-4828.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27612883C5A002998AA /* yoster-4828.png */; };
-		7DFCE2BF12883C5A002998AA /* yoster-4829.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27712883C5A002998AA /* yoster-4829.png */; };
-		7DFCE2C012883C5A002998AA /* yoster-4830.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27812883C5A002998AA /* yoster-4830.png */; };
-		7DFCE2C112883C5A002998AA /* yoster-4831.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27912883C5A002998AA /* yoster-4831.png */; };
-		7DFCE2C212883C5A002998AA /* yoster-4832.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27A12883C5A002998AA /* yoster-4832.png */; };
-		7DFCE2C312883C5A002998AA /* yoster-4833.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27B12883C5A002998AA /* yoster-4833.png */; };
-		7DFCE2C412883C5A002998AA /* yoster-4834.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27C12883C5A002998AA /* yoster-4834.png */; };
-		7DFCE2C512883C5A002998AA /* yoster-4835.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27D12883C5A002998AA /* yoster-4835.png */; };
-		7DFCE2C612883C5A002998AA /* yoster-4836.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27E12883C5A002998AA /* yoster-4836.png */; };
-		7DFCE2C712883C5A002998AA /* yoster-4837.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE27F12883C5A002998AA /* yoster-4837.png */; };
-		7DFCE2C812883C5A002998AA /* yoster-4838.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28012883C5A002998AA /* yoster-4838.png */; };
-		7DFCE2C912883C5A002998AA /* yoster-4839.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28112883C5A002998AA /* yoster-4839.png */; };
-		7DFCE2CA12883C5A002998AA /* yoster-4840.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28212883C5A002998AA /* yoster-4840.png */; };
-		7DFCE2CB12883C5A002998AA /* yoster-4841.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28312883C5A002998AA /* yoster-4841.png */; };
-		7DFCE2CC12883C5A002998AA /* yoster-4842.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28412883C5A002998AA /* yoster-4842.png */; };
-		7DFCE2CD12883C5A002998AA /* yoster-4843.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28512883C5A002998AA /* yoster-4843.png */; };
-		7DFCE2CE12883C5A002998AA /* yoster-4844.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28612883C5A002998AA /* yoster-4844.png */; };
-		7DFCE2CF12883C5A002998AA /* yoster-4845.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28712883C5A002998AA /* yoster-4845.png */; };
-		7DFCE2D012883C5A002998AA /* yoster-4846.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28812883C5A002998AA /* yoster-4846.png */; };
-		7DFCE2D112883C5A002998AA /* yoster-4847.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28912883C5A002998AA /* yoster-4847.png */; };
-		7DFCE2D212883C5A002998AA /* yoster-4848.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28A12883C5A002998AA /* yoster-4848.png */; };
-		7DFCE2D312883C5A002998AA /* yoster-4849.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28B12883C5A002998AA /* yoster-4849.png */; };
-		7DFCE2D412883C5A002998AA /* yoster-4850.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28C12883C5A002998AA /* yoster-4850.png */; };
-		7DFCE2D512883C5A002998AA /* yoster-4851.png in Resources */ = {isa = PBXBuildFile; fileRef = 7DFCE28D12883C5A002998AA /* yoster-4851.png */; };
 		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
 		DCCBF1B70F6022AE0040855A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -680,6 +614,10 @@
 		7D0C5FFB1268DF1F00B79206 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		7D0C5FFE1268DF7700B79206 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		7D0C5FFF1268DF7700B79206 /* GameScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameScene.mm; sourceTree = "<group>"; };
+		7D2DAED112B008B800EEBDFA /* yoster-16.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "yoster-16.fnt"; path = "fonts/yoster-16.fnt"; sourceTree = "<group>"; };
+		7D2DAED212B008B800EEBDFA /* yoster-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-16.png"; path = "fonts/yoster-16.png"; sourceTree = "<group>"; };
+		7D2DAED312B008B800EEBDFA /* yoster-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-32.png"; path = "fonts/yoster-32.png"; sourceTree = "<group>"; };
+		7D2DAED412B008B800EEBDFA /* yoster-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-48.png"; path = "fonts/yoster-48.png"; sourceTree = "<group>"; };
 		7D3460F0123F1F9B002F0B20 /* Default.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Default.tmx; path = maps/Default.tmx; sourceTree = "<group>"; };
 		7D3460F2123F1FA9002F0B20 /* block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block.png; path = images/block.png; sourceTree = "<group>"; };
 		7D346116123F2256002F0B20 /* coordinates.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = coordinates.plist; path = maps/coordinates.plist; sourceTree = "<group>"; };
@@ -714,76 +652,6 @@
 		7DE122A11278317A0032B397 /* ball-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ball-hd.png"; path = "images/ball-hd.png"; sourceTree = "<group>"; };
 		7DFCE24612883C5A002998AA /* yoster-32.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "yoster-32.fnt"; path = "fonts/yoster-32.fnt"; sourceTree = "<group>"; };
 		7DFCE24712883C5A002998AA /* yoster-48.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "yoster-48.fnt"; path = "fonts/yoster-48.fnt"; sourceTree = "<group>"; };
-		7DFCE24812883C5A002998AA /* yoster-321.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-321.png"; path = "fonts/yoster-321.png"; sourceTree = "<group>"; };
-		7DFCE24912883C5A002998AA /* yoster-322.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-322.png"; path = "fonts/yoster-322.png"; sourceTree = "<group>"; };
-		7DFCE24A12883C5A002998AA /* yoster-323.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-323.png"; path = "fonts/yoster-323.png"; sourceTree = "<group>"; };
-		7DFCE24B12883C5A002998AA /* yoster-324.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-324.png"; path = "fonts/yoster-324.png"; sourceTree = "<group>"; };
-		7DFCE24C12883C5A002998AA /* yoster-325.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-325.png"; path = "fonts/yoster-325.png"; sourceTree = "<group>"; };
-		7DFCE24D12883C5A002998AA /* yoster-326.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-326.png"; path = "fonts/yoster-326.png"; sourceTree = "<group>"; };
-		7DFCE24E12883C5A002998AA /* yoster-327.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-327.png"; path = "fonts/yoster-327.png"; sourceTree = "<group>"; };
-		7DFCE24F12883C5A002998AA /* yoster-328.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-328.png"; path = "fonts/yoster-328.png"; sourceTree = "<group>"; };
-		7DFCE25012883C5A002998AA /* yoster-329.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-329.png"; path = "fonts/yoster-329.png"; sourceTree = "<group>"; };
-		7DFCE25112883C5A002998AA /* yoster-481.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-481.png"; path = "fonts/yoster-481.png"; sourceTree = "<group>"; };
-		7DFCE25212883C5A002998AA /* yoster-482.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-482.png"; path = "fonts/yoster-482.png"; sourceTree = "<group>"; };
-		7DFCE25312883C5A002998AA /* yoster-483.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-483.png"; path = "fonts/yoster-483.png"; sourceTree = "<group>"; };
-		7DFCE25412883C5A002998AA /* yoster-484.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-484.png"; path = "fonts/yoster-484.png"; sourceTree = "<group>"; };
-		7DFCE25512883C5A002998AA /* yoster-485.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-485.png"; path = "fonts/yoster-485.png"; sourceTree = "<group>"; };
-		7DFCE25612883C5A002998AA /* yoster-486.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-486.png"; path = "fonts/yoster-486.png"; sourceTree = "<group>"; };
-		7DFCE25712883C5A002998AA /* yoster-487.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-487.png"; path = "fonts/yoster-487.png"; sourceTree = "<group>"; };
-		7DFCE25812883C5A002998AA /* yoster-488.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-488.png"; path = "fonts/yoster-488.png"; sourceTree = "<group>"; };
-		7DFCE25912883C5A002998AA /* yoster-489.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-489.png"; path = "fonts/yoster-489.png"; sourceTree = "<group>"; };
-		7DFCE25A12883C5A002998AA /* yoster-3210.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-3210.png"; path = "fonts/yoster-3210.png"; sourceTree = "<group>"; };
-		7DFCE25B12883C5A002998AA /* yoster-3211.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-3211.png"; path = "fonts/yoster-3211.png"; sourceTree = "<group>"; };
-		7DFCE25C12883C5A002998AA /* yoster-3212.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-3212.png"; path = "fonts/yoster-3212.png"; sourceTree = "<group>"; };
-		7DFCE25D12883C5A002998AA /* yoster-3213.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-3213.png"; path = "fonts/yoster-3213.png"; sourceTree = "<group>"; };
-		7DFCE25E12883C5A002998AA /* yoster-3214.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-3214.png"; path = "fonts/yoster-3214.png"; sourceTree = "<group>"; };
-		7DFCE25F12883C5A002998AA /* yoster-3215.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-3215.png"; path = "fonts/yoster-3215.png"; sourceTree = "<group>"; };
-		7DFCE26012883C5A002998AA /* yoster-3216.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-3216.png"; path = "fonts/yoster-3216.png"; sourceTree = "<group>"; };
-		7DFCE26112883C5A002998AA /* yoster-3217.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-3217.png"; path = "fonts/yoster-3217.png"; sourceTree = "<group>"; };
-		7DFCE26212883C5A002998AA /* yoster-3218.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-3218.png"; path = "fonts/yoster-3218.png"; sourceTree = "<group>"; };
-		7DFCE26312883C5A002998AA /* yoster-3219.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-3219.png"; path = "fonts/yoster-3219.png"; sourceTree = "<group>"; };
-		7DFCE26412883C5A002998AA /* yoster-4810.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4810.png"; path = "fonts/yoster-4810.png"; sourceTree = "<group>"; };
-		7DFCE26512883C5A002998AA /* yoster-4811.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4811.png"; path = "fonts/yoster-4811.png"; sourceTree = "<group>"; };
-		7DFCE26612883C5A002998AA /* yoster-4812.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4812.png"; path = "fonts/yoster-4812.png"; sourceTree = "<group>"; };
-		7DFCE26712883C5A002998AA /* yoster-4813.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4813.png"; path = "fonts/yoster-4813.png"; sourceTree = "<group>"; };
-		7DFCE26812883C5A002998AA /* yoster-4814.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4814.png"; path = "fonts/yoster-4814.png"; sourceTree = "<group>"; };
-		7DFCE26912883C5A002998AA /* yoster-4815.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4815.png"; path = "fonts/yoster-4815.png"; sourceTree = "<group>"; };
-		7DFCE26A12883C5A002998AA /* yoster-4816.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4816.png"; path = "fonts/yoster-4816.png"; sourceTree = "<group>"; };
-		7DFCE26B12883C5A002998AA /* yoster-4817.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4817.png"; path = "fonts/yoster-4817.png"; sourceTree = "<group>"; };
-		7DFCE26C12883C5A002998AA /* yoster-4818.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4818.png"; path = "fonts/yoster-4818.png"; sourceTree = "<group>"; };
-		7DFCE26D12883C5A002998AA /* yoster-4819.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4819.png"; path = "fonts/yoster-4819.png"; sourceTree = "<group>"; };
-		7DFCE26E12883C5A002998AA /* yoster-4820.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4820.png"; path = "fonts/yoster-4820.png"; sourceTree = "<group>"; };
-		7DFCE26F12883C5A002998AA /* yoster-4821.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4821.png"; path = "fonts/yoster-4821.png"; sourceTree = "<group>"; };
-		7DFCE27012883C5A002998AA /* yoster-4822.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4822.png"; path = "fonts/yoster-4822.png"; sourceTree = "<group>"; };
-		7DFCE27112883C5A002998AA /* yoster-4823.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4823.png"; path = "fonts/yoster-4823.png"; sourceTree = "<group>"; };
-		7DFCE27212883C5A002998AA /* yoster-4824.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4824.png"; path = "fonts/yoster-4824.png"; sourceTree = "<group>"; };
-		7DFCE27312883C5A002998AA /* yoster-4825.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4825.png"; path = "fonts/yoster-4825.png"; sourceTree = "<group>"; };
-		7DFCE27412883C5A002998AA /* yoster-4826.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4826.png"; path = "fonts/yoster-4826.png"; sourceTree = "<group>"; };
-		7DFCE27512883C5A002998AA /* yoster-4827.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4827.png"; path = "fonts/yoster-4827.png"; sourceTree = "<group>"; };
-		7DFCE27612883C5A002998AA /* yoster-4828.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4828.png"; path = "fonts/yoster-4828.png"; sourceTree = "<group>"; };
-		7DFCE27712883C5A002998AA /* yoster-4829.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4829.png"; path = "fonts/yoster-4829.png"; sourceTree = "<group>"; };
-		7DFCE27812883C5A002998AA /* yoster-4830.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4830.png"; path = "fonts/yoster-4830.png"; sourceTree = "<group>"; };
-		7DFCE27912883C5A002998AA /* yoster-4831.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4831.png"; path = "fonts/yoster-4831.png"; sourceTree = "<group>"; };
-		7DFCE27A12883C5A002998AA /* yoster-4832.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4832.png"; path = "fonts/yoster-4832.png"; sourceTree = "<group>"; };
-		7DFCE27B12883C5A002998AA /* yoster-4833.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4833.png"; path = "fonts/yoster-4833.png"; sourceTree = "<group>"; };
-		7DFCE27C12883C5A002998AA /* yoster-4834.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4834.png"; path = "fonts/yoster-4834.png"; sourceTree = "<group>"; };
-		7DFCE27D12883C5A002998AA /* yoster-4835.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4835.png"; path = "fonts/yoster-4835.png"; sourceTree = "<group>"; };
-		7DFCE27E12883C5A002998AA /* yoster-4836.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4836.png"; path = "fonts/yoster-4836.png"; sourceTree = "<group>"; };
-		7DFCE27F12883C5A002998AA /* yoster-4837.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4837.png"; path = "fonts/yoster-4837.png"; sourceTree = "<group>"; };
-		7DFCE28012883C5A002998AA /* yoster-4838.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4838.png"; path = "fonts/yoster-4838.png"; sourceTree = "<group>"; };
-		7DFCE28112883C5A002998AA /* yoster-4839.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4839.png"; path = "fonts/yoster-4839.png"; sourceTree = "<group>"; };
-		7DFCE28212883C5A002998AA /* yoster-4840.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4840.png"; path = "fonts/yoster-4840.png"; sourceTree = "<group>"; };
-		7DFCE28312883C5A002998AA /* yoster-4841.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4841.png"; path = "fonts/yoster-4841.png"; sourceTree = "<group>"; };
-		7DFCE28412883C5A002998AA /* yoster-4842.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4842.png"; path = "fonts/yoster-4842.png"; sourceTree = "<group>"; };
-		7DFCE28512883C5A002998AA /* yoster-4843.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4843.png"; path = "fonts/yoster-4843.png"; sourceTree = "<group>"; };
-		7DFCE28612883C5A002998AA /* yoster-4844.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4844.png"; path = "fonts/yoster-4844.png"; sourceTree = "<group>"; };
-		7DFCE28712883C5A002998AA /* yoster-4845.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4845.png"; path = "fonts/yoster-4845.png"; sourceTree = "<group>"; };
-		7DFCE28812883C5A002998AA /* yoster-4846.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4846.png"; path = "fonts/yoster-4846.png"; sourceTree = "<group>"; };
-		7DFCE28912883C5A002998AA /* yoster-4847.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4847.png"; path = "fonts/yoster-4847.png"; sourceTree = "<group>"; };
-		7DFCE28A12883C5A002998AA /* yoster-4848.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4848.png"; path = "fonts/yoster-4848.png"; sourceTree = "<group>"; };
-		7DFCE28B12883C5A002998AA /* yoster-4849.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4849.png"; path = "fonts/yoster-4849.png"; sourceTree = "<group>"; };
-		7DFCE28C12883C5A002998AA /* yoster-4850.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4850.png"; path = "fonts/yoster-4850.png"; sourceTree = "<group>"; };
-		7DFCE28D12883C5A002998AA /* yoster-4851.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-4851.png"; path = "fonts/yoster-4851.png"; sourceTree = "<group>"; };
 		DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC6640040F83B3EA000B3E49 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1345,78 +1213,12 @@
 		7DFCE24512883C4F002998AA /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				7D2DAED112B008B800EEBDFA /* yoster-16.fnt */,
+				7D2DAED212B008B800EEBDFA /* yoster-16.png */,
+				7D2DAED312B008B800EEBDFA /* yoster-32.png */,
+				7D2DAED412B008B800EEBDFA /* yoster-48.png */,
 				7DFCE24612883C5A002998AA /* yoster-32.fnt */,
 				7DFCE24712883C5A002998AA /* yoster-48.fnt */,
-				7DFCE24812883C5A002998AA /* yoster-321.png */,
-				7DFCE24912883C5A002998AA /* yoster-322.png */,
-				7DFCE24A12883C5A002998AA /* yoster-323.png */,
-				7DFCE24B12883C5A002998AA /* yoster-324.png */,
-				7DFCE24C12883C5A002998AA /* yoster-325.png */,
-				7DFCE24D12883C5A002998AA /* yoster-326.png */,
-				7DFCE24E12883C5A002998AA /* yoster-327.png */,
-				7DFCE24F12883C5A002998AA /* yoster-328.png */,
-				7DFCE25012883C5A002998AA /* yoster-329.png */,
-				7DFCE25112883C5A002998AA /* yoster-481.png */,
-				7DFCE25212883C5A002998AA /* yoster-482.png */,
-				7DFCE25312883C5A002998AA /* yoster-483.png */,
-				7DFCE25412883C5A002998AA /* yoster-484.png */,
-				7DFCE25512883C5A002998AA /* yoster-485.png */,
-				7DFCE25612883C5A002998AA /* yoster-486.png */,
-				7DFCE25712883C5A002998AA /* yoster-487.png */,
-				7DFCE25812883C5A002998AA /* yoster-488.png */,
-				7DFCE25912883C5A002998AA /* yoster-489.png */,
-				7DFCE25A12883C5A002998AA /* yoster-3210.png */,
-				7DFCE25B12883C5A002998AA /* yoster-3211.png */,
-				7DFCE25C12883C5A002998AA /* yoster-3212.png */,
-				7DFCE25D12883C5A002998AA /* yoster-3213.png */,
-				7DFCE25E12883C5A002998AA /* yoster-3214.png */,
-				7DFCE25F12883C5A002998AA /* yoster-3215.png */,
-				7DFCE26012883C5A002998AA /* yoster-3216.png */,
-				7DFCE26112883C5A002998AA /* yoster-3217.png */,
-				7DFCE26212883C5A002998AA /* yoster-3218.png */,
-				7DFCE26312883C5A002998AA /* yoster-3219.png */,
-				7DFCE26412883C5A002998AA /* yoster-4810.png */,
-				7DFCE26512883C5A002998AA /* yoster-4811.png */,
-				7DFCE26612883C5A002998AA /* yoster-4812.png */,
-				7DFCE26712883C5A002998AA /* yoster-4813.png */,
-				7DFCE26812883C5A002998AA /* yoster-4814.png */,
-				7DFCE26912883C5A002998AA /* yoster-4815.png */,
-				7DFCE26A12883C5A002998AA /* yoster-4816.png */,
-				7DFCE26B12883C5A002998AA /* yoster-4817.png */,
-				7DFCE26C12883C5A002998AA /* yoster-4818.png */,
-				7DFCE26D12883C5A002998AA /* yoster-4819.png */,
-				7DFCE26E12883C5A002998AA /* yoster-4820.png */,
-				7DFCE26F12883C5A002998AA /* yoster-4821.png */,
-				7DFCE27012883C5A002998AA /* yoster-4822.png */,
-				7DFCE27112883C5A002998AA /* yoster-4823.png */,
-				7DFCE27212883C5A002998AA /* yoster-4824.png */,
-				7DFCE27312883C5A002998AA /* yoster-4825.png */,
-				7DFCE27412883C5A002998AA /* yoster-4826.png */,
-				7DFCE27512883C5A002998AA /* yoster-4827.png */,
-				7DFCE27612883C5A002998AA /* yoster-4828.png */,
-				7DFCE27712883C5A002998AA /* yoster-4829.png */,
-				7DFCE27812883C5A002998AA /* yoster-4830.png */,
-				7DFCE27912883C5A002998AA /* yoster-4831.png */,
-				7DFCE27A12883C5A002998AA /* yoster-4832.png */,
-				7DFCE27B12883C5A002998AA /* yoster-4833.png */,
-				7DFCE27C12883C5A002998AA /* yoster-4834.png */,
-				7DFCE27D12883C5A002998AA /* yoster-4835.png */,
-				7DFCE27E12883C5A002998AA /* yoster-4836.png */,
-				7DFCE27F12883C5A002998AA /* yoster-4837.png */,
-				7DFCE28012883C5A002998AA /* yoster-4838.png */,
-				7DFCE28112883C5A002998AA /* yoster-4839.png */,
-				7DFCE28212883C5A002998AA /* yoster-4840.png */,
-				7DFCE28312883C5A002998AA /* yoster-4841.png */,
-				7DFCE28412883C5A002998AA /* yoster-4842.png */,
-				7DFCE28512883C5A002998AA /* yoster-4843.png */,
-				7DFCE28612883C5A002998AA /* yoster-4844.png */,
-				7DFCE28712883C5A002998AA /* yoster-4845.png */,
-				7DFCE28812883C5A002998AA /* yoster-4846.png */,
-				7DFCE28912883C5A002998AA /* yoster-4847.png */,
-				7DFCE28A12883C5A002998AA /* yoster-4848.png */,
-				7DFCE28B12883C5A002998AA /* yoster-4849.png */,
-				7DFCE28C12883C5A002998AA /* yoster-4850.png */,
-				7DFCE28D12883C5A002998AA /* yoster-4851.png */,
 			);
 			name = fonts;
 			sourceTree = "<group>";
@@ -1667,77 +1469,11 @@
 				7DE122A21278317A0032B397 /* ball-hd.png in Resources */,
 				7DFCE28E12883C5A002998AA /* yoster-32.fnt in Resources */,
 				7DFCE28F12883C5A002998AA /* yoster-48.fnt in Resources */,
-				7DFCE29012883C5A002998AA /* yoster-321.png in Resources */,
-				7DFCE29112883C5A002998AA /* yoster-322.png in Resources */,
-				7DFCE29212883C5A002998AA /* yoster-323.png in Resources */,
-				7DFCE29312883C5A002998AA /* yoster-324.png in Resources */,
-				7DFCE29412883C5A002998AA /* yoster-325.png in Resources */,
-				7DFCE29512883C5A002998AA /* yoster-326.png in Resources */,
-				7DFCE29612883C5A002998AA /* yoster-327.png in Resources */,
-				7DFCE29712883C5A002998AA /* yoster-328.png in Resources */,
-				7DFCE29812883C5A002998AA /* yoster-329.png in Resources */,
-				7DFCE29912883C5A002998AA /* yoster-481.png in Resources */,
-				7DFCE29A12883C5A002998AA /* yoster-482.png in Resources */,
-				7DFCE29B12883C5A002998AA /* yoster-483.png in Resources */,
-				7DFCE29C12883C5A002998AA /* yoster-484.png in Resources */,
-				7DFCE29D12883C5A002998AA /* yoster-485.png in Resources */,
-				7DFCE29E12883C5A002998AA /* yoster-486.png in Resources */,
-				7DFCE29F12883C5A002998AA /* yoster-487.png in Resources */,
-				7DFCE2A012883C5A002998AA /* yoster-488.png in Resources */,
-				7DFCE2A112883C5A002998AA /* yoster-489.png in Resources */,
-				7DFCE2A212883C5A002998AA /* yoster-3210.png in Resources */,
-				7DFCE2A312883C5A002998AA /* yoster-3211.png in Resources */,
-				7DFCE2A412883C5A002998AA /* yoster-3212.png in Resources */,
-				7DFCE2A512883C5A002998AA /* yoster-3213.png in Resources */,
-				7DFCE2A612883C5A002998AA /* yoster-3214.png in Resources */,
-				7DFCE2A712883C5A002998AA /* yoster-3215.png in Resources */,
-				7DFCE2A812883C5A002998AA /* yoster-3216.png in Resources */,
-				7DFCE2A912883C5A002998AA /* yoster-3217.png in Resources */,
-				7DFCE2AA12883C5A002998AA /* yoster-3218.png in Resources */,
-				7DFCE2AB12883C5A002998AA /* yoster-3219.png in Resources */,
-				7DFCE2AC12883C5A002998AA /* yoster-4810.png in Resources */,
-				7DFCE2AD12883C5A002998AA /* yoster-4811.png in Resources */,
-				7DFCE2AE12883C5A002998AA /* yoster-4812.png in Resources */,
-				7DFCE2AF12883C5A002998AA /* yoster-4813.png in Resources */,
-				7DFCE2B012883C5A002998AA /* yoster-4814.png in Resources */,
-				7DFCE2B112883C5A002998AA /* yoster-4815.png in Resources */,
-				7DFCE2B212883C5A002998AA /* yoster-4816.png in Resources */,
-				7DFCE2B312883C5A002998AA /* yoster-4817.png in Resources */,
-				7DFCE2B412883C5A002998AA /* yoster-4818.png in Resources */,
-				7DFCE2B512883C5A002998AA /* yoster-4819.png in Resources */,
-				7DFCE2B612883C5A002998AA /* yoster-4820.png in Resources */,
-				7DFCE2B712883C5A002998AA /* yoster-4821.png in Resources */,
-				7DFCE2B812883C5A002998AA /* yoster-4822.png in Resources */,
-				7DFCE2B912883C5A002998AA /* yoster-4823.png in Resources */,
-				7DFCE2BA12883C5A002998AA /* yoster-4824.png in Resources */,
-				7DFCE2BB12883C5A002998AA /* yoster-4825.png in Resources */,
-				7DFCE2BC12883C5A002998AA /* yoster-4826.png in Resources */,
-				7DFCE2BD12883C5A002998AA /* yoster-4827.png in Resources */,
-				7DFCE2BE12883C5A002998AA /* yoster-4828.png in Resources */,
-				7DFCE2BF12883C5A002998AA /* yoster-4829.png in Resources */,
-				7DFCE2C012883C5A002998AA /* yoster-4830.png in Resources */,
-				7DFCE2C112883C5A002998AA /* yoster-4831.png in Resources */,
-				7DFCE2C212883C5A002998AA /* yoster-4832.png in Resources */,
-				7DFCE2C312883C5A002998AA /* yoster-4833.png in Resources */,
-				7DFCE2C412883C5A002998AA /* yoster-4834.png in Resources */,
-				7DFCE2C512883C5A002998AA /* yoster-4835.png in Resources */,
-				7DFCE2C612883C5A002998AA /* yoster-4836.png in Resources */,
-				7DFCE2C712883C5A002998AA /* yoster-4837.png in Resources */,
-				7DFCE2C812883C5A002998AA /* yoster-4838.png in Resources */,
-				7DFCE2C912883C5A002998AA /* yoster-4839.png in Resources */,
-				7DFCE2CA12883C5A002998AA /* yoster-4840.png in Resources */,
-				7DFCE2CB12883C5A002998AA /* yoster-4841.png in Resources */,
-				7DFCE2CC12883C5A002998AA /* yoster-4842.png in Resources */,
-				7DFCE2CD12883C5A002998AA /* yoster-4843.png in Resources */,
-				7DFCE2CE12883C5A002998AA /* yoster-4844.png in Resources */,
-				7DFCE2CF12883C5A002998AA /* yoster-4845.png in Resources */,
-				7DFCE2D012883C5A002998AA /* yoster-4846.png in Resources */,
-				7DFCE2D112883C5A002998AA /* yoster-4847.png in Resources */,
-				7DFCE2D212883C5A002998AA /* yoster-4848.png in Resources */,
-				7DFCE2D312883C5A002998AA /* yoster-4849.png in Resources */,
-				7DFCE2D412883C5A002998AA /* yoster-4850.png in Resources */,
-				7DFCE2D512883C5A002998AA /* yoster-4851.png in Resources */,
 				7DD239AC12AEA9A800CB4F96 /* task-list.rtf in Resources */,
+				7D2DAED512B008B800EEBDFA /* yoster-16.fnt in Resources */,
+				7D2DAED612B008B800EEBDFA /* yoster-16.png in Resources */,
+				7D2DAED712B008B800EEBDFA /* yoster-32.png in Resources */,
+				7D2DAED812B008B800EEBDFA /* yoster-48.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

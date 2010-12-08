@@ -27,6 +27,7 @@
 	b2World *world;
 	MyContactListener *contactListener;
 	
+	// Player
 	CCSprite *ball;
 	
 	// Map
@@ -38,7 +39,7 @@
 	
 	// For time limit
 	int secondsLeft;
-	CCLabel *timerLabel, *timerLabelShadow;
+	CCBitmapFontAtlas *timerLabel;
 	
 	// For countdown at start of level
 	int countdownTime;
@@ -49,4 +50,7 @@
 	// Base size of Box2D objects; doubles on iPad/iPhone 4 Retina Display
 	int ptmRatio;
 }
+
+- (void)loseTime:(int)seconds;	// Method to subtract from countdown timer & display a label w/ lost time
+
 @end
