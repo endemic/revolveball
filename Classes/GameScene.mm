@@ -59,16 +59,6 @@
 		[finishLabel setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 		[self addChild:finishLabel z:1];
 		
-//		CCLabel *finishLabel = [CCLabel labelWithString:@"FINISH!" fontName:@"yoster.ttf" fontSize:48.0];
-//		[finishLabel setColor:ccc3(255, 255, 255)];
-//		[finishLabel setPosition:ccp(winSize.width / 2, winSize.height / 2)];
-//		[self addChild:finishLabel z:1];
-//		
-//		CCLabel *finishLabelShadow = [CCLabel labelWithString:@"FINISH!" fontName:@"yoster.ttf" fontSize:48.0];
-//		[finishLabelShadow setColor:ccc3(0, 0, 0)];
-//		[finishLabelShadow setPosition:ccp((winSize.width / 2) - 2, (winSize.height / 2) - 2)];
-//		[self addChild:finishLabelShadow z:0];
-		
 		// Display your time/best time
 		int bestTime = [GameData sharedGameData].bestTime;
 		int minutes = floor(bestTime / 60);
@@ -77,13 +67,6 @@
 		CCBitmapFontAtlas *bestTimeLabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:[NSString stringWithFormat:@"Best time: %i:%02d", minutes, seconds] fntFile:@"yoster-32.fnt"];
 		[bestTimeLabel setPosition:ccp(winSize.width / 2, winSize.height / 2 - 50)];
 		[self addChild:bestTimeLabel z:1];
-		
-//		CCLabel *bestTimeLabel = [CCLabel labelWithString:[NSString stringWithFormat:@"Best time: %i:%02d", minutes, seconds] fontName:@"yoster.ttf" fontSize:32.0];
-//		[bestTimeLabel setColor:ccc3(255, 255, 255)];
-//		[bestTimeLabel setPosition:ccp(winSize.width / 2, winSize.height / 2 - 50)];
-//		[bestTimeLabel.texture setAliasTexParameters];
-//		[self addChild:bestTimeLabel z:1];
-		
 		
 		// Add button which takes us to game scene
 		CCMenuItem *startButton = [CCMenuItemImage itemFromNormalImage:@"start-button.png" selectedImage:@"start-button.png" target:self selector:@selector(restartGame:)];
@@ -142,8 +125,14 @@
 		[self addChild:timerLabel z:2];
 		
 		// Add static background
-		CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
+		CCSprite *background;
+		if (iPad)
+			background = [CCSprite spriteWithFile:@"background-hd.png"];
+		else
+			background = [CCSprite spriteWithFile:@"background.png"];
+		
 		[background setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+		[background.texture setAliasTexParameters];
 		[self addChild:background z:0];
 		
 		// Create/add ball
@@ -308,7 +297,7 @@
 		ballFixtureDefinition.shape = &circle;
 		ballFixtureDefinition.density = 1.0f;
 		ballFixtureDefinition.friction = 0.2f;
-		ballFixtureDefinition.restitution = 0.6f;
+		ballFixtureDefinition.restitution = 0.4f;
 		ballBody->CreateFixture(&ballFixtureDefinition);
 		
 		// Set default map anchor point - Need to do this here once so the map actually appears around the ball
@@ -336,20 +325,14 @@
 		//text = [NSString stringWithFormat:@"%i", countdownTime];
 	
 	CCBitmapFontAtlas *label = [CCBitmapFontAtlas bitmapFontAtlasWithString:text fntFile:@"yoster-48.fnt"];
-	[self addChild:label];
-	
-//	CCLabel *countdownLabel = [CCLabel labelWithString:text fontName:@"yoster.ttf" fontSize:48.0];
-//	[countdownLabel setPosition:ccp(winSize.width / 2, winSize.height / 2)];
-//	[countdownLabel setColor:ccc3(255, 255, 255)];	// White
-//	[countdownLabel.texture setAliasTexParameters];
-//	[self addChild:countdownLabel z:3];
+	[label setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+	[self addChild:label z:2];
 	
 	// Move and fade actions
 	id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(ball.position.x, ball.position.y + 64)];
 	id fadeAction = [CCFadeOut actionWithDuration:1];
 	id removeAction = [CCCallFuncN actionWithTarget:self selector:@selector(removeSpriteFromParent:)];
 	
-	//[countdownLabel runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
 	[label runAction:[CCSequence actions:[CCSpawn actions:moveAction, fadeAction, nil], removeAction, nil]];
 	
 	countdownTime--;
@@ -485,28 +468,28 @@
 						[self loseTime:5];
 						
 						// Push ball in opposite direction
-						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, 1.0f), ballBody->GetPosition());
+						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, -2.0f), ballBody->GetPosition());
 						break;
 					case kLeftSpikes:
 						// Subtract time from time limit
 						[self loseTime:5];
 						
 						// Push ball in opposite direction
-						ballBody->ApplyLinearImpulse(b2Vec2(1.0f, 0.0f), ballBody->GetPosition());
+						ballBody->ApplyLinearImpulse(b2Vec2(-2.0f, 0.0f), ballBody->GetPosition());
 						break;
 					case kRightSpikes:
 						// Subtract time from time limit
 						[self loseTime:5];
 						
 						// Push ball in opposite direction
-						ballBody->ApplyLinearImpulse(b2Vec2(-1.0f, 0.0f), ballBody->GetPosition());
+						ballBody->ApplyLinearImpulse(b2Vec2(2.0f, 0.0f), ballBody->GetPosition());
 						break;
 					case kUpSpikes:
 						// Subtract time from time limit
 						[self loseTime:5];
 						
 						// Push ball in opposite direction
-						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, -1.0f), ballBody->GetPosition());
+						ballBody->ApplyLinearImpulse(b2Vec2(0.0f, 2.0f), ballBody->GetPosition());
 						break;
 					case kBumper:
 						// Find the contact point and apply a linear inpulse at that point
@@ -547,12 +530,6 @@
 	CCBitmapFontAtlas *label = [CCBitmapFontAtlas bitmapFontAtlasWithString:s fntFile:@"yoster-16.fnt"];
 	[label setPosition:ccp(ball.position.x, ball.position.y + 16)];
 	[self addChild:label z:5];
-	
-//	CCLabel *deductedTimeLabel = [CCLabel labelWithString:s fontName:@"yoster.ttf" fontSize:16];
-//	[deductedTimeLabel setPosition:ccp(ball.position.x, ball.position.y + 16)];
-//	[deductedTimeLabel setColor:ccc3(255,255,255)];		// White
-//	[deductedTimeLabel.texture setAliasTexParameters];
-//	[self addChild:deductedTimeLabel z:5];
 
 	// Move and fade actions
 	id moveAction = [CCMoveTo actionWithDuration:1 position:ccp(ball.position.x, ball.position.y + 64)];

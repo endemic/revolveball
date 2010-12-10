@@ -281,6 +281,8 @@
 		7D0C5F6B1268A8DB00B79206 /* test.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 7D0C5F6A1268A8DB00B79206 /* test.tmx */; };
 		7D0C5FFA1268DB6400B79206 /* GameData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C5FF91268DB6400B79206 /* GameData.mm */; };
 		7D0C60001268DF7700B79206 /* GameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7D0C5FFF1268DF7700B79206 /* GameScene.mm */; };
+		7D170B1212B2B019009360F6 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D170B1112B2B019009360F6 /* GameKit.framework */; };
+		7D1D312512B283D9008AEEBF /* background-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D1D312412B283D9008AEEBF /* background-hd.png */; };
 		7D2DAED512B008B800EEBDFA /* yoster-16.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DAED112B008B800EEBDFA /* yoster-16.fnt */; };
 		7D2DAED612B008B800EEBDFA /* yoster-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DAED212B008B800EEBDFA /* yoster-16.png */; };
 		7D2DAED712B008B800EEBDFA /* yoster-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 7D2DAED312B008B800EEBDFA /* yoster-32.png */; };
@@ -614,6 +616,8 @@
 		7D0C5FFB1268DF1F00B79206 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		7D0C5FFE1268DF7700B79206 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		7D0C5FFF1268DF7700B79206 /* GameScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameScene.mm; sourceTree = "<group>"; };
+		7D170B1112B2B019009360F6 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		7D1D312412B283D9008AEEBF /* background-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background-hd.png"; path = "images/background-hd.png"; sourceTree = "<group>"; };
 		7D2DAED112B008B800EEBDFA /* yoster-16.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "yoster-16.fnt"; path = "fonts/yoster-16.fnt"; sourceTree = "<group>"; };
 		7D2DAED212B008B800EEBDFA /* yoster-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-16.png"; path = "fonts/yoster-16.png"; sourceTree = "<group>"; };
 		7D2DAED312B008B800EEBDFA /* yoster-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "yoster-32.png"; path = "fonts/yoster-32.png"; sourceTree = "<group>"; };
@@ -676,6 +680,7 @@
 				506EDB88102F4C4000A389B3 /* libz.dylib in Frameworks */,
 				506EDBA5102F4C9F00A389B3 /* AVFoundation.framework in Frameworks */,
 				506EE1A91030508200A389B3 /* libcocos2d libraries.a in Frameworks */,
+				7D170B1212B2B019009360F6 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +746,7 @@
 				DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */,
 				506EDB87102F4C4000A389B3 /* libz.dylib */,
 				506EDBA4102F4C9F00A389B3 /* AVFoundation.framework */,
+				7D170B1112B2B019009360F6 /* GameKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1183,6 +1189,7 @@
 		7DAEE268123D0E92000358C5 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				7D1D312412B283D9008AEEBF /* background-hd.png */,
 				7DE122A11278317A0032B397 /* ball-hd.png */,
 				7D0C5F681268A8AD00B79206 /* blue-block.png */,
 				7DD28C83126712AC008C2BB2 /* blue-block-bottom-left.png */,
@@ -1474,6 +1481,7 @@
 				7D2DAED612B008B800EEBDFA /* yoster-16.png in Resources */,
 				7D2DAED712B008B800EEBDFA /* yoster-32.png in Resources */,
 				7D2DAED812B008B800EEBDFA /* yoster-48.png in Resources */,
+				7D1D312512B283D9008AEEBF /* background-hd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
