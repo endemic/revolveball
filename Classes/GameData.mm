@@ -11,7 +11,7 @@
 
 @implementation GameData
 
-@synthesize restoreLevel, bestTime, secondsLeft, paused;
+@synthesize currentWorld, currentLevel, restoreLevel, bestTime, secondsLeft, paused, isTablet;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(GameData);
 
@@ -67,6 +67,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameData);
 
 - (void)encodeWithCoder:(NSCoder *)coder
 {
+	[coder encodeInt:self.currentWorld forKey:@"currentWorld"];
+	[coder encodeInt:self.currentLevel forKey:@"currentLevel"];
 	[coder encodeBool:self.restoreLevel forKey:@"restoreLevel"];
 	[coder encodeInt:self.bestTime forKey:@"bestTime"];
 	[coder encodeInt:self.secondsLeft forKey:@"secondsLeft"];
@@ -77,6 +79,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameData);
 {
 	if ((self = [super init])) 
 	{
+		self.currentWorld = [coder decodeIntForKey:@"currentWorld"];
+		self.currentLevel = [coder decodeIntForKey:@"currentLevel"];
 		self.restoreLevel = [coder decodeBoolForKey:@"restoreLevel"];
 		self.bestTime = [coder decodeIntForKey:@"bestTime"];
 		self.secondsLeft = [coder decodeIntForKey:@"secondsLeft"];

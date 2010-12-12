@@ -30,8 +30,10 @@
 #define kRightBoost 40
 #define kUpBoost 41
 
-#define kBreakable 100
+#define kBreakable 17
 #define kBumper 101
+
+#define COCOS2D_DEBUG 1
 
 @implementation GameScene
 - (id)init
@@ -69,7 +71,7 @@
 		[self addChild:bestTimeLabel z:1];
 		
 		// Add button which takes us to game scene
-		CCMenuItem *startButton = [CCMenuItemImage itemFromNormalImage:@"start-button.png" selectedImage:@"start-button.png" target:self selector:@selector(restartGame:)];
+		CCMenuItem *startButton = [CCMenuItemImage itemFromNormalImage:@"start-button.png" selectedImage:@"start-button.png" target:self selector:@selector(nextLevel:)];
 		CCMenu *titleMenu = [CCMenu menuWithItems:startButton, nil];
 		[titleMenu setPosition:ccp(160, 50)];
 		[self addChild:titleMenu z:1];
@@ -79,7 +81,16 @@
 
 - (void)restartGame:(id)sender
 {
-	[[CCDirector sharedDirector] replaceScene:[CCFlipXTransition transitionWithDuration:0.75 scene:[GameScene node]]];
+	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	[[CCDirector sharedDirector] replaceScene:transition];
+}
+
+- (void)nextLevel:(id)sender
+{
+	[GameData sharedGameData].currentLevel++;
+	
+	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	[[CCDirector sharedDirector] replaceScene:transition];
 }
 
 @end
@@ -144,11 +155,25 @@
 		[ball.texture setAliasTexParameters];
 		[self addChild:ball z:2];
 		
-		// Get TMX map from singleton
-		if (iPad)
-			map = [CCTMXTiledMap tiledMapWithTMXFile:@"test-hd.tmx"];
-		else
-			map = [CCTMXTiledMap tiledMapWithTMXFile:@"test.tmx"];
+		// Get current level from game data singleton
+		if (![GameData sharedGameData].currentWorld || ![GameData sharedGameData].currentLevel)
+		{
+			[GameData sharedGameData].currentWorld = 1;
+			[GameData sharedGameData].currentLevel = 1;
+		}
+		
+		// Create string that is equal to map filename
+		NSMutableString *mapFile = [NSMutableString stringWithFormat:@"%i-%i", [GameData sharedGameData].currentWorld, [GameData sharedGameData].currentLevel];
+		
+		// If running on iPad, append "-hd" to filename to designate @2x level
+		if ([GameData sharedGameData].isTablet)
+			[mapFile appendString:@"-hd"];
+		
+		// Append file suffix
+		[mapFile appendString:@".tmx"];
+		
+		// Create map obj and add to layer
+		map = [CCTMXTiledMap tiledMapWithTMXFile:mapFile];
 		[map setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 		[self addChild:map z:1];
 		
@@ -283,8 +308,8 @@
 		//ballBodyDef.fixedRotation = true;	// Prevent rotation!
 		
 		// For some reason, this always fucks up
-		//ballBodyDef.position.Set(startPosition.x + 0.5, map.mapSize.height - startPosition.y - 0.5);		// Y values are inverted between TMX and Box2D
-		ballBodyDef.position.Set(3, map.mapSize.height - 3);
+		ballBodyDef.position.Set(startPosition.x + 0.5, map.mapSize.height - startPosition.y - 0.5);		// Y values are inverted between TMX and Box2D
+		//ballBodyDef.position.Set(3, map.mapSize.height - 3);
 		
 		ballBodyDef.userData = ball;		// Set to CCSprite
 		b2Body *ballBody = world->CreateBody(&ballBodyDef);
@@ -352,6 +377,9 @@
 
 - (void)tick:(ccTime)dt
 {
+	// Get window size
+	CGSize winSize = [CCDirector sharedDirector].winSize;
+	
 	// Step through world collisions - (timeStep, velocityIterations, positionIterations)
 	world->Step(dt, 15, 15);
 	
@@ -411,22 +439,27 @@
 							// 2. Set them to animate/disappear based on current Box2D world gravity
 							// 3. Breakable block is then automatically removed
 							
+							CCLOG(@"Trying to create shards for breakable block at %f, %f", s.position.x, s.position.y);
+							CCLOG(@"Ball is at %f, %f", ballBody->GetPosition().x * ptmRatio, ballBody->GetPosition().y * ptmRatio);
+
+							int diffX = (winSize.width / 2) - (ballBody->GetPosition().x * ptmRatio - s.position.x);
+							int diffY = (winSize.height / 2) - (ballBody->GetPosition().y * ptmRatio - s.position.y);
+							
 							for (int i = 0; i < 4; i++)
 							{
-								CCSprite *shard = [CCSprite spriteWithFile:@"blue-block.png"];
-								[shard setScale:0.25];
-								[shard setPosition:ccp(s.position.x, s.position.y)];
+								CCSprite *shard = [CCSprite spriteWithFile:@"blue-block-breakable-shard.png"];
+								[shard setPosition:ccp(diffX, diffY)];
 								[self addChild:shard z:5];
 								
 								// Create destination points for block shards
 								int randomNegative = rand() < 0.5 ? -1 : 1;
-								int destinationX = s.position.x + rand() * 50 * randomNegative;
+								int destinationX = shard.position.x + rand() * 100 * randomNegative;
 								
 								randomNegative = rand() < 0.5 ? -1 : 1;
-								int destinationY = s.position.y + rand() * 50 * randomNegative;
+								int destinationY = shard.position.y + rand() * 100 * randomNegative;
 								
 								// Create movement animations
-								id action = [CCMoveTo actionWithDuration:1 position:ccp(destinationX, destinationY)];
+								id action = [CCMoveTo actionWithDuration:3 position:ccp(destinationX, destinationY)];
 								id removeAction = [CCCallFuncN actionWithTarget:self selector:@selector(removeSpriteFromParent:)];
 								
 								// Run movement animations

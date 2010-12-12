@@ -47,19 +47,26 @@
 	//[[CCDirector sharedDirector] setDeviceOrientation:CCDeviceOrientationLandscapeLeft];
 	[[CCDirector sharedDirector] setAnimationInterval:1.0/60];
 	[[CCDirector sharedDirector] setDisplayFPS:YES];
+
+	// Load game data singleton
+	[GameData loadState];
 	
+	// Set singleton variable if running on iPad
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+	{
 		NSLog(@"Phone device");
+		[GameData sharedGameData].isTablet = false;
+	}
 	else if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+	{
 		NSLog(@"Tablet device");
+		[GameData sharedGameData].isTablet = true;
+	}
 	
 	// create an openGL view inside a window
 	[[CCDirector sharedDirector] attachInView:window];	
 	[window makeKeyAndVisible];
 	
-	// Load game data singleton
-	[GameData loadState];
-
 	[[CCDirector sharedDirector] runWithScene: [TitleScene node]];
 	//[[CCDirector sharedDirector] runWithScene:[WorldSelectScene node]];
 }

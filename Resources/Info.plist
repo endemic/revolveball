@@ -24,6 +24,8 @@
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<dict>
+		<key>gamekit</key>
+		<false/>
 		<key>accelerometer</key>
 		<true/>
 		<key>opengles-1</key>

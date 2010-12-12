@@ -14,7 +14,7 @@
 @interface GameData : NSObject <NSCoding> 
 {
 	// The current level
-	int currentLevel;
+	int currentWorld, currentLevel;
 	
 	// Variable we check to see if player quit in the middle of a level
 	bool restoreLevel;
@@ -30,6 +30,8 @@
 	bool isTablet;
 }
 
+@property (readwrite, nonatomic) int currentWorld;
+@property (readwrite, nonatomic) int currentLevel;
 @property (nonatomic) bool restoreLevel;
 @property (readwrite, nonatomic) int bestTime;
 @property (readwrite, nonatomic) int secondsLeft;
