@@ -9,6 +9,7 @@
 #import "cocos2d.h"
 #import "Box2D.h"
 #import "MyContactListener.h"
+#import <vector>	// Easy data structure to store Box2D bodies
 
 @interface GameScene : CCScene {}
 
@@ -33,6 +34,9 @@
 	// Map
 	CCTMXTiledMap *map;
 	CCTMXLayer *border;
+	
+	// Vector of Box2D bodies that can be toggled off/on in a level
+	std::vector<b2Body *> toggleGroup;
 	
 	// Vars for rotational touch controls
 	float previousAngle, currentAngle, touchEndedAngle;

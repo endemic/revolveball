@@ -32,6 +32,9 @@
 
 #define kBreakable 17
 #define kBumper 101
+#define kToggleSwitch 102
+#define kToggleOn 103
+#define kToggleOff 104
 
 #define COCOS2D_DEBUG 1
 
@@ -102,25 +105,18 @@
 {
 	if ((self = [super init]))
 	{
-		// Check if running on iPad
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		{
-			iPad = YES;
-			ptmRatio = 64;
-		}
-		else
-		{
-			iPad = NO;
-			ptmRatio = 32;
-		}
+		// Set pixel-to-Box2D ratio
+		ptmRatio = 32;
 		
+		// Double ratio if running on tablet
+		if ([GameData sharedGameData].isTablet) ptmRatio = 64;
+		
+		// Initialize values for rotational control
 		previousAngle = currentAngle = 0;
 		
-		// Set accelerometer enabled
-		self.isAccelerometerEnabled = YES;
-		
-		// Set touch enabled
+		// Enable touches/accelerometer
 		[self setIsTouchEnabled:YES];
+		[self setIsAccelerometerEnabled:YES];
 		
 		// Get window size
 		CGSize winSize = [CCDirector sharedDirector].winSize;
@@ -135,19 +131,8 @@
 		[timerLabel setPosition:ccp(winSize.width - 30, winSize.height - 20)];
 		[self addChild:timerLabel z:2];
 		
-		// Add static background
-		CCSprite *background;
-		if (iPad)
-			background = [CCSprite spriteWithFile:@"background-hd.png"];
-		else
-			background = [CCSprite spriteWithFile:@"background.png"];
-		
-		[background setPosition:ccp(winSize.width / 2, winSize.height / 2)];
-		[background.texture setAliasTexParameters];
-		[self addChild:background z:0];
-		
 		// Create/add ball
-		if (iPad)
+		if ([GameData sharedGameData].isTablet)
 			ball = [CCSprite spriteWithFile:@"ball-hd.png"];
 		else
 			ball = [CCSprite spriteWithFile:@"ball.png"];
@@ -162,14 +147,28 @@
 			[GameData sharedGameData].currentLevel = 1;
 		}
 		
+		// Create string to reference background image
+		NSMutableString *backgroundFile = [NSMutableString stringWithFormat:@"background-%i", [GameData sharedGameData].currentWorld];
+		
+		// If running on iPad, append "-hd" suffix
+		if ([GameData sharedGameData].isTablet) [backgroundFile appendString:@"-hd"];
+		
+		// Append file format suffix
+		[backgroundFile appendString:@".png"];
+		
+		// Add background to layer
+		CCSprite *background = [CCSprite spriteWithFile:backgroundFile];
+		[background setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+		[background.texture setAliasTexParameters];
+		[self addChild:background z:0];
+		
 		// Create string that is equal to map filename
 		NSMutableString *mapFile = [NSMutableString stringWithFormat:@"%i-%i", [GameData sharedGameData].currentWorld, [GameData sharedGameData].currentLevel];
 		
 		// If running on iPad, append "-hd" to filename to designate @2x level
-		if ([GameData sharedGameData].isTablet)
-			[mapFile appendString:@"-hd"];
+		if ([GameData sharedGameData].isTablet) [mapFile appendString:@"-hd"];
 		
-		// Append file suffix
+		// Append file format suffix
 		[mapFile appendString:@".tmx"];
 		
 		// Create map obj and add to layer
@@ -191,7 +190,9 @@
 		b2Vec2 vertices[3];
 		int32 count = 3;
 		CGPoint startPosition;
+		
 		bool sensorFlag;
+		bool toggleFlag;
 		
 		for (int x = 0; x < map.mapSize.width; x++)
 			for (int y = 0; y < map.mapSize.height; y++)
@@ -212,6 +213,7 @@
 					
 					// Default sensor flag to false
 					sensorFlag = NO;
+					toggleFlag = NO;
 					
 					switch ([border tileGIDAt:ccp(x, y)]) 
 					{
@@ -286,6 +288,14 @@
 							polygonShape.SetAsBox(0.33f, 0.33f);
 							//boxShapeDef.restitution = 1; // Make more bouncy?
 							break;
+						case kToggleOff:
+							toggleFlag = YES;
+							polygonShape.SetAsBox(0.5f, 0.5f);
+							break;
+						case kToggleOn:
+							toggleFlag = YES;
+							polygonShape.SetAsBox(0.5f, 0.5f);
+							break;
 						default:
 							// Default is to create sensor that then triggers an NSLog that tells us we're missing something
 							polygonShape.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
@@ -299,6 +309,10 @@
 					fixtureDefinition.isSensor = sensorFlag;
 					
 					body->CreateFixture(&fixtureDefinition);
+					
+					// Push certain bodies into the "toggle" vector
+					if (toggleFlag)
+						toggleGroup.push_back(body);
 				}
 			}
 		
@@ -315,8 +329,8 @@
 		b2Body *ballBody = world->CreateBody(&ballBodyDef);
 		
 		b2CircleShape circle;
-		//circle.m_radius = (((float)ptmRatio / 2) - 1) / ptmRatio;		// A 32px / 2 = 16px - 1px = 15px radius - a perfect 1m circle would get stuck in 1m gaps
-		circle.m_radius = ((float)ptmRatio / 2) / ptmRatio;
+		circle.m_radius = (((float)ptmRatio / 2) - 1) / ptmRatio;		// A 32px / 2 = 16px - 1px = 15px radius - a perfect 1m circle would get stuck in 1m gaps
+		//circle.m_radius = ((float)ptmRatio / 2) / ptmRatio;
 		
 		b2FixtureDef ballFixtureDefinition;
 		ballFixtureDefinition.shape = &circle;
@@ -401,7 +415,7 @@
 			// Update map's anchor point based on ball position; position within width/height of map?
 			float anchorX = b->GetPosition().x / map.mapSize.width;
 			float anchorY = b->GetPosition().y / map.mapSize.height;
-			
+
 			[map setAnchorPoint:ccp(anchorX, anchorY)];
 			
 			ballBody = b;
@@ -429,19 +443,31 @@
 					case kLowerRightTriangle:
 						// Regular blocks - do nothing
 						break;
+					case kToggleSwitch:
+						/**
+						 Method to toggle blocks:
+						 1. Create vector of Box2D bodies that are created during setup process
+						 2. Get GID of tile at each box point
+						 3. If GID == "on" sprite, call SetActive(false); on the body and replace tile at position with "off" sprite
+						 4. Vice versa for "off" sprites
+						 */
+						//[border setTileGID: at:ccp()];
+						break;
 					case kBreakable:
 						{
-							// Push block onto the "destroy" stack
-							discardedItems.push_back(b);
+							// Find ball's speed
+							b2Vec2 ballSpeed = ballBody->GetLinearVelocity();
+							CCLOG(@"Ball velocity: %f", sqrt(pow(ballSpeed.x, 2) + pow(ballSpeed.y, 2)));
+							
+							// Push block onto the "destroy" stack if ball is moving fast enough
+							if (sqrt(pow(ballSpeed.x, 2) + pow(ballSpeed.y, 2)) > 4)	// At this point, 4 is an arbitrary number; need to derive it from gravity somehow
+								discardedItems.push_back(b);
 							
 							// Plan for breakable blocks:
 							// 1. Create 4 quarter-sized blocks in the same space as the broken block
 							// 2. Set them to animate/disappear based on current Box2D world gravity
 							// 3. Breakable block is then automatically removed
 							
-							CCLOG(@"Trying to create shards for breakable block at %f, %f", s.position.x, s.position.y);
-							CCLOG(@"Ball is at %f, %f", ballBody->GetPosition().x * ptmRatio, ballBody->GetPosition().y * ptmRatio);
-
 							int diffX = (winSize.width / 2) - (ballBody->GetPosition().x * ptmRatio - s.position.x);
 							int diffY = (winSize.height / 2) - (ballBody->GetPosition().y * ptmRatio - s.position.y);
 							

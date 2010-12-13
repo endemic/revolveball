@@ -273,8 +273,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>15</integer>
-									<integer>4</integer>
+									<integer>28</integer>
+									<integer>19</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -316,7 +316,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>GameScene.mm</string>
+								<string>task-list.rtf</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -324,11 +324,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>GameScene.mm</string>
+										<string>task-list.rtf</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7DC86B7D12B4982C003FD783</string>
+										<string>7DD502DF12B6CFC60027CADB</string>
 										<key>history</key>
 										<array>
 											<string>7D34610B123F2136002F0B20</string>
@@ -354,7 +354,6 @@
 											<string>7D0C5FD21268D6F800B79206</string>
 											<string>7DCE585E126A6E3E001A9478</string>
 											<string>7DD00F56126B1D8A001FFD9A</string>
-											<string>7DCBB70C126EFBDD0072457D</string>
 											<string>7DD1311E12719B4D00035698</string>
 											<string>7DD252381282D14A00AC4FEB</string>
 											<string>7D5FB2CC12A85C4200CE4AA4</string>
@@ -362,18 +361,15 @@
 											<string>7DD32CAE12A8B08E00DF16CF</string>
 											<string>7DD32CB212A8B08E00DF16CF</string>
 											<string>7DD32CE512A8B48C00DF16CF</string>
-											<string>7DC0F2F612AAC7D5004DC055</string>
 											<string>7DC0F2F812AAC7D5004DC055</string>
 											<string>7DC0F30112AAC82F004DC055</string>
 											<string>7DC0F31212AAC979004DC055</string>
 											<string>7D36AA0612ADFC38008FDCB1</string>
 											<string>7D36AA0712ADFC38008FDCB1</string>
 											<string>7DD239AD12AEABCB00CB4F96</string>
-											<string>7D2DAEE012B00DF200EEBDFA</string>
 											<string>7D2DAEE112B00DF200EEBDFA</string>
 											<string>7D2DAEE212B00DF200EEBDFA</string>
 											<string>7D2DAEE412B00DF200EEBDFA</string>
-											<string>7D2DAEEB12B016D900EEBDFA</string>
 											<string>7D15CFFB12B06EC6004A5D0B</string>
 											<string>7D15D01512B0714F004A5D0B</string>
 											<string>7D15D01612B0714F004A5D0B</string>
@@ -387,9 +383,13 @@
 											<string>7DC86B3412B48CB2003FD783</string>
 											<string>7DC86B4412B48E86003FD783</string>
 											<string>7DC86B4512B48E86003FD783</string>
-											<string>7DC86B6712B49203003FD783</string>
-											<string>7DC86B7412B49798003FD783</string>
-											<string>7DC86B7512B49798003FD783</string>
+											<string>7DD502D812B6CFC60027CADB</string>
+											<string>7DD502D912B6CFC60027CADB</string>
+											<string>7DD502DA12B6CFC60027CADB</string>
+											<string>7DD502DB12B6CFC60027CADB</string>
+											<string>7DD502DC12B6CFC60027CADB</string>
+											<string>7DD502DD12B6CFC60027CADB</string>
+											<string>7DD502DE12B6CFC60027CADB</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -447,9 +447,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7DC86AE912B487A3003FD783</string>
+				<string>7DD502C612B69A3F0027CADB</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7DC86AEA12B487A3003FD783</string>
+				<string>7DD502C712B69A3F0027CADB</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -587,9 +587,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>7DAEE245123D0ABA000358C5</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/ndemick/iPhone/RevolveBall/Ballgame.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -609,12 +607,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>GameData.mm</string>
+								<string>GameScene.mm</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -631,8 +631,6 @@
 							<string>235pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -672,7 +670,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7DAEE245123D0ABA000358C5</string>
-				<string>7DC86AEB12B487A3003FD783</string>
+				<string>7DD502C812B69A3F0027CADB</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
