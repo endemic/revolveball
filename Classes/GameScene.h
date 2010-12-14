@@ -38,6 +38,9 @@
 	// Vector of Box2D bodies that can be toggled off/on in a level
 	std::vector<b2Body *> toggleGroup;
 	
+	// Flag for whether or not the toggle block switch can be thrown
+	bool toggleSwitchTimeout;
+	
 	// Vars for rotational touch controls
 	float previousAngle, currentAngle, touchEndedAngle;
 	
@@ -47,9 +50,6 @@
 	
 	// For countdown at start of level
 	int countdownTime;
-	
-	// Boolean for quick check whether running on iPad
-	bool iPad;
 	
 	// Base size of Box2D objects; doubles on iPad/iPhone 4 Retina Display
 	int ptmRatio;

@@ -121,6 +121,9 @@
 		// Initialize values for rotational control
 		previousAngle = currentAngle = 0;
 		
+		// Allow toggle switches to be pressed
+		toggleSwitchTimeout = false;
+		
 		// Enable touches/accelerometer
 		[self setIsTouchEnabled:YES];
 		[self setIsAccelerometerEnabled:YES];
@@ -415,6 +418,9 @@
 		[self unschedule:@selector(togglePause:)];
 		[self schedule:@selector(tick:)];
 		functionCalled = false;
+		
+		// Flag to allow toggle switch to be thrown again
+		toggleSwitchTimeout = false;
 	}
 	// First time called... unschedule update loop & play SFX
 	else
@@ -423,6 +429,9 @@
 		[self unschedule:@selector(tick:)];			// Pause the fizziks
 		[[SimpleAudioEngine sharedEngine] playEffect:@"toggle.wav"];
 		functionCalled = true;
+		
+		// Flag to prevent the pause getting called again before ball can move off swich
+		toggleSwitchTimeout = true;
 	}
 }
 
@@ -489,38 +498,44 @@
 						// Regular blocks - do nothing
 						break;
 					case kToggleSwitchGreen:
-						// Switch the "active" states for each body in the "toggleGroup" vector
-						for (std::vector<b2Body *>::iterator position = toggleGroup.begin(); position != toggleGroup.end(); ++position) 
+						if (!toggleSwitchTimeout)
 						{
-							b2Body *body = *position;
-							if (body->IsActive())
-								body->SetActive(false);
-							else
-								body->SetActive(true);
+							// Switch the "active" states for each body in the "toggleGroup" vector
+							for (std::vector<b2Body *>::iterator position = toggleGroup.begin(); position != toggleGroup.end(); ++position) 
+							{
+								b2Body *body = *position;
+								if (body->IsActive())
+									body->SetActive(false);
+								else
+									body->SetActive(true);
+							}
+							
+							// Swap the tile for the switch
+							[border setTileGID:kToggleSwitchRed at:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];
+							
+							// Do pause effect
+							[self togglePause:0];
 						}
-						
-						// Swap the tile for the switch
-						[border setTileGID:kToggleSwitchRed at:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];
-						
-						// Do pause effect
-						[self togglePause:0];
 						break;
 					case kToggleSwitchRed:
-						// Switch the "active" states for each body in the "toggleGroup" vector
-						for (std::vector<b2Body *>::iterator position = toggleGroup.begin(); position != toggleGroup.end(); ++position) 
+						if (!toggleSwitchTimeout)
 						{
-							b2Body *body = *position;
-							if (body->IsActive())
-								body->SetActive(false);
-							else
-								body->SetActive(true);
+							// Switch the "active" states for each body in the "toggleGroup" vector
+							for (std::vector<b2Body *>::iterator position = toggleGroup.begin(); position != toggleGroup.end(); ++position) 
+							{
+								b2Body *body = *position;
+								if (body->IsActive())
+									body->SetActive(false);
+								else
+									body->SetActive(true);
+							}
+							
+							// Swap the tile for the switch
+							[border setTileGID:kToggleSwitchGreen at:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];
+							
+							// Do pause effect
+							[self togglePause:0];
 						}
-						
-						// Swap the tile for the switch
-						[border setTileGID:kToggleSwitchGreen at:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];
-						
-						// Do pause effect
-						[self togglePause:0];
 						break;
 					case kBreakable:
 						{
