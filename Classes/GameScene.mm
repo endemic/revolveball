@@ -11,6 +11,9 @@
 #import "math.h"
 #import <vector>	// Easy data structure to store Box2D bodies
 
+#import "CocosDenshion.h"
+#import "SimpleAudioEngine.h"
+
 // Constants for tile GIDs
 #define kSquare 1
 #define kLowerLeftTriangle 2
@@ -32,9 +35,10 @@
 
 #define kBreakable 17
 #define kBumper 101
-#define kToggleSwitch 102
-#define kToggleOn 103
-#define kToggleOff 104
+#define kToggleSwitchRed 20
+#define kToggleSwitchGreen 21
+#define kToggleBlockRed 18
+#define kToggleBlockGreen 19
 
 #define COCOS2D_DEBUG 1
 
@@ -105,6 +109,9 @@
 {
 	if ((self = [super init]))
 	{
+		// Pre-load some SFX
+		[[SimpleAudioEngine sharedEngine] preloadEffect:@"toggle.wav"];
+		
 		// Set pixel-to-Box2D ratio
 		ptmRatio = 32;
 		
@@ -215,7 +222,8 @@
 					sensorFlag = NO;
 					toggleFlag = NO;
 					
-					switch ([border tileGIDAt:ccp(x, y)]) 
+					int tileGID = [border tileGIDAt:ccp(x, y)];
+					switch (tileGID) 
 					{
 						case kSquare:
 							polygonShape.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
@@ -288,14 +296,18 @@
 							polygonShape.SetAsBox(0.33f, 0.33f);
 							//boxShapeDef.restitution = 1; // Make more bouncy?
 							break;
-						case kToggleOff:
+						case kToggleBlockRed:
 							toggleFlag = YES;
 							polygonShape.SetAsBox(0.5f, 0.5f);
 							break;
-						case kToggleOn:
+						case kToggleBlockGreen:
 							toggleFlag = YES;
 							polygonShape.SetAsBox(0.5f, 0.5f);
 							break;
+						case kToggleSwitchRed:
+						case kToggleSwitchGreen:
+							sensorFlag = YES;
+							polygonShape.SetAsBox(0.4f, 0.4f);	// Slightly smaller box to try to fake a circle - lazy!
 						default:
 							// Default is to create sensor that then triggers an NSLog that tells us we're missing something
 							polygonShape.SetAsBox(0.5f, 0.5f);		// Create 1x1 box shape
@@ -312,7 +324,11 @@
 					
 					// Push certain bodies into the "toggle" vector
 					if (toggleFlag)
+					{
+						if (tileGID == kToggleBlockGreen)
+							body->SetActive(false);
 						toggleGroup.push_back(body);
+					}
 				}
 			}
 		
@@ -389,6 +405,27 @@
 	}
 }
 
+- (void)togglePause:(ccTime)dt
+{
+	static bool functionCalled = false;
+	
+	// Already been called once... re-schedule update loop, unschedule self!
+	if (functionCalled)
+	{
+		[self unschedule:@selector(togglePause:)];
+		[self schedule:@selector(tick:)];
+		functionCalled = false;
+	}
+	// First time called... unschedule update loop & play SFX
+	else
+	{
+		[self schedule:@selector(togglePause:) interval:0.5];	// Call this method again in 0.5 seconds
+		[self unschedule:@selector(tick:)];			// Pause the fizziks
+		[[SimpleAudioEngine sharedEngine] playEffect:@"toggle.wav"];
+		functionCalled = true;
+	}
+}
+
 - (void)tick:(ccTime)dt
 {
 	// Get window size
@@ -434,6 +471,14 @@
 				int tileGID = [border tileGIDAt:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];	// Box2D and TMX y-coords are inverted
 				//NSLog(@"GID of touched tile %i at map location %f, %f", tileGID, s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1);
 				
+				/**
+				 Method to toggle blocks:
+				 1. Create vector of Box2D bodies that are created during setup process
+				 2. Get GID of tile at each box point
+				 3. If GID == "on" sprite, call SetActive(false); on the body and replace tile at position with "off" sprite
+				 4. Vice versa for "off" sprites
+				 */
+				
 				switch (tileGID) 
 				{
 					case kSquare:
@@ -443,15 +488,39 @@
 					case kLowerRightTriangle:
 						// Regular blocks - do nothing
 						break;
-					case kToggleSwitch:
-						/**
-						 Method to toggle blocks:
-						 1. Create vector of Box2D bodies that are created during setup process
-						 2. Get GID of tile at each box point
-						 3. If GID == "on" sprite, call SetActive(false); on the body and replace tile at position with "off" sprite
-						 4. Vice versa for "off" sprites
-						 */
-						//[border setTileGID: at:ccp()];
+					case kToggleSwitchGreen:
+						// Switch the "active" states for each body in the "toggleGroup" vector
+						for (std::vector<b2Body *>::iterator position = toggleGroup.begin(); position != toggleGroup.end(); ++position) 
+						{
+							b2Body *body = *position;
+							if (body->IsActive())
+								body->SetActive(false);
+							else
+								body->SetActive(true);
+						}
+						
+						// Swap the tile for the switch
+						[border setTileGID:kToggleSwitchRed at:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];
+						
+						// Do pause effect
+						[self togglePause:0];
+						break;
+					case kToggleSwitchRed:
+						// Switch the "active" states for each body in the "toggleGroup" vector
+						for (std::vector<b2Body *>::iterator position = toggleGroup.begin(); position != toggleGroup.end(); ++position) 
+						{
+							b2Body *body = *position;
+							if (body->IsActive())
+								body->SetActive(false);
+							else
+								body->SetActive(true);
+						}
+						
+						// Swap the tile for the switch
+						[border setTileGID:kToggleSwitchGreen at:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];
+						
+						// Do pause effect
+						[self togglePause:0];
 						break;
 					case kBreakable:
 						{
