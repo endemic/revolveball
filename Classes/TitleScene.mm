@@ -7,7 +7,8 @@
 //
 
 #import "TitleScene.h"
-#import "GameScene.h"
+#import "WorldSelectScene.h"
+#import "GameData.h"
 
 @implementation TitleScene
 - (id)init
@@ -27,11 +28,11 @@
 	{
 		[self setIsTouchEnabled:YES];
 		
-		CGSize winSize = [CCDirector sharedDirector].winSize;
+		CGSize windowSize = [CCDirector sharedDirector].winSize;
 		
 		// Add moving background
 		CCSprite *background = [CCSprite spriteWithFile:@"title-screen-background.png"];
-		[background setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+		[background setPosition:ccp(windowSize.width / 2, windowSize.height / 2)];
 		[self addChild:background z:0];
 		
 		// Add game logo
@@ -46,10 +47,10 @@
 		[self addChild:titleMenu z:1];
 		
 		// Check if running on iPad
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+		if ([GameData sharedGameData].isTablet)
 		{
 			[background setScale:2.0];
-			[background setPosition:ccp(winSize.width / 2, winSize.height / 2)];
+			[background setPosition:ccp(windowSize.width / 2, windowSize.height / 2)];
 			
 			[logo setScale:2.0];
 			[logo setPosition:ccp(320, 740)];
@@ -71,6 +72,7 @@
 
 - (void)startGame:(id)sender
 {
-	[[CCDirector sharedDirector] replaceScene:[CCFlipXTransition transitionWithDuration:0.75 scene:[GameScene node]]];
+	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[WorldSelectScene node]];
+	[[CCDirector sharedDirector] replaceScene:transition];
 }
 @end

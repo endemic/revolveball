@@ -1262,8 +1262,8 @@
 				7D2DAED112B008B800EEBDFA /* yoster-16.fnt */,
 				7D2DAED212B008B800EEBDFA /* yoster-16.png */,
 				7D2DAED312B008B800EEBDFA /* yoster-32.png */,
-				7D2DAED412B008B800EEBDFA /* yoster-48.png */,
 				7DFCE24612883C5A002998AA /* yoster-32.fnt */,
+				7D2DAED412B008B800EEBDFA /* yoster-48.png */,
 				7DFCE24712883C5A002998AA /* yoster-48.fnt */,
 			);
 			name = fonts;

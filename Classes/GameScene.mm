@@ -34,11 +34,13 @@
 #define kUpBoost 41
 
 #define kBreakable 17
-#define kBumper 101
-#define kToggleSwitchRed 20
-#define kToggleSwitchGreen 21
+
 #define kToggleBlockRed 18
 #define kToggleBlockGreen 19
+#define kToggleSwitchRed 20
+#define kToggleSwitchGreen 21
+
+#define kBumper 101
 
 #define COCOS2D_DEBUG 1
 
@@ -340,17 +342,17 @@
 		ballBodyDef.type = b2_dynamicBody;
 		//ballBodyDef.fixedRotation = true;	// Prevent rotation!
 		
-		// For some reason, this always fucks up
+		// Set the starting position of the player
 		ballBodyDef.position.Set(startPosition.x + 0.5, map.mapSize.height - startPosition.y - 0.5);		// Y values are inverted between TMX and Box2D
-		//ballBodyDef.position.Set(3, map.mapSize.height - 3);
 		
 		ballBodyDef.userData = ball;		// Set to CCSprite
 		b2Body *ballBody = world->CreateBody(&ballBodyDef);
 		
+		// Set player shape
 		b2CircleShape circle;
 		circle.m_radius = (((float)ptmRatio / 2) - 1) / ptmRatio;		// A 32px / 2 = 16px - 1px = 15px radius - a perfect 1m circle would get stuck in 1m gaps
-		//circle.m_radius = ((float)ptmRatio / 2) / ptmRatio;
 		
+		// Player fixture
 		b2FixtureDef ballFixtureDefinition;
 		ballFixtureDefinition.shape = &circle;
 		ballFixtureDefinition.density = 1.0f;
@@ -401,7 +403,7 @@
 		[self unschedule:@selector(countdown:)];
 		
 		// Schedule regular game loop
-		[self schedule:@selector(tick:)];
+		[self schedule:@selector(update:)];
 		
 		// Schedule timer function for 1 second intervals
 		[self schedule:@selector(timer:) interval:1];
@@ -416,7 +418,7 @@
 	if (functionCalled)
 	{
 		[self unschedule:@selector(togglePause:)];
-		[self schedule:@selector(tick:)];
+		[self schedule:@selector(update:)];
 		[self schedule:@selector(toggleSwitchTimeoutCallback:) interval:1.0];
 		functionCalled = false;
 	}
@@ -424,7 +426,7 @@
 	else
 	{
 		[self schedule:@selector(togglePause:) interval:0.25];	// Call this method again in 0.5 seconds
-		[self unschedule:@selector(tick:)];			// Pause the fizziks
+		[self unschedule:@selector(update:)];			// Pause the fizziks
 		[[SimpleAudioEngine sharedEngine] playEffect:@"toggle.wav"];
 		functionCalled = true;
 	}
@@ -437,7 +439,7 @@
 	[self unschedule:@selector(toggleSwitchTimeoutCallback:)];
 }
 
-- (void)tick:(ccTime)dt
+- (void)update:(ccTime)dt
 {
 	// Get window size
 	CGSize winSize = [CCDirector sharedDirector].winSize;
@@ -480,15 +482,6 @@
 			if ((CCSprite *)b->GetUserData() == s)
 			{
 				int tileGID = [border tileGIDAt:ccp(s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1)];	// Box2D and TMX y-coords are inverted
-				//NSLog(@"GID of touched tile %i at map location %f, %f", tileGID, s.position.x / ptmRatio, map.mapSize.height - (s.position.y / ptmRatio) - 1);
-				
-				/**
-				 Method to toggle blocks:
-				 1. Create vector of Box2D bodies that are created during setup process
-				 2. Get GID of tile at each box point
-				 3. If GID == "on" sprite, call SetActive(false); on the body and replace tile at position with "off" sprite
-				 4. Vice versa for "off" sprites
-				 */
 				
 				switch (tileGID) 
 				{
@@ -497,6 +490,8 @@
 					case kUpperRightTriangle:
 					case kLowerLeftTriangle:
 					case kLowerRightTriangle:
+					case kToggleBlockRed:
+					case kToggleBlockGreen:
 						// Regular blocks - do nothing
 						break;
 					case kToggleSwitchGreen:
@@ -558,6 +553,8 @@
 							// 2. Set them to animate/disappear based on current Box2D world gravity
 							// 3. Breakable block is then automatically removed
 							
+							// Since the ball stays at the same position, even though it is techncially moving, we need to find the
+							// correct spot to place the shards on the layer
 							int diffX = (winSize.width / 2) - (ballBody->GetPosition().x * ptmRatio - s.position.x);
 							int diffY = (winSize.height / 2) - (ballBody->GetPosition().y * ptmRatio - s.position.y);
 							
@@ -567,12 +564,10 @@
 								[shard setPosition:ccp(diffX, diffY)];
 								[self addChild:shard z:5];
 								
-								// Create destination points for block shards
-								int randomNegative = rand() < 0.5 ? -1 : 1;
-								int destinationX = shard.position.x + rand() * 100 * randomNegative;
-								
-								randomNegative = rand() < 0.5 ? -1 : 1;
-								int destinationY = shard.position.y + rand() * 100 * randomNegative;
+								// Create destination points for block shards - somewhere between -50 and 50 away
+								// from the original block point
+								int destinationX = shard.position.x + (((float)(rand() % 100) / 100) - 1) * 100;
+								int destinationY = shard.position.y + (((float)(rand() % 100) / 100) - 1) * 100;
 								
 								// Create movement animations
 								id action = [CCMoveTo actionWithDuration:3 position:ccp(destinationX, destinationY)];
@@ -585,7 +580,7 @@
 						break;
 					case kGoal:
 						{
-							[self unschedule:@selector(tick:)];		// Need a better way of determining the end of a level
+							[self unschedule:@selector(update:)];		// Need a better way of determining the end of a level
 							[self unschedule:@selector(timer:)];
 							
 							// Figure out best time (for prototype only)

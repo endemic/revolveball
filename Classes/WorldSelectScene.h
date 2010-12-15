@@ -13,13 +13,13 @@
 
 @interface WorldSelectLayer : CCLayer 
 {
-	NSMutableArray *carouselItems;
 }
 
-@property (nonatomic, retain) NSMutableArray *carouselItems;
-
-- (void)carouselAdvance:(id)sender;
-- (void)carouselReverse:(id)sender;
+- (void)playWorldOne;
+- (void)playWorldTwo;
+- (void)playWorldThree;
+- (void)playWorldFour;
+- (void)playWorldFive;
 
 @end
 

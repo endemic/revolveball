@@ -7,6 +7,9 @@
 //
 
 #import "WorldSelectScene.h"
+#import "GameScene.h"
+#import "GameData.h"
+
 #define COCOS2D_DEBUG 1
 
 @implementation WorldSelectScene
@@ -24,68 +27,87 @@
 
 @implementation WorldSelectLayer
 
-@synthesize carouselItems;
-
 - (id)init
 {
 	if ((self = [super init]))
 	{
-		// Do stuff
-		CGSize winSize = [CCDirector sharedDirector].winSize;
+		// Init layer
+		CGSize windowSize = [CCDirector sharedDirector].winSize;
 		
-		// Set up two buttons
-		CCLabel *labelOne = [CCLabel labelWithString:@"Previous" fontName:@"yoster.ttf" fontSize:32.0];
-		CCLabel *labelTwo = [CCLabel labelWithString:@"Next" fontName:@"yoster.ttf" fontSize:32.0];
+		// Set up some buttons that will take the player to different game worlds
+		CCMenuItemLabel *worldOneButton = [CCMenuItemLabel itemWithLabel:[CCBitmapFontAtlas bitmapFontAtlasWithString:@"World 1" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldOne)];
+		CCMenuItemLabel *worldTwoButton = [CCMenuItemLabel itemWithLabel:[CCBitmapFontAtlas bitmapFontAtlasWithString:@"World 2" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldTwo)];
+		CCMenuItemLabel *worldThreeButton = [CCMenuItemLabel itemWithLabel:[CCBitmapFontAtlas bitmapFontAtlasWithString:@"World 3" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldThree)];
+		CCMenuItemLabel *worldFourButton = [CCMenuItemLabel itemWithLabel:[CCBitmapFontAtlas bitmapFontAtlasWithString:@"World 4" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldFour)];
+		CCMenuItemLabel *worldFiveButton = [CCMenuItemLabel itemWithLabel:[CCBitmapFontAtlas bitmapFontAtlasWithString:@"World 5" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldFive)];
 		
-		CCMenuItemLabel *prev = [CCMenuItemLabel itemWithLabel:labelOne target:self selector:@selector(carouselReverse:)];
-		CCMenuItemLabel *next = [CCMenuItemLabel itemWithLabel:labelTwo target:self selector:@selector(carouselAdvance:)];
+		// Temporarily disable these buttons, because we don't have levels go with 'em
+		[worldTwoButton setIsEnabled:NO];
+		[worldThreeButton setIsEnabled:NO];
+		[worldFourButton setIsEnabled:NO];
+		[worldFiveButton setIsEnabled:NO];
 		
-		CCMenu *carouselMenu = [CCMenu menuWithItems:prev, next, nil];
-		[carouselMenu setPosition:ccp(winSize.width / 2, winSize.height / 2)];
-		[carouselMenu alignItemsHorizontallyWithPadding:winSize.width / 2];
-		
-		[self addChild:carouselMenu];
-		
-		CCSprite *itemOne = [CCSprite spriteWithFile:@"background.png"];
-		CCSprite *itemTwo = [CCSprite spriteWithFile:@"background.png"];
-		CCSprite *itemThree = [CCSprite spriteWithFile:@"background.png"];
-		
-		carouselItems = [NSMutableArray arrayWithObjects:itemOne, itemTwo, itemThree, nil];
-		
-		float step = 2 * M_PI / [carouselItems count];
-		float start = M_PI / 2;
-		int radius = 20;
-		int tilt = 10;
-		
-		for (uint i = 0; i < [carouselItems count]; i++)
-		{
-			int angle = start + i * step;
-			
-			int x = (winSize.width / 2) + (radius * cos(angle));
-			int y = (winSize.height / 2) + tilt + sin(angle);
-			
-			[[carouselItems objectAtIndex:i] setScale:0.25];
-			[[carouselItems objectAtIndex:i] setPosition:ccp(x, y)];
-			[self addChild:[carouselItems objectAtIndex:i]];
-		}
-		
+		// Add buttons to menu
+		CCMenu *menu = [CCMenu menuWithItems:worldOneButton, worldTwoButton, worldThreeButton, worldFourButton, worldFiveButton, nil];
+		[menu alignItemsVerticallyWithPadding:20.0];
+		[menu setPosition:ccp(windowSize.width / 2, windowSize.height / 2)];
+		[self addChild:menu];
 	}
 	return self;
 }
 
-- (void)carouselAdvance:(id)sender
+- (void)playWorldOne
 {
-	CCLOG(@"Advance!");
+	// Set world/level
+	[GameData sharedGameData].currentWorld = 1;
+	[GameData sharedGameData].currentLevel = 1;
+	
+	// Transition to gameplay scene
+	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	[[CCDirector sharedDirector] replaceScene:transition];
 }
 
-- (void)carouselReverse:(id)sender
+- (void)playWorldTwo
 {
-	CCLOG(@"Reverse!");
-}
-								 
-- (void)dealloc
-{
-	[super dealloc];
+	// Set world/level
+	[GameData sharedGameData].currentWorld = 2;
+	[GameData sharedGameData].currentLevel = 1;
+	
+	// Transition to gameplay scene
+	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	[[CCDirector sharedDirector] replaceScene:transition];
 }
 
+- (void)playWorldThree
+{
+	// Set world/level
+	[GameData sharedGameData].currentWorld = 3;
+	[GameData sharedGameData].currentLevel = 1;
+	
+	// Transition to gameplay scene
+	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	[[CCDirector sharedDirector] replaceScene:transition];
+}
+
+- (void)playWorldFour
+{
+	// Set world/level
+	[GameData sharedGameData].currentWorld = 4;
+	[GameData sharedGameData].currentLevel = 1;
+	
+	// Transition to gameplay scene
+	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	[[CCDirector sharedDirector] replaceScene:transition];
+}
+
+- (void)playWorldFive
+{
+	// Set world/level
+	[GameData sharedGameData].currentWorld = 5;
+	[GameData sharedGameData].currentLevel = 1;
+	
+	// Transition to gameplay scene
+	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	[[CCDirector sharedDirector] replaceScene:transition];
+}
 @end
