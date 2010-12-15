@@ -417,22 +417,24 @@
 	{
 		[self unschedule:@selector(togglePause:)];
 		[self schedule:@selector(tick:)];
+		[self schedule:@selector(toggleSwitchTimeoutCallback:) interval:1.0];
 		functionCalled = false;
-		
-		// Flag to allow toggle switch to be thrown again
-		toggleSwitchTimeout = false;
 	}
 	// First time called... unschedule update loop & play SFX
 	else
 	{
-		[self schedule:@selector(togglePause:) interval:0.5];	// Call this method again in 0.5 seconds
+		[self schedule:@selector(togglePause:) interval:0.25];	// Call this method again in 0.5 seconds
 		[self unschedule:@selector(tick:)];			// Pause the fizziks
 		[[SimpleAudioEngine sharedEngine] playEffect:@"toggle.wav"];
 		functionCalled = true;
-		
-		// Flag to prevent the pause getting called again before ball can move off swich
-		toggleSwitchTimeout = true;
 	}
+}
+
+- (void)toggleSwitchTimeoutCallback:(ccTime)dt
+{
+	// Flag to allow toggle switch to be thrown again
+	toggleSwitchTimeout = false;
+	[self unschedule:@selector(toggleSwitchTimeoutCallback:)];
 }
 
 - (void)tick:(ccTime)dt
@@ -441,7 +443,7 @@
 	CGSize winSize = [CCDirector sharedDirector].winSize;
 	
 	// Step through world collisions - (timeStep, velocityIterations, positionIterations)
-	world->Step(dt, 15, 15);
+	world->Step(dt, 8, 1);
 	
 	// Vector containing Box2D bodies to be destroyed
 	std::vector<b2Body *> discardedItems;
@@ -500,6 +502,8 @@
 					case kToggleSwitchGreen:
 						if (!toggleSwitchTimeout)
 						{
+							toggleSwitchTimeout = true;
+							
 							// Switch the "active" states for each body in the "toggleGroup" vector
 							for (std::vector<b2Body *>::iterator position = toggleGroup.begin(); position != toggleGroup.end(); ++position) 
 							{
@@ -520,6 +524,8 @@
 					case kToggleSwitchRed:
 						if (!toggleSwitchTimeout)
 						{
+							toggleSwitchTimeout = true;
+							
 							// Switch the "active" states for each body in the "toggleGroup" vector
 							for (std::vector<b2Body *>::iterator position = toggleGroup.begin(); position != toggleGroup.end(); ++position) 
 							{

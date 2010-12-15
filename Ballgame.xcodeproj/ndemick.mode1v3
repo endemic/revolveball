@@ -273,8 +273,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>15</integer>
-									<integer>4</integer>
+									<integer>28</integer>
+									<integer>19</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -298,7 +298,7 @@
 							<real>207</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>0 55 1221 723 0 0 1280 778 </string>
+						<string>-1353 -20 1221 723 -1440 -100 1440 900 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -316,7 +316,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>GameScene.mm</string>
+								<string>task-list.rtf</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -324,11 +324,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>GameScene.mm</string>
+										<string>task-list.rtf</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>7D50F84812B8209F004EEAB9</string>
+										<string>7D32A12812B88D3100C46006</string>
 										<key>history</key>
 										<array>
 											<string>7D34610B123F2136002F0B20</string>
@@ -373,7 +373,6 @@
 											<string>7D15D01612B0714F004A5D0B</string>
 											<string>7D1D313012B28488008AEEBF</string>
 											<string>7D170B2112B2BB5F009360F6</string>
-											<string>7DC86B0412B48AB8003FD783</string>
 											<string>7DC86B1C12B48B67003FD783</string>
 											<string>7DC86B1D12B48B67003FD783</string>
 											<string>7DC86B3412B48CB2003FD783</string>
@@ -382,15 +381,16 @@
 											<string>7DD502D812B6CFC60027CADB</string>
 											<string>7DD502D912B6CFC60027CADB</string>
 											<string>7DD502DA12B6CFC60027CADB</string>
-											<string>7DD502DB12B6CFC60027CADB</string>
 											<string>7DFF7F8912B72CE900FE516E</string>
 											<string>7DFF7F8B12B72CE900FE516E</string>
 											<string>7DFF7FA112B7308B00FE516E</string>
 											<string>7DFF7FC812B7367F00FE516E</string>
 											<string>7DFF7FC912B7367F00FE516E</string>
-											<string>7DFF7FCA12B7367F00FE516E</string>
 											<string>7D4E0D6712B810770064398A</string>
-											<string>7D4E0D6912B810770064398A</string>
+											<string>7D32A10212B887D500C46006</string>
+											<string>7D32A11F12B88A9400C46006</string>
+											<string>7D32A12612B88D3100C46006</string>
+											<string>7D32A12712B88D3100C46006</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -404,7 +404,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {992, 677}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 55 1221 723 0 0 1280 778 </string>
+								<string>-1353 -20 1221 723 -1440 -100 1440 900 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -424,7 +424,7 @@
 								<key>Frame</key>
 								<string>{{0, 682}, {992, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 55 1221 723 0 0 1280 778 </string>
+								<string>-1353 -20 1221 723 -1440 -100 1440 900 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -448,9 +448,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>7D50F84912B8209F004EEAB9</string>
+				<string>7D32A10512B887D500C46006</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>7D50F84A12B8209F004EEAB9</string>
+				<string>7D32A10612B887D500C46006</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -588,11 +588,15 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>7D32A12312B88A9400C46006</string>
+		<string>7D32A12412B88A9400C46006</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>7DAEE245123D0ABA000358C5</string>
 		<string>/Users/ndemick/iPhone/RevolveBall/Ballgame.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>0 55 1221 723 0 0 1280 778 </string>
+	<string>-1353 -20 1221 723 -1440 -100 1440 900 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -669,7 +673,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>7DAEE245123D0ABA000358C5</string>
-				<string>7D50F84B12B8209F004EEAB9</string>
+				<string>7D32A10712B887D500C46006</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -791,13 +795,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>7DFF7F8E12B72CE900FE516E</string>
+				<string>7D32A10812B887D500C46006</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>7DFF7F8F12B72CE900FE516E</string>
-				<string>7DFF7F9012B72CE900FE516E</string>
-				<string>7DFF7F9112B72CE900FE516E</string>
-				<string>7DFF7F9212B72CE900FE516E</string>
-				<string>7DFF7F9312B72CE900FE516E</string>
+				<string>7D32A10912B887D500C46006</string>
+				<string>7D32A10A12B887D500C46006</string>
+				<string>7D32A10B12B887D500C46006</string>
+				<string>7D32A10C12B887D500C46006</string>
+				<string>7D32A10D12B887D500C46006</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -961,7 +965,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>7DFF7F9412B72CE900FE516E</string>
+				<string>7D32A10E12B887D500C46006</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
@@ -971,7 +975,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
