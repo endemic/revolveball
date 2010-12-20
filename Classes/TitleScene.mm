@@ -72,7 +72,7 @@
 
 - (void)startGame:(id)sender
 {
-	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[WorldSelectScene node]];
+	CCTransitionRotoZoom *transition = [CCTransitionRotoZoom transitionWithDuration:1.0 scene:[WorldSelectScene node]];
 	[[CCDirector sharedDirector] replaceScene:transition];
 }
 @end

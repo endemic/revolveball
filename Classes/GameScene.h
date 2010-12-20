@@ -46,7 +46,8 @@
 	
 	// For time limit
 	int secondsLeft;
-	CCBitmapFontAtlas *timerLabel;
+	CCLabelBMFont *timerLabel;
+	//CCBitmapFontAtlas *timerLabel;
 	
 	// For countdown at start of level
 	int countdownTime;

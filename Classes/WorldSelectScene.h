@@ -11,9 +11,7 @@
 @interface WorldSelectScene : CCScene {}
 @end
 
-@interface WorldSelectLayer : CCLayer 
-{
-}
+@interface WorldSelectLayer : CCLayer {}
 
 - (void)playWorldOne;
 - (void)playWorldTwo;

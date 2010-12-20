@@ -35,11 +35,12 @@
 		CGSize windowSize = [CCDirector sharedDirector].winSize;
 		
 		// Set up some buttons that will take the player to different game worlds
-		CCMenuItemLabel *worldOneButton = [CCMenuItemLabel itemWithLabel:[CCBitmapFontAtlas bitmapFontAtlasWithString:@"World 1" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldOne)];
-		CCMenuItemLabel *worldTwoButton = [CCMenuItemLabel itemWithLabel:[CCBitmapFontAtlas bitmapFontAtlasWithString:@"World 2" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldTwo)];
-		CCMenuItemLabel *worldThreeButton = [CCMenuItemLabel itemWithLabel:[CCBitmapFontAtlas bitmapFontAtlasWithString:@"World 3" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldThree)];
-		CCMenuItemLabel *worldFourButton = [CCMenuItemLabel itemWithLabel:[CCBitmapFontAtlas bitmapFontAtlasWithString:@"World 4" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldFour)];
-		CCMenuItemLabel *worldFiveButton = [CCMenuItemLabel itemWithLabel:[CCBitmapFontAtlas bitmapFontAtlasWithString:@"World 5" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldFive)];
+		
+		CCMenuItemLabel *worldOneButton = [CCMenuItemLabel itemWithLabel:[CCLabelBMFont labelWithString:@"World 1" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldOne)];
+		CCMenuItemLabel *worldTwoButton = [CCMenuItemLabel itemWithLabel:[CCLabelBMFont labelWithString:@"World 2" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldTwo)];
+		CCMenuItemLabel *worldThreeButton = [CCMenuItemLabel itemWithLabel:[CCLabelBMFont labelWithString:@"World 3" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldThree)];
+		CCMenuItemLabel *worldFourButton = [CCMenuItemLabel itemWithLabel:[CCLabelBMFont labelWithString:@"World 4" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldFour)];
+		CCMenuItemLabel *worldFiveButton = [CCMenuItemLabel itemWithLabel:[CCLabelBMFont labelWithString:@"World 5" fntFile:@"yoster-32.fnt"] target:self selector:@selector(playWorldFive)];
 		
 		// Temporarily disable these buttons, because we don't have levels go with 'em
 		[worldTwoButton setIsEnabled:NO];
@@ -63,7 +64,7 @@
 	[GameData sharedGameData].currentLevel = 1;
 	
 	// Transition to gameplay scene
-	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	CCTransitionRotoZoom *transition = [CCTransitionRotoZoom transitionWithDuration:1.0 scene:[GameScene node]];
 	[[CCDirector sharedDirector] replaceScene:transition];
 }
 
@@ -74,7 +75,7 @@
 	[GameData sharedGameData].currentLevel = 1;
 	
 	// Transition to gameplay scene
-	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	CCTransitionRotoZoom *transition = [CCTransitionRotoZoom transitionWithDuration:1.0 scene:[GameScene node]];
 	[[CCDirector sharedDirector] replaceScene:transition];
 }
 
@@ -85,7 +86,7 @@
 	[GameData sharedGameData].currentLevel = 1;
 	
 	// Transition to gameplay scene
-	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	CCTransitionRotoZoom *transition = [CCTransitionRotoZoom transitionWithDuration:1.0 scene:[GameScene node]];
 	[[CCDirector sharedDirector] replaceScene:transition];
 }
 
@@ -96,7 +97,7 @@
 	[GameData sharedGameData].currentLevel = 1;
 	
 	// Transition to gameplay scene
-	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	CCTransitionRotoZoom *transition = [CCTransitionRotoZoom transitionWithDuration:1.0 scene:[GameScene node]];
 	[[CCDirector sharedDirector] replaceScene:transition];
 }
 
@@ -107,7 +108,7 @@
 	[GameData sharedGameData].currentLevel = 1;
 	
 	// Transition to gameplay scene
-	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	CCTransitionRotoZoom *transition = [CCTransitionRotoZoom transitionWithDuration:1.0 scene:[GameScene node]];
 	[[CCDirector sharedDirector] replaceScene:transition];
 }
 @end

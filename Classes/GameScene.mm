@@ -66,7 +66,8 @@
 		CGSize winSize = [CCDirector sharedDirector].winSize;
 		
 		// Do stuff
-		CCBitmapFontAtlas *finishLabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"FINISH!" fntFile:@"yoster-48.fnt"];
+		//CCLabelBMFont
+		CCLabelBMFont *finishLabel = [CCLabelBMFont labelWithString:@"FINISH!" fntFile:@"yoster-48.fnt"];
 		[finishLabel setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 		[self addChild:finishLabel z:1];
 		
@@ -75,7 +76,7 @@
 		int minutes = floor(bestTime / 60);
 		int seconds = bestTime % 60;
 		
-		CCBitmapFontAtlas *bestTimeLabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:[NSString stringWithFormat:@"Best time: %i:%02d", minutes, seconds] fntFile:@"yoster-32.fnt"];
+		CCLabelBMFont *bestTimeLabel = [CCLabelBMFont labelWithString:[NSString stringWithFormat:@"Best time: %i:%02d", minutes, seconds] fntFile:@"yoster-32.fnt"];
 		[bestTimeLabel setPosition:ccp(winSize.width / 2, winSize.height / 2 - 50)];
 		[self addChild:bestTimeLabel z:1];
 		
@@ -90,7 +91,7 @@
 
 - (void)restartGame:(id)sender
 {
-	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	CCTransitionRotoZoom *transition = [CCTransitionRotoZoom transitionWithDuration:1.0 scene:[GameScene node]];
 	[[CCDirector sharedDirector] replaceScene:transition];
 }
 
@@ -98,7 +99,7 @@
 {
 	[GameData sharedGameData].currentLevel++;
 	
-	CCRotoZoomTransition *transition = [CCRotoZoomTransition transitionWithDuration:1.0 scene:[GameScene node]];
+	CCTransitionRotoZoom *transition = [CCTransitionRotoZoom transitionWithDuration:1.0 scene:[GameScene node]];
 	[[CCDirector sharedDirector] replaceScene:transition];
 }
 
@@ -139,7 +140,7 @@
 		if (![GameData sharedGameData].bestTime)
 			[GameData sharedGameData].bestTime = 0;
 		
-		timerLabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"3:00" fntFile:@"yoster-16.fnt"];
+		timerLabel = [CCLabelBMFont labelWithString:@"3:00" fntFile:@"yoster-16.fnt"];
 		[timerLabel setPosition:ccp(winSize.width - 30, winSize.height - 20)];
 		[self addChild:timerLabel z:2];
 		
@@ -384,7 +385,7 @@
 		text = @"READY";
 		//text = [NSString stringWithFormat:@"%i", countdownTime];
 	
-	CCBitmapFontAtlas *label = [CCBitmapFontAtlas bitmapFontAtlasWithString:text fntFile:@"yoster-48.fnt"];
+	CCLabelBMFont *label = [CCLabelBMFont labelWithString:text fntFile:@"yoster-48.fnt"];
 	[label setPosition:ccp(winSize.width / 2, winSize.height / 2)];
 	[self addChild:label z:2];
 	
@@ -671,7 +672,7 @@
 	
 	// Create a label that shows how much time you lost
 	NSString *s = [NSString stringWithFormat:@"-%i seconds", seconds];
-	CCBitmapFontAtlas *label = [CCBitmapFontAtlas bitmapFontAtlasWithString:s fntFile:@"yoster-16.fnt"];
+	CCLabelBMFont *label = [CCLabelBMFont labelWithString:s fntFile:@"yoster-16.fnt"];
 	[label setPosition:ccp(ball.position.x, ball.position.y + 16)];
 	[self addChild:label z:5];
 
